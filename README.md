@@ -9,8 +9,6 @@ Main - loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/Oxide
 Black Hats: 17374846953, 17374851733, 17387616772, 17401151565, 14255528083
 
 Black -
-_G.HideCharacter = false 
-_G.DaHood = false
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/Oxide/main/OxideBlackLOL"))()
 
 
