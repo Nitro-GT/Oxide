@@ -700,18 +700,10 @@ for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren())
               v.Name = NAME
             end
             end
-        elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 and v:WaitForChild("Handle").TextureId == HatID  then
-                 if oname == "Hat" then
-              v.Name = NAME
-              elseif oname == "LARM" then
-              v.Name = "fooblet"
-              elseif oname == "RARM" then
-              v.Name = "gooblet"
-              else
-              v.Name = NAME
-            end
             elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
-            if v:WaitForChild("Handle").TextureID == HatID then
+           if not v:WaitForChild("Handle"):FindFirstChildOfClass("SpecialMesh") then
+           if v:WaitForChild("Handle").TextureID == HatID then
+               print("wtf")
                 if oname == "Hat" then
               v.Name = NAME
               elseif oname == "LARM" then
@@ -721,6 +713,19 @@ for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren())
               else
               v.Name = NAME
              end
+                end
+                else
+            if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh").TextureId == HatID then
+          	  if oname == "Hat" then
+              v.Name = NAME
+              elseif oname == "LARM" then
+              v.Name = "fooblet"
+              elseif oname == "RARM" then
+              v.Name = "gooblet"
+              else
+              v.Name = NAME
+            end
+            end
                 end
             end
         end
