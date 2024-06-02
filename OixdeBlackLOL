@@ -1323,19 +1323,6 @@ pcall(function()
 end
 end
 end)  
-pcall(function()
-          for _,v in pairs(c:GetChildren()) do
-       if v:IsA("Accessory") and v.Name ~= "Accessory (Sinister)" and v.Name ~= "Accessory (VoidRPG)" and v.Name ~= "Accessory (VoidAlligatorJaw)" then  
-           if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-               v.Handle.SpecialMesh.TextureId = ""
-               v.Handle.Color = Color3.fromRGB(0,0,0)
-               else
-               v.Handle.TextureID = ""
-               v.Handle.Color = Color3.fromRGB(0,0,0)
-           end
-end
-end
-end)  
 
 local connect
 pcall(function()
