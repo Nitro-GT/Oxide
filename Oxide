@@ -6,6 +6,7 @@ Oxide Black - oxide reanim but black lol
 Oxide Black V7
 
 ]]
+_G.SBV4R = false
 _G.R6Mode = false
 _G.MiztCompat = true
  local plr =game:GetService("Players").LocalPlayer
@@ -822,6 +823,7 @@ Hat.Rename("rbxassetid://14255543546","","LARM")
 Hat.Rename("rbxassetid://14255543546","","RARM")
 end)
 local c = game:GetService("Players").LocalPlayer.Character
+_G.OxideRealChar = c
 pcall(function()
 c.gooblet.Name = "fooblet"
 end)
@@ -1298,6 +1300,8 @@ if _G.EnableNetLib == true then
     
         end)
     end
+
+
     
 pcall(function()
           for _,v in pairs(c:GetChildren()) do
@@ -1327,6 +1331,24 @@ pcall(function()
 end
 end
 end)  
+
+print(_G.SBV4R)
+if _G.SBV4R == true then
+local v = c:WaitForChild("fooblet")
+           if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+               v.Handle.SpecialMesh.TextureId = ""
+               else
+               v.Handle.TextureID = ""
+           end
+           v.Handle.Material = 1584
+           v.Handle.Transparency = 1
+           char["Right Arm"].Transparency = 0
+             char["Right Arm"].Material = 1584
+           
+
+end
+
+
 
 local connect
 pcall(function()
@@ -1359,7 +1381,8 @@ v.Handle.CanTouch = false
 end
 end
 end)
-   
+pcall(function()
+   if _G.SBV4R == false then
   for _,v in pairs(c:GetChildren()) do
        if v:IsA("Accessory")   then
 v.Handle.CanCollide = false
@@ -1367,6 +1390,11 @@ v.Handle.Material = Enum.Material.Glass
 v.Handle.Reflectance = -1
            end
  end
+ else
+ c["fooblet"].Handle.Material = 1584
+ c["fooblet"].Handle.Color = char["Right Arm"].Color
+ end
+end)
 
 	oldcf = workspace.CurrentCamera.CFrame
 	settings().Physics.AllowSleep = false
