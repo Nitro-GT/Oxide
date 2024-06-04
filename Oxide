@@ -205,6 +205,8 @@ zz = Instance.new("Highlight",char)
 zz.FillTransparency = 1
 zz.OutlineTransparency = .5
 zz.DepthMode = Enum.HighlightDepthMode.Occluded
+local qqz = Instance.new("Shirt",char)
+qqz.ShirtTemplate = "rbxassetid://0"
 if not workspace:FindFirstChild("non") then
 char:SetPrimaryPartCFrame(c.HumanoidRootPart.CFrame *CFrame.new(0,0,2))
 else
