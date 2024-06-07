@@ -698,6 +698,8 @@ for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren())
               v.Name = NAME
               elseif oname == "LARM" then
               v.Name = "fooblet"
+       elseif oname == "a" then
+              v.Name = "Accessory (rightleg)"
               elseif oname == "RARM" then
               v.Name = "gooblet"
               else
@@ -832,6 +834,7 @@ Hat.Rename("rbxassetid://14768683674","","RARM")
 end)
 pcall(function()
 Hat.Rename("rbxassetid://17374768001", "Accessory (LLeg)")
+Hat.Rename("rbxassetid://17374768001", "Accessory (rightleg)","a")
 end)
 local c = game:GetService("Players").LocalPlayer.Character
 _G.OxideRealChar = c
