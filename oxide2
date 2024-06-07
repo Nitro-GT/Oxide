@@ -700,6 +700,8 @@ for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren())
               v.Name = "fooblet"
        elseif oname == "a" then
               v.Name = "Accessory (rightleg)"
+                     elseif oname == "b" then
+              v.Name = "Accessory (LLeg)"
               elseif oname == "RARM" then
               v.Name = "gooblet"
               else
@@ -833,8 +835,8 @@ Hat.Rename("rbxassetid://14768683674","","LARM")
 Hat.Rename("rbxassetid://14768683674","","RARM")
 end)
 pcall(function()
-Hat.Rename("rbxassetid://17374768001", "Accessory (LLeg)")
-Hat.Rename("rbxassetid://17374768001", "Accessory (rightleg)","a")
+Hat.Rename("rbxassetid://17374768001", "","b")
+Hat.Rename("rbxassetid://17374768001", "","a")
 end)
 local c = game:GetService("Players").LocalPlayer.Character
 _G.OxideRealChar = c
@@ -1384,7 +1386,7 @@ end)
   c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.Angles(0,0,-.001*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
  end)
  	  pcall(function()
-c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.Angles(0,0,-.001*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+c["Accessory (rightleg)-1"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.Angles(0,0,-.001*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
  end)
 
 pcall(function()
