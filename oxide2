@@ -1391,7 +1391,7 @@ c["Accessory (rightleg)-1"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.An
 
 pcall(function()
           for _,v in pairs(c:GetChildren()) do
-       if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"   and v.Name ~= "Tor" and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+       if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"   and v.Name ~= "Tor" and v.Name ~= "LARM" and v.Name ~= "Accessory (rightleg)-1" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
 v.Handle.CFrame = char[v.Name].Handle.CFrame * CFrame.Angles(0,0,-.0005*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
 v.Handle.CanTouch = false
 end
@@ -1402,7 +1402,7 @@ pcall(function()
   for _,v in pairs(c:GetChildren()) do
        if v:IsA("Accessory")   then
 v.Handle.CanCollide = false
-v.Handle.Material = Enum.Material.Glass
+--v.Handle.Material = Enum.Material.Glass
 v.Handle.Reflectance = -1
            end
  end
