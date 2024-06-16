@@ -1,5 +1,5 @@
 _G.HideCharacter = true
-_G.DaHood = false
+_G.NewVelocity = true
 --[[ 
 THIS WAS MADE BY NITRO (tixbot)
 Oxide Black - oxide reanim but black lol
@@ -686,7 +686,7 @@ for _, child in pairs(c:GetChildren()) do
 
 end
 local function redo2()
-wait(.005)
+--wait(.005)
 local Hat = {
 Rename = function(HatID, NAME, oname)
 if oname == nil then oname = "Hat" end
@@ -936,7 +936,7 @@ rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X + 15  ,char.Humanoid
 velocity = game:GetService("RunService").Heartbeat:Connect(function(set)
 for i,v in pairs(c:GetChildren()) do
 	if v:IsA("Accessory")  then
-        if char.Humanoid.WalkDirection ~= Vector3.new(0,0,0) then
+        if _G.NewVelocity == true then
 		v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*25, 25.01, char.Torso.AssemblyLinearVelocity*25)
         else
 v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*25, -26.65, char.Torso.AssemblyLinearVelocity*25)
@@ -1498,7 +1498,7 @@ if plr.Character.Name ~= "non" then
 end
 --print("mmm, this is running properly!")
 workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
-task.wait(.0025)
+--task.wait(.0025)
 redo2()
 end
 end
