@@ -1480,14 +1480,14 @@ workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Hum
 if plr.Character.Name ~= "non" then
  plr.Character.HumanoidRootPart.CFrame = CFrame.new( workspace.non.HumanoidRootPart.CFrame.X +5 , workspace.non.HumanoidRootPart.CFrame.Y, workspace.non.HumanoidRootPart.CFrame.Z +5) 
 end
-task.wait(.01)
+task.wait(.005)
 redo2()
 else
 workspace.CurrentCamera.CameraSubject = workspace.Terrain.non:FindFirstChildOfClass("Humanoid")
 if plr.Character.Name ~= "non" then
  plr.Character.HumanoidRootPart.CFrame = CFrame.new( workspace.Terrain.non.HumanoidRootPart.CFrame.X +5 , workspace.Terrain.non.HumanoidRootPart.CFrame.Y, workspace.Terrain.non.HumanoidRootPart.CFrame.Z +5) 
 end
-task.wait(.01)
+task.wait(.005)
 redo2()
     end
 end
@@ -1498,7 +1498,7 @@ if plr.Character.Name ~= "non" then
 end
 --print("mmm, this is running properly!")
 workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
-task.wait(.01)
+task.wait(.0025)
 redo2()
 end
 end
