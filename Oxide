@@ -939,8 +939,12 @@ for i,v in pairs(c:GetChildren()) do
         if _G.NewVelocity == true then
 		v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*25, 25.01, char.Torso.AssemblyLinearVelocity*25)
         else
+       if char:FindFirstChildOfClass("Humanoid").MoveDirection == Vector3.new(0,0,0) then
 v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*25, -26.65, char.Torso.AssemblyLinearVelocity*25)
-        end
+       else
+	v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*25, 25.01, char.Torso.AssemblyLinearVelocity*25)
+       end
+       end
 	end
 end
 end)
@@ -1498,7 +1502,7 @@ if plr.Character.Name ~= "non" then
 end
 --print("mmm, this is running properly!")
 workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
---task.wait(.0025)
+task.wait(.0025)
 redo2()
 end
 end
