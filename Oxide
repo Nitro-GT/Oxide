@@ -1,5 +1,5 @@
 _G.HideCharacter = true
-_G.NewVelocity = true
+_G.NewVelocity = false
 --[[ 
 THIS WAS MADE BY NITRO (tixbot)
 Oxide Black - oxide reanim but black lol
@@ -317,6 +317,9 @@ Accessory = v
       a.Parent = char
 a.Handle.Anchored = false
 a.Handle.Transparency = 1
+a.Handle.Position = char.Head.Position
+a.Handle.Velocity = Vector3.new(0,0,0)
+a.Handle.Massless = true
 w = Instance.new("Weld",z.Handle)
 w.C0 = w.Parent:FindFirstChildOfClass("Attachment").CFrame
 w.Name = "AccessoryWeld"
@@ -985,7 +988,7 @@ for _, child in pairs(c:GetChildren()) do
 
 	if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
  for _,v in pairs(c:GetChildren()) do
-     if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "Tor" and v.Name ~= "LARM" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" and v:WaitForChild("Handle"):FindFirstChildOfClass("SpecialMesh").MeshId ~= "rbxassetid://11263221350" then
+     if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "Tor" and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" and v:WaitForChild("Handle"):FindFirstChildOfClass("SpecialMesh").MeshId ~= "rbxassetid://11263221350" then
       if not char:FindFirstChild(v.Name) then
       local a = v:Clone()
       a.Handle.AccessoryWeld.Part1 = char[a.Handle.AccessoryWeld.Part1.Name]
@@ -1015,7 +1018,7 @@ end
 else
 
  for _,v in pairs(c:GetChildren()) do
-     if v:IsA("Accessory") then
+     if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "Tor" and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head"  then
       if not char:FindFirstChild(v.Name) then
       local a = v:Clone()
       a.Handle:BreakJoints()
@@ -1025,6 +1028,9 @@ Accessory = v
       a.Parent = char
 a.Handle.Anchored = false
 a.Handle.Transparency = 1
+a.Handle.Position = char.Head.Position
+a.Handle.Velocity = Vector3.new(0,0,0)
+a.Handle.Massless = true
 w = Instance.new("Weld",z.Handle)
 w.C0 = w.Parent:FindFirstChildOfClass("Attachment").CFrame
 w.Name = "AccessoryWeld"
@@ -1502,7 +1508,7 @@ if plr.Character.Name ~= "non" then
 end
 --print("mmm, this is running properly!")
 workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
-task.wait(.0025)
+--task.wait(.0025)
 redo2()
 end
 end
