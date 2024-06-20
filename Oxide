@@ -1,5 +1,6 @@
 _G.HideCharacter = true
 _G.NewVelocity = false
+_G.LegacyVelocity = false
 --[[ 
 THIS WAS MADE BY NITRO (tixbot)
 Oxide Black - oxide reanim but black lol
@@ -775,50 +776,6 @@ end
 
 --game:GetService("Workspace")["Error_30363"].EyesOfTheEverWorld.Name = "Puffer Vest"
 
-_G.HeadMovement = false -- respawns your character and you will also have no animations unless you run a script
-_G.HeadMovementv4 = false -- v2 was this but shit (semi-bot)
-_G.HeadMovementv3 = true -- just aligns hats (iron bulb head)
-_G.fakeHeadMovementv2 = false -- uses permadeath and the same hats as headmovementv2 to look cool or some shit (need fling hat)
-_G.HatLimbs = true  -- swaps your limbs with hats
-_G.Fling = false -- RectangleHead needed
-_G.PermaDeath = true
-_G.ShowNetwork = false -- enable for debugging
-_G.BlockHead = false  
-_G.ReanimatedAnimations = false
-_G.CFalign = false -- CFalign = better looking but less features , Original method (false) = worse looking  but more features
-_G.BlockArm = false -- hides head with wackyhead
-_G.YellowHatTorso = false -- smaller but looks ok
-_G.Netless = true
-_G.rcdbypass = true
-_G.StabilityIncrease = true -- slight jitter motion but wont crumble
-_G.DelHead = false -- deletes head
-_G.HatBody = false -- gives hat torso aswel 
-_G.AntiFling = true
-_G.EnableNetLib = false
-_G.wackyhead = false -- changes non pd alot
-_G.BodyForceEnabled = true
-_G.FasterLoad = true -- loads perma instantly (kinda) but is really buggy
-_G.HealthHide = false -- patched
-_G.Blockwackyhead = false -- sometimes face dissapears
-_G.R15toR6 = false -- no settings work
-
-local char = game:GetService("Players").LocalPlayer.Character
-for i,v in pairs(char:GetDescendants()) do
-if v:IsA("SpecialMesh") then
-if v.MeshId == "rbxassetid://13003592387"  then
-v.Parent.Parent.Name = "funnihead"
-end
-end
-end
-
-local char = game:GetService("Players").LocalPlayer.Character
-for i,v in pairs(char:GetDescendants()) do
-if v:IsA("MeshPart") then
-if v.MeshId == "rbxassetid://13003592387"  then
-v.Parent.Name = "funnihead"
-end
-end
-end
 pcall(function()
 Hat.Rename("rbxassetid://17374768001","","LARM")
 Hat.Rename("rbxassetid://17374768001","","RARM")
@@ -845,29 +802,9 @@ c["Accessory (LARM)"].Name = "gooblet"
 c["Accessory (RARM)"].Name = "RARM"
             end)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/renameclones3"))()
-if _G.EnableNetLib == true then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/TypicallyAUser/random-stuff/main/4eyesnetlib.lua"))()
-
-Network.CharacterRelative = false
-
-coroutine.resume(Network["PartOwnership"]["Enable"])
-end
-
-    
 
 
-Connection = workspace.DescendantAdded:Connect(function(c)
-    if c.Name == "Animate" then
-        c.Disabled=false        
-    end
-end)
 
-repeat wait() until game:GetService("Players").LocalPlayer.Character
-Char = game:GetService("Players").LocalPlayer.Character
-Died = game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Died:Connect(function()
-    Connection:Disconnect()
-    Died:Disconnect()
-end)
 
 
 function waitForChild(parent, childName)
@@ -942,11 +879,15 @@ for i,v in pairs(c:GetChildren()) do
         if _G.NewVelocity == true then
 		v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*25, 25.01, char.Torso.AssemblyLinearVelocity*25)
         else
+        if _G.LegacyVelocity == false then
        if char:FindFirstChildOfClass("Humanoid").MoveDirection == Vector3.new(0,0,0) then
 v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*25, -26.65, char.Torso.AssemblyLinearVelocity*25)
        else
 	v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*25, 25.01, char.Torso.AssemblyLinearVelocity*25)
        end
+       else
+v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*25, -26.65, char.Torso.AssemblyLinearVelocity*25)
+        end
        end
 	end
 end
@@ -988,7 +929,7 @@ for _, child in pairs(c:GetChildren()) do
 
 	if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
  for _,v in pairs(c:GetChildren()) do
-     if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "Tor" and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" and v:WaitForChild("Handle"):FindFirstChildOfClass("SpecialMesh").MeshId ~= "rbxassetid://11263221350" then
+     if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "Tor" and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" then
       if not char:FindFirstChild(v.Name) then
       local a = v:Clone()
       a.Handle.AccessoryWeld.Part1 = char[a.Handle.AccessoryWeld.Part1.Name]
@@ -1146,10 +1087,7 @@ end)
  
 prt:Destroy()
  
-if _G.wackyhead == true then 
-  wait(game:GetService("Players").RespawnTime + 0.5)  
-    
-    end
+
 
 
   --wait(game:GetService("Players").RespawnTime + 0.25)  
@@ -1168,12 +1106,7 @@ end
 
 
 
-if c:FindFirstChild("Torso") then
---c.Torso.Neck:Destroy()
-else
---c.Head.Neck:Destroy()
-c.Humanoid:TakeDamage(c.Humanoid.MaxHealth)
-end
+
 for _, child in pairs(c:GetChildren()) do
 				if child:IsA("Part") then
 					child.Anchored = true
@@ -1194,40 +1127,7 @@ local Char = game:GetService("Players").LocalPlayer.Character
     for i,v in next, Hum:GetPlayingAnimationTracks() do
         v:Stop()
     end
-if _G.Fling == true then
-local Held = false
 
-local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
-
-Mouse.Button1Down:Connect(function()
-    Held = true
-end)
-
-Mouse.Button1Up:Connect(function()
-    Held = false
-end)
-c.HumanoidRootPart.Transparency = 0.7
-local BodyVelocity = Instance.new("BodyVelocity", c.HumanoidRootPart)
-BodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
-BodyVelocity.Velocity = Vector3.new(0, 0, 0)
-flinger = Instance.new("BodyAngularVelocity",c.HumanoidRootPart)
-flinger.MaxTorque = Vector3.new(math.huge,math.huge,math.huge)
-flinger.P = 1000000000000000000000000000
-flinger.AngularVelocity = Vector3.new(5000000000000000000,5000000000000000000,5000000000000000000)
-spawn(function()
-    while task.wait() do
-        pcall(function()
-            if Held == true then
-                   _G.Flinging = true
-               c.HumanoidRootPart.CFrame = Mouse.Hit
-            else
-                   _G.Flinging = false
-                c.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-10,0)
-            end
-        end)
-    end
-end)
-end
 
 for _, child in pairs(c:GetChildren()) do
 				if child:IsA("Part") then
@@ -1239,89 +1139,7 @@ for _, child in pairs(c:GetChildren()) do
 local removinghealth = false
 
  
-   if _G.Blockwackyhead == true and _G.wackyhead == true then
-  c.Hat1.Handle:ClearAllChildren()
-       
-       end
-   
-       local anything = c:FindFirstChildOfClass("BodyColors")
-if _G.HatCollide == true then
-if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-    local torso = c.Torso
-    local root = c.HumanoidRootPart
-torso:Destroy()
- root:Destroy()
-    local shp = sethiddenproperty
-    if shp then
-        for i,v in pairs(c:GetChildren()) do
-            if v:IsA("Accessory") then
-                shp(v, "BackendAccoutrementState", 0)
-            end 
-        end
-    end
-    anything:Destroy()
-else
-    local torso = c.UpperTorso
-local torso2 = c.LowerTorso
-    local root = c.HumanoidRootPart
-torso:Destroy()
-torso2:Destroy()
- root:Destroy()
-    local shp = sethiddenproperty
-    if shp then
-        for i,v in pairs(c:GetChildren()) do
-            if v:IsA("Accessory") then
-                shp(v, "BackendAccoutrementState", 0)
-            end 
-        end
-    end
-    anything:Destroy()
-end
-    end
- if _G.wackyhead == true and _G.HatBody == true then
-     c.Head:Destroy()
-     c.PrimaryPart = c["Right Arm"]
-     
- end
-  if _G.wackyhead == true and _G.BlockArm == true then
-     c.Head:Destroy()
-     c.PrimaryPart = c["Right Arm"]
- end
- local canactuallydo
- if _G.FasterLoad == true then
-  canactuallydo = false
- else
-       canactuallydo = true
- end
-for k,v in pairs(c:GetChildren()) do
-    if v:IsA("Accessory") then
-   --     v.Handle:FindFirstChild("Attachment"):Destroy() -- destroying basic welds
-    end
-end
 
-  -- workspace[game:GetService("Players").LocalPlayer.Name.." Protected Welds"]:Destroy()
-
-
-local function Align(Part1, Part0, Position, Angle)
-if _G.EnableNetLib == true then
-             Network.RetainPart(Part1)
-			 end
-    game:GetService("RunService").Heartbeat:Connect(function(set)
-        Part1.CFrame = Part0.CFrame * Position * Angle
-       
-    
-        end)
-    end
-	
-	local function Align2(Part1, Part0, Position, Angle)
-          
-    game:GetService("RunService").Heartbeat:Connect(function(set)
-	if removinghealth == false then
-        Part1.CFrame = Part0.CFrame * Position * Angle
-       end
-    
-        end)
-    end
 
 
     
@@ -1504,11 +1322,11 @@ end
 else
 if plr.Character.Name ~= "non" then
         if plr.Character.Name ~= "non" then
- plr.Character.HumanoidRootPart.CFrame = CFrame.new( workspace.non.HumanoidRootPart.CFrame.X + 15 , workspace.non.HumanoidRootPart.CFrame.Y-100, workspace.non.HumanoidRootPart.CFrame.Z +10 ) 
+ plr.Character.HumanoidRootPart.CFrame = CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.non.HumanoidRootPart.CFrame.Y-100, workspace.non.HumanoidRootPart.CFrame.Z  ) 
 end
 --print("mmm, this is running properly!")
 workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
---task.wait(.0025)
+task.wait(.002)
 redo2()
 end
 end
