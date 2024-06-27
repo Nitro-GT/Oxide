@@ -1221,20 +1221,7 @@ v.Handle.CanTouch = false
 end
 end
 end)
-pcall(function()
-   if _G.SBV4R == false then
-  for _,v in pairs(c:GetChildren()) do
-       if v:IsA("Accessory")   then
-v.Handle.CanCollide = false
---v.Handle.Material = Enum.Material.Glass
-v.Handle.Reflectance = -1
-           end
- end
- else
- c["fooblet"].Handle.Material = 1584
- c["fooblet"].Handle.Color = char["Right Arm"].Color
- end
-end)
+
 
 	oldcf = workspace.CurrentCamera.CFrame
 	settings().Physics.AllowSleep = false
@@ -1326,7 +1313,7 @@ if plr.Character.Name ~= "non" then
 end
 --print("mmm, this is running properly!")
 workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
-task.wait(.002)
+task.wait(.005)
 redo2()
 end
 end
