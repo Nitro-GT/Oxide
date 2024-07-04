@@ -598,16 +598,7 @@ end
 
   -- workspace[game:GetService("Players").LocalPlayer.Name.." Protected Welds"]:Destroy()
 
-	local function NoclipLoo2()
-			for _, child in pairs(char:GetChildren()) do
-				if child:IsA("BasePart") then
-					child.CanCollide = false
-				end
-			end
 
-
-		end
-	Noclipping2 = game:GetService('RunService').Stepped:Connect(NoclipLoo2)
 
 local function Align(Part1, Part0, Position, Angle)
 if _G.EnableNetLib == true then
@@ -792,6 +783,9 @@ pcall(function()
 Hat.Rename("rbxassetid://17374768001","","LARM")
 Hat.Rename("rbxassetid://17374768001","","RARM")
 Hat.Rename("rbxassetid://14251599953", "Tor")
+                end)
+pcall(function()
+Hat.Rename("rbxassetid://13415110780", "Tor")
                 end)
 pcall(function()
 Hat.Rename("rbxassetid://14255543546","","LARM")
