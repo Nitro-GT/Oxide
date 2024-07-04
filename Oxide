@@ -2,7 +2,7 @@ _G.HideCharacter = true
 _G.NewVelocity = true
 _G.FlingEnabled = true
 --[[ 
-Oxide V2 - NFLC Version
+Oxide V2 
 Anything below should NOT be changed
 ]]
 
