@@ -75,6 +75,28 @@ end
 
 
 
+Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/library"))()
+
+local HatMode=hmode
+
+if HatMode=="alsoo3" then
+
+local HATDUPES = Library.MakeTableOfHats("Mesh",{Mesh_Id=4315410540})
+HATDUPES[1].Name = "DemonGodSword"
+HATDUPES[2].Name = "RainbowGodSword"
+HATDUPES[3].Name = "ToxicLordSword"
+HATDUPES[4].Name = "DemonLordSword"
+if Library.FindHat("ShadowBladeMasterAccessory") then
+Library.FindHat("ShadowBladeMasterAccessory").Name="VoidLordSword"
+end
+	
+if Library.FindHat("BladeMasterAccessory") then
+Library.FindHat("BladeMasterAccessory").Name="AuroraSword"
+
+end
+else
+print("richhhh")
+end
 
 
 --game:GetService("Workspace")["Error_30363"].EyesOfTheEverWorld.Name = "Puffer Vest"
@@ -140,60 +162,16 @@ c["Accessory (LARM)"].Name = "LARM"
             pcall(function()
 c["Accessory (RARM)"].Name = "RARM"
             end)
-local NameClones = {} -- table for all hat name clones
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/renameclones3"))()
+if _G.EnableNetLib == true then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TypicallyAUser/random-stuff/main/4eyesnetlib.lua"))()
 
-for instance,variable in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-if game.Players.LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-    if variable:IsA("Accessory")  then
-    if variable:WaitForChild("Handle"):FindFirstChildOfClass("SpecialMesh").MeshId ~= "rbxassetid://11263221350" then
-    if variable:WaitForChild("Handle"):FindFirstChildOfClass("SpecialMesh").TextureId ~= "rbxassetid://4794299274" then
-        if NameClones[variable.Name] then
-            if NameClones[variable.Name] == "NotClonedYet" then
-                NameClones[variable.Name] = {}
-            end
-            table.insert(NameClones[variable.Name], variable)
-        else
-            NameClones[variable.Name] = "NotClonedYet"
-        end
-else
-variable.Name = "STUPID GOLDEN SWORD"
-end
-end
-end
-else
-    if variable:IsA("Accessory")  then
-    if variable:WaitForChild("Handle").MeshId ~= "rbxassetid://11263221350" then
-    if variable:WaitForChild("Handle").TextureID ~= "rbxassetid://4794299274" then
-        if NameClones[variable.Name] then
-            if NameClones[variable.Name] == "NotClonedYet" then
-                NameClones[variable.Name] = {}
-            end
-            table.insert(NameClones[variable.Name], variable)
-        else
-            NameClones[variable.Name] = "NotClonedYet"
-        end
-else
-variable.Name = "STUPID GOLDEN SWORD"
-end
-end
-end
-    end
+Network.CharacterRelative = false
+
+coroutine.resume(Network["PartOwnership"]["Enable"])
 end
 
-for i,v in pairs(NameClones) do
-    if type(v) == "table" then
-        local funnynumber69uwu = 1
-        for uwu,ys in pairs(v) do
-            ys.Name = ys.Name.."-"..funnynumber69uwu
-            funnynumber69uwu = funnynumber69uwu + 1
-        end
-    end
-end
-
-NameClones = "hi"
-
--- based off mizt's but i rewrote it
-
+    
 
 
 Connection = workspace.DescendantAdded:Connect(function(c)
@@ -519,6 +497,7 @@ else
 c.Humanoid:TakeDamage(c.Humanoid.MaxHealth)
 end
 
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TypicallyAUser/TypicalsConvertingLibrary/main/Main"))()
 
 
 speaker = game:GetService("Players").LocalPlayer
@@ -775,6 +754,27 @@ end
 
 
 
+Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/library"))()
+
+local HatMode=hmode
+
+if HatMode=="alsoo3" then
+
+local HATDUPES = Library.MakeTableOfHats("Mesh",{Mesh_Id=4315410540})
+HATDUPES[1].Name = "DemonGodSword"
+HATDUPES[2].Name = "RainbowGodSword"
+HATDUPES[3].Name = "ToxicLordSword"
+HATDUPES[4].Name = "DemonLordSword"
+if Library.FindHat("ShadowBladeMasterAccessory") then
+Library.FindHat("ShadowBladeMasterAccessory").Name="VoidLordSword"
+end
+	
+if Library.FindHat("BladeMasterAccessory") then
+Library.FindHat("BladeMasterAccessory").Name="AuroraSword"
+
+end
+else
+end
 
 
 --game:GetService("Workspace")["Error_30363"].EyesOfTheEverWorld.Name = "Puffer Vest"
@@ -807,59 +807,7 @@ c["Accessory (LARM)"].Name = "gooblet"
             pcall(function()
 c["Accessory (RARM)"].Name = "RARM"
             end)
-local NameClones = {} -- table for all hat name clones
-
-for instance,variable in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-if game.Players.LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-    if variable:IsA("Accessory")  then
-    if variable:WaitForChild("Handle"):FindFirstChildOfClass("SpecialMesh").MeshId ~= "rbxassetid://11263221350" then
-    if variable:WaitForChild("Handle"):FindFirstChildOfClass("SpecialMesh").TextureId ~= "rbxassetid://4794299274" then
-        if NameClones[variable.Name] then
-            if NameClones[variable.Name] == "NotClonedYet" then
-                NameClones[variable.Name] = {}
-            end
-            table.insert(NameClones[variable.Name], variable)
-        else
-            NameClones[variable.Name] = "NotClonedYet"
-        end
-else
-variable.Name = "STUPID GOLDEN SWORD"
-end
-end
-end
-else
-    if variable:IsA("Accessory")  then
-    if variable:WaitForChild("Handle").MeshId ~= "rbxassetid://11263221350" then
-    if variable:WaitForChild("Handle").TextureID ~= "rbxassetid://4794299274" then
-        if NameClones[variable.Name] then
-            if NameClones[variable.Name] == "NotClonedYet" then
-                NameClones[variable.Name] = {}
-            end
-            table.insert(NameClones[variable.Name], variable)
-        else
-            NameClones[variable.Name] = "NotClonedYet"
-        end
-else
-variable.Name = "STUPID GOLDEN SWORD"
-end
-end
-end
-    end
-end
-
-for i,v in pairs(NameClones) do
-    if type(v) == "table" then
-        local funnynumber69uwu = 1
-        for uwu,ys in pairs(v) do
-            ys.Name = ys.Name.."-"..funnynumber69uwu
-            funnynumber69uwu = funnynumber69uwu + 1
-        end
-    end
-end
-
-NameClones = "hi"
-
--- based off mizt's but i rewrote it
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/renameclones3"))()
 local flingloop
 if _G.Fling == true then
     local BodyVelocity = Instance.new("BodyVelocity", c.HumanoidRootPart)
@@ -1152,6 +1100,9 @@ for _, child in pairs(c:GetChildren()) do
 				    child.Handle.Anchored = true
 				end
 			end
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TypicallyAUser/TypicalsConvertingLibrary/main/Main"))()
+
 
 
 
