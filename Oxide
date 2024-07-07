@@ -1,11 +1,11 @@
 _G.HideCharacter = true
 _G.NewVelocity = true
-_G.FlingEnabled = true
+_G.FlingEnabled = false
+
 --[[ 
 Oxide V2 
 Anything below should NOT be changed
 ]]
-
 
 _G.SBV4R = false
 _G.R6Mode = false
@@ -514,6 +514,16 @@ speaker = game:GetService("Players").LocalPlayer
 		end
 	Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
 
+
+    	local function NoclipLoo()
+			for _, child in pairs(char:GetChildren()) do
+				if child:IsA("BasePart") then
+					child.CanCollide = false
+				end
+			end
+		end
+	Noclipping2 = game:GetService('RunService').Stepped:Connect(NoclipLoo)
+
 	
 
 
@@ -807,6 +817,11 @@ c["Accessory (LARM)"].Name = "gooblet"
             pcall(function()
 c["Accessory (RARM)"].Name = "RARM"
             end)
+                        pcall(function()
+if not c:FindFirstChild("Tor") then 
+c.ExtraNoobTorso.Name = "Tor"
+end
+            end)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/renameclones3"))()
 local flingloop
 if _G.Fling == true then
@@ -881,15 +896,11 @@ c.Parent = char
 	_G.Flinging = false
 
 local swordbigvel = false
-velocity = game:GetService("RunService").Heartbeat:Connect(function(set)
+velocity = game:GetService("RunService").Heartbeat:Connect(function()
 for i,v in pairs(c:GetChildren()) do
 	if v:IsA("Accessory")  then
-        if _G.NewVelocity == true then
-		v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15+35, 25.01, char.Torso.AssemblyLinearVelocity.Z*15+35)
-        else
-        v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15, -26.65, char.Torso.AssemblyLinearVelocity.Z*15)
-        end
-       end
+		v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15, 25.012, char.Torso.AssemblyLinearVelocity.Z*15)
+               end
 	end
 end)
 
@@ -1272,9 +1283,10 @@ for _, child in pairs(c:GetChildren()) do
 wait(game:GetService("Players").RespawnTime - .05)
 local cam = workspace.CurrentCamera
 local cf = cam.CFrame
-task.wait(.55)
+task.wait(.05)
+velocity:Disconnect() 
+task.wait(.5)
 connect:Disconnect()
-velocity:Disconnect()
 cam.CFrame = cf
 end
 redo()
@@ -1394,19 +1406,22 @@ end
 end
 end)
 function attackone()
-   task.spawn(function()
-   _G.Fling = true
+    task.spawn(function()
 flingpos = game.Players.LocalPlayer:GetMouse().Hit
-_G.flingpart = game.Players.LocalPlayer:GetMouse().Target
+flingpart = game.Players.LocalPlayer:GetMouse().Target
 _G.flingplr = nil
-flingpart = _G.flingpart
 if flingpart.Parent:FindFirstChildOfClass("Humanoid") then
+       _G.Fling = true
+_G.flingpart = flingpart
 _G.flingplr = tostring(flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")")
 	game:GetService("StarterGui"):SetCore("SendNotification", {
 		Title = "Oxide Reanimation V2 - Fling:";
         Duration = 3;
 		Text = "Locked onto player: "..flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")"
 	})
+else
+print("not a player")
+   _G.Fling = false
 end
    end)
 
@@ -1416,4 +1431,4 @@ Mouse.Button1Down:Connect(function()
 	if _G.FlingEnabled == true then
 		attackone()
 	end
-end)
+    end)
