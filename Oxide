@@ -1,6 +1,3 @@
-_G.HideCharacter = true
-_G.NewVelocity = true
-_G.FlingEnabled = false
 
 --[[ 
 Oxide V2 
@@ -144,10 +141,23 @@ v.Parent.Name = "funnihead"
 end
 end
 end
+
 pcall(function()
 Hat.Rename("rbxassetid://17374768001","","LARM")
 Hat.Rename("rbxassetid://17374768001","","RARM")
 Hat.Rename("rbxassetid://14251599953", "Tor")
+                end)
+pcall(function()
+Hat.Rename("rbxassetid://13415110780", "Tor")
+                end)
+pcall(function()
+Hat.Rename("rbxassetid://14255543546","","LARM")
+Hat.Rename("rbxassetid://14255543546","","RARM")
+end)
+pcall(function()
+Hat.Rename("rbxassetid://14768664565", "Tor")
+Hat.Rename("rbxassetid://14768683674","","LARM")
+Hat.Rename("rbxassetid://14768683674","","RARM")
 end)
 local c = game:GetService("Players").LocalPlayer.Character
 pcall(function()
@@ -648,25 +658,25 @@ pcall(function()
 	end)
  	   connect = game:GetService("RunService").Heartbeat:Connect(function(set)
          	    pcall(function()
- c["Tor"].Handle.CFrame = char["Torso"].CFrame *CFrame.new(0,0,0)  * CFrame.Angles(0,0,-.0005*math.sin(100*tick())) *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+ c["Tor"].Handle.CFrame = char["Torso"].CFrame *CFrame.new(0,0,0)   *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
 end)
 pcall(function()
-c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90)) * CFrame.Angles(0,0,-.0005*math.sin(100*tick())) *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
 end)
   	  pcall(function()
- c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))* CFrame.Angles(0,0,-.0005*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+ c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
    end)
    	  pcall(function()
-  c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.Angles(0,0,-.001*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+  c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))   *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
  end)
  	  pcall(function()
-c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.Angles(0,0,-.001*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))   *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
  end)
 
 pcall(function()
           for _,v in pairs(c:GetChildren()) do
        if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"   and v.Name ~= "Tor" and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
-v.Handle.CFrame = char[v.Name].Handle.CFrame * CFrame.Angles(0,0,-.0005*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+v.Handle.CFrame = char[v.Name].Handle.CFrame *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
 v.Handle.CanTouch = false
 end
 end
@@ -921,7 +931,7 @@ end
         if _G.HideCharacter == false then
         rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X +5 ,char.HumanoidRootPart.CFrame.Y,char.HumanoidRootPart.CFrame.Z +5) 
         else
-rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X   ,char.HumanoidRootPart.CFrame.Y - 100,char.HumanoidRootPart.CFrame.Z  ) 
+rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X   , char.HumanoidRootPart.CFrame.Y-100 ,char.HumanoidRootPart.CFrame.Z  ) 
         end
 
 
@@ -1192,25 +1202,25 @@ pcall(function()
 workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
         lastcf = workspace.CurrentCamera.CFrame
          	    pcall(function()
- c["Tor"].Handle.CFrame = char["Torso"].CFrame *CFrame.new(0,0,0)  * CFrame.Angles(0,0,-.0005*math.sin(100*tick())) *CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+ c["Tor"].Handle.CFrame = char["Torso"].CFrame   *CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
 end)
 pcall(function()
-c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90)) * CFrame.Angles(0,0,-.0005*math.sin(100*tick())) *CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
 end)
   	  pcall(function()
- c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))* CFrame.Angles(0,0,-.0005*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+ c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))*CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
    end)
    	  pcall(function()
-  c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.Angles(0,0,-.001*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+  c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
  end)
  	  pcall(function()
-c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.Angles(0,0,-.001*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
  end)
 
 pcall(function()
           for _,v in pairs(c:GetChildren()) do
        if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"   and v.Name ~= "Tor" and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
-v.Handle.CFrame = char[v.Name].Handle.CFrame *CFrame.Angles(0,0,-.001*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+v.Handle.CFrame = char[v.Name].Handle.CFrame *CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
 v.Handle.CanTouch = false
 end
 end
