@@ -1,3 +1,6 @@
+_G.HideCharacter = true
+_G.NewVelocity = true
+_G.FlingEnabled = true
 
 --[[ 
 Oxide V2 
@@ -12,9 +15,11 @@ local flingpos = game.Players.LocalPlayer:GetMouse().Hit
 local flingpart = game.Players.LocalPlayer:GetMouse().Target
 local flingplr = nil
 local sineee=os.clock()
+local sine=os.clock()
  local plr =game:GetService("Players").LocalPlayer
  local cf 
 local lastcf = workspace.CurrentCamera.CFrame
+local oldh = workspace.FallenPartsDestroyHeight
 local function redo()
 wait(.1)
 local Hat = {
@@ -161,8 +166,9 @@ Hat.Rename("rbxassetid://14768683674","","RARM")
 end)
 local c = game:GetService("Players").LocalPlayer.Character
 pcall(function()
-c.gooblet.Name = "fooblet"
-end)
+    c.gooblet.Name = "fooblet"
+    end)
+    
 pcall(function()
 c.SHADES.Handle.AccessoryWeld.C1 = CFrame.new(0, 0.025, -0.6, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 end)
@@ -525,14 +531,6 @@ speaker = game:GetService("Players").LocalPlayer
 	Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
 
 
-    	local function NoclipLoo()
-			for _, child in pairs(char:GetChildren()) do
-				if child:IsA("BasePart") then
-					child.CanCollide = false
-				end
-			end
-		end
-	Noclipping2 = game:GetService('RunService').Stepped:Connect(NoclipLoo)
 
 	
 
@@ -651,32 +649,32 @@ if _G.EnableNetLib == true then
         end)
 	end
 
-
+local sin = math.sin
 local connect
-pcall(function()
-	--char.Animate.Disabled = false
-	end)
+    local antisleepMultiplier=Vector3.new(-.0025,-.005,-.0025)
  	   connect = game:GetService("RunService").Heartbeat:Connect(function(set)
+        sine=os.clock
+        local antisleep=sin(sine()*100)*antisleepMultiplier
          	    pcall(function()
- c["Tor"].Handle.CFrame = char["Torso"].CFrame *CFrame.new(0,0,0)   *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+ c["Tor"].Handle.CFrame = char["Torso"].CFrame *CFrame.new(0,0,0)   +antisleep
 end)
 pcall(function()
-c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
 end)
   	  pcall(function()
- c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+ c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))+antisleep
    end)
    	  pcall(function()
-  c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))   *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+  c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))   +antisleep
  end)
  	  pcall(function()
-c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))   *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))   +antisleep
  end)
 
 pcall(function()
           for _,v in pairs(c:GetChildren()) do
        if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"   and v.Name ~= "Tor" and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
-v.Handle.CFrame = char[v.Name].Handle.CFrame *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
 v.Handle.CanTouch = false
 end
 end
@@ -710,7 +708,10 @@ for _, child in pairs(c:GetChildren()) do
 				end
 			end
         end)
-
+        wait(game:GetService("Players").RespawnTime - .05)
+        task.wait(.05)
+        velocity:Disconnect() 
+        connect:Disconnect()
 end
 local function redo2()
 wait(.001)
@@ -819,14 +820,30 @@ end)
 local c = game:GetService("Players").LocalPlayer.Character
 _G.OxideRealChar = c
 pcall(function()
-c.gooblet.Name = "fooblet"
-end)
+    c.gooblet.Name = "fooblet"
+    end)
+    pcall(function()
+        c.gooblet.Name = "fooblet"
+        end)
 pcall(function()
 c["Accessory (LARM)"].Name = "gooblet"
             end)
             pcall(function()
 c["Accessory (RARM)"].Name = "RARM"
             end)
+            pcall(function()
+                if not c:FindFirstChild("Accessory (rightleg)") then
+                c.gooblet.Name = "Accessory (rightleg)"
+                end
+                end)
+                pcall(function()
+                    if not c:FindFirstChild("Accessory (LLeg)") then
+                    c.gooblet.Name = "Accessory (LLeg)"
+                    end
+                    end)
+                pcall(function()
+                    c.fooblet.Name = "gooblet"
+                    end)
                         pcall(function()
 if not c:FindFirstChild("Tor") then 
 c.ExtraNoobTorso.Name = "Tor"
@@ -906,13 +923,6 @@ c.Parent = char
 	_G.Flinging = false
 
 local swordbigvel = false
-velocity = game:GetService("RunService").Heartbeat:Connect(function()
-for i,v in pairs(c:GetChildren()) do
-	if v:IsA("Accessory")  then
-		v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15, 25.012, char.Torso.AssemblyLinearVelocity.Z*15)
-               end
-	end
-end)
 
 function getRoot(char)
 	local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') 
@@ -931,8 +941,16 @@ end
         if _G.HideCharacter == false then
         rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X +5 ,char.HumanoidRootPart.CFrame.Y,char.HumanoidRootPart.CFrame.Z +5) 
         else
-rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X   , char.HumanoidRootPart.CFrame.Y-100 ,char.HumanoidRootPart.CFrame.Z  ) 
+rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X   , workspace.FallenPartsDestroyHeight + 100,char.HumanoidRootPart.CFrame.Z  ) 
         end
+
+for i,v in pairs(c:GetDescendants()) do
+    if v:IsA("BasePart") then
+v.AssemblyAngularVelocity = Vector3.new(0,0,0)
+v.AssemblyLinearVelocity = Vector3.new(0,0,0)
+    end
+ end
+
 
 
 local function force(part,force)
@@ -1098,12 +1116,23 @@ task.spawn(function()
  end)
 task.spawn(function()	
 task.wait(.02)
- game:GetService("Players").LocalPlayer.Character=prt
  game:GetService("Players").LocalPlayer.Character=char
 end)
  
 prt:Destroy()
- 
+local clock = os.clock
+local rad, cos, sin, random = math.rad, math.cos, math.sin, math.random
+AntiSleepRotate = Vector3.new(0, sin(clock()*10), 0)
+
+velocity = game:GetService("RunService").Heartbeat:Connect(function()
+    for i,v in pairs(c:GetChildren()) do
+        if v:IsA("Accessory")  then
+            v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15, 25.012, char.Torso.AssemblyLinearVelocity.Z*15) 
+            v.Handle.AssemblyAngularVelocity = AntiSleepRotate
+        end
+        end
+    end)
+    
 
 
 
@@ -1198,29 +1227,38 @@ local connect
 pcall(function()
 	--char.Animate.Disabled = false
 	end)
+
+local sin = math.sin
+    local antisleepMultiplier=Vector3.new(.0025,.005,.0025)
  	   connect = game:GetService("RunService").Heartbeat:Connect(function(set)
-workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
+        sine=os.clock
+        local antisleep=sin(sine()*100)*antisleepMultiplier
         lastcf = workspace.CurrentCamera.CFrame
+        pcall(function()
+            workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
+workspace.FallenPartsDestroyHeight = oldh 
+        end)
+
          	    pcall(function()
- c["Tor"].Handle.CFrame = char["Torso"].CFrame   *CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+ c["Tor"].Handle.CFrame = char["Torso"].CFrame   + antisleep
 end)
 pcall(function()
-c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
 end)
   	  pcall(function()
- c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))*CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+ c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))+antisleep
    end)
    	  pcall(function()
-  c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+  c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
  end)
  	  pcall(function()
-c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  *CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
  end)
 
 pcall(function()
           for _,v in pairs(c:GetChildren()) do
        if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"   and v.Name ~= "Tor" and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
-v.Handle.CFrame = char[v.Name].Handle.CFrame *CFrame.new(-.0025*math.sin(100*tick()),-.005*math.sin(100*tick()),-.0025*math.sin(100*tick()))
+v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
 v.Handle.CanTouch = false
 end
 end
@@ -1405,7 +1443,14 @@ end
 end
 if plr.Character.Name ~= "non" then
         if plr.Character.Name ~= "non" then
- plr.Character.HumanoidRootPart.CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.non.HumanoidRootPart.CFrame.Y-100, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+ plr.Character.HumanoidRootPart.CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 100, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+
+for i,v in pairs(c:GetDescendants()) do
+    if v:IsA("BasePart") then
+v.AssemblyAngularVelocity = Vector3.new(0,0,0)
+v.AssemblyLinearVelocity = Vector3.new(0,0,0)
+    end
+ end
 end
 
 workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChild("Humanoid")
