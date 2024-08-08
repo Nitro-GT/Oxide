@@ -1,6 +1,7 @@
 _G.HideCharacter = true
 _G.FlingEnabled = true
 _G.TransparentRig = true
+_G.ToolFling = false -- FALSE = HOLDING, TRUE = FLING
 --[[ 
 Oxide V2.1 
 Anything below should NOT be changed
