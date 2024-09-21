@@ -28,7 +28,7 @@ local stopped = false
 _G.Stopped = false
 local respawnloop
 game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Oxide Reanimation V2.1a";
+    Title = "Oxide Reanimation V3a";
     Duration = 20;
     Text = "This script was made by Nitro"
 })
