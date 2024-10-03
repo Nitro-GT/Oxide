@@ -4,7 +4,7 @@ _G.FlingEnabled = true
 _G.TransparentRig = true
 _G.ToolFling = false -- FALSE = HOLDING, TRUE = FLING
 --[[ 
-Oxide V2.1 
+Oxide V3
 Anything below should NOT be changed
 ]]
 
@@ -29,9 +29,9 @@ local stopped = false
 _G.Stopped = false
 local respawnloop
 game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Oxide Reanimation V3a";
+    Title = "Oxide Reanimation V3f";
     Duration = 20;
-    Text = "This script was made by Nitro"
+    Text = "Hemi made this (Free Edition)"
 })
 local function cfAdd(a,b) return a+b end
 local function redo()
@@ -133,10 +133,6 @@ pcall(function()
     Hat.Rename("rbxassetid://3409604993","","RARM")
     Hat.Rename("rbxassetid://4819722776", "Tor")
                     end)
-					pcall(function()
-    Hat.Rename("rbxassetid://4645395227","","LARM")
-    Hat.Rename("rbxassetid://3360974849","","RARM")
-		end)
     pcall(function()
     Hat.Rename("rbxassetid://13415110780", "Tor")
                     end)
@@ -656,9 +652,9 @@ local connect
  	   connect = game:GetService("RunService").Heartbeat:Connect(function(set)
         sine=os.clock
         local antisleep=sin(sine()*100)*antisleepMultiplier
-         	    pcall(function()
- c["Tor"].Handle.CFrame = char["Torso"].CFrame *CFrame.new(0,0,0)   +antisleep
-end)
+                     pcall(function()
+     c["Tor"].Handle.CFrame = char["Torso"].CFrame *CFrame.Angles(math.rad(0),0,math.rad(-15))  + antisleep
+    end)
     pcall(function()
 	if nlia == false then 
     c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
@@ -1349,8 +1345,8 @@ end)
                 workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
     workspace.FallenPartsDestroyHeight = oldh 
             end)
-                     pcall(function()
-     c["Tor"].Handle.CFrame = char["Torso"].CFrame *CFrame.Angles(math.rad(0),0,math.rad(-25))  + antisleep
+                    pcall(function()
+     c["Tor"].Handle.CFrame = char["Torso"].CFrame *CFrame.Angles(math.rad(0),0,math.rad(-15))  + antisleep
     end)
     pcall(function()
 	if nlia == false then 
@@ -1367,10 +1363,10 @@ end)
 			end
        end)
              pcall(function()
-      c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
+      c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(-90))  +antisleep
      end)
            pcall(function()
-    c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(-90))  +antisleep
+    c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
      end)
      pcall(function()
         c["RobotArmTest"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)) * CFrame.Angles(0,0,-.0005*math.sin(100*tick())) *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
