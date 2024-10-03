@@ -1363,10 +1363,10 @@ end)
 			end
        end)
              pcall(function()
-      c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(-90))  +antisleep
+      c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame *CFrame.new(0.25,0,0) * CFrame.Angles(math.rad(0),math.rad(0),math.rad(-90))  +antisleep
      end)
            pcall(function()
-    c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
+    c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  *CFrame.new(-0.25,0,0) * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
      end)
      pcall(function()
         c["RobotArmTest"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)) * CFrame.Angles(0,0,-.0005*math.sin(100*tick())) *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
