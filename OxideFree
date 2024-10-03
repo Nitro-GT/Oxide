@@ -165,16 +165,16 @@ pcall(function()
                 pcall(function()
     c["Accessory (RARM)"].Name = "RARM"
                 end)
+         pcall(function()
+                if not c:FindFirstChild("Accessory (rightleg)") then
+                c.InternationalFedora.Name = "Accessory (rightleg)"
+                end
+                end)
                 pcall(function()
-                    if not c:FindFirstChild("Accessory (rightleg)") then
-                    c.gooblet.Name = "Accessory (rightleg)"
+                    if not c:FindFirstChild("Accessory (LLeg)") then
+                    c["International Fedora"].Name = "Accessory (LLeg)"
                     end
                     end)
-                    pcall(function()
-                        if not c:FindFirstChild("Accessory (LLeg)") then
-                        c.gooblet.Name = "Accessory (LLeg)"
-                        end
-                        end)
                     pcall(function()
                         c.fooblet.Name = "gooblet"
                         end)
@@ -1350,7 +1350,7 @@ end)
     workspace.FallenPartsDestroyHeight = oldh 
             end)
                      pcall(function()
-     c["Tor"].Handle.CFrame = char["Torso"].CFrame *CFrame.Angles(math.rad(0),0,math.rad(25))  + antisleep
+     c["Tor"].Handle.CFrame = char["Torso"].CFrame *CFrame.Angles(math.rad(0),0,math.rad(-25))  + antisleep
     end)
     pcall(function()
 	if nlia == false then 
