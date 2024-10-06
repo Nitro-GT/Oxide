@@ -1647,11 +1647,15 @@ end
 end
 end)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/camera"))()
-function attackuno()
+local flingtable= {}
+getgenv().attackuno= function(part)
     task.spawn(function()
-flingpos = game.Players.LocalPlayer:GetMouse().Hit
-flingpart = game.Players.LocalPlayer:GetMouse().Target
+        gothum = true
+    if _G.FlingEnabled == true and stopped == false then
+flingpos = game:GetService("Players").LocalPlayer:GetMouse().Hit
+flingpart = part
 _G.flingplr = nil
+if flingpart.Parent ~= workspace.non then
 if flingpart.Parent:FindFirstChildOfClass("Humanoid") then
 _G.flingpart = flingpart
 _G.flingplr = tostring(flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")")
@@ -1661,28 +1665,61 @@ _G.flingplr = tostring(flingpart.Parent:FindFirstChildOfClass("Humanoid").Displa
 		Text = "Locked onto player: "..flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")"
 	})
     if _G.ToolFling == true then
+
         _G.Fling = false
     if faketools[1] ~= nil then 
         faketools[1].Parent = workspace.non 
     end
     task.wait(2.5)
         if faketools[1] ~= nil then 
-        faketools[1].Parent = game.Players.LocalPlayer.Backpack
+        faketools[1].Parent = game:GetService("Players").LocalPlayer.Backpack
     end
-    _G.Fling = false
+    _G.Fling = false 
 else 
     _G.Fling = true
+end
+elseif flingpart:FindFirstChildOfClass("Humanoid") then 
+    if not table.find(flingtable,flingpart) then
+    table.insert(flingtable,flingpart)
+_G.flingpart = flingpart:FindFirstChild("HumanoidRootPart")
+_G.flingplr = tostring(flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")")
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Oxide Reanimation V2.1 - Fling:";
+        Duration = 3;
+		Text = "Locked onto player: "..flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")"
+	})
+
+    if _G.ToolFling == true then
+  for i,v in ipairs(flingtable) do  
+        _G.flingpart = v:FindFirstChild("HumanoidRootPart")
+        _G.Fling = false
+    if faketools[1] ~= nil then 
+        faketools[1].Parent = workspace.non 
+    end
+    task.wait(2.5)
+    _G.Fling = false
+    table.remove(flingtable,table.find(flingtable,v))
+    end
+           if faketools[1] ~= nil then 
+        faketools[1].Parent = game:GetService("Players").LocalPlayer.Backpack
+    end
+else 
+    _G.Fling = true
+    end
 end
 else
 print("not a player")
    _G.Fling = false
 end
+end
+    end
    end)
 end
+
 
 local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
 Mouse.Button1Down:Connect(function()
 	if _G.FlingEnabled == true and stopped == false then
-		attackuno()
+		attackuno(Mouse.Target)
 	end
     end)
