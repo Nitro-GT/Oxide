@@ -1656,7 +1656,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/
 local flingtable= {}
 getgenv().attackuno= function(part)
     task.spawn(function()
-        gothum = true
     if _G.FlingEnabled == true and stopped == false then
 flingpos = game:GetService("Players").LocalPlayer:GetMouse().Hit
 flingpart = part
