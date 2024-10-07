@@ -2,35 +2,39 @@ _G.HideCharacter = true
 _G.FlingEnabled = true
 _G.TransparentRig = true
 _G.ToolFling = false -- FALSE = HOLDING, TRUE = FLING
+
+
 --[[ 
-Oxide V2.1 
+Oxide V3.2
 Anything below should NOT be changed
 ]]
 
-_G.SBV4R = false
-_G.R6Mode = false
-_G.MiztCompat = true
-_G.Fling = false
+
 local str = game:GetService("SharedTableRegistry")
 local flingpos = game.Players.LocalPlayer:GetMouse().Hit
 local flingpart = game.Players.LocalPlayer:GetMouse().Target
 local flingplr = nil
 local sineee=os.clock()
 local sine=os.clock()
- local plr =game:GetService("Players").LocalPlayer
- local lp = plr
- local cf 
+local plr =game:GetService("Players").LocalPlayer
+local lp = plr
+local cf 
 local lastcf = workspace.CurrentCamera.CFrame
 local oldh = workspace.FallenPartsDestroyHeight
 local tools = {}
 local faketools = {}
 local stopped = false
-_G.Stopped = false
+local char
 local respawnloop
+_G.Stopped = false
+_G.SBV4R = false
+_G.R6Mode = false
+_G.MiztCompat = true
+_G.Fling = false
 game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Oxide Reanimation V3a";
+    Title = "Oxide Reanimation V3.2";
     Duration = 20;
-    Text = "This script was made by Nitro"
+    Text = "This script was made by Hemi"
 })
 local function cfAdd(a,b) return a+b end
 local function redo()
@@ -225,7 +229,6 @@ while true do
     if child.Name==childName then return child end
 end
 end
-local char
 if not workspace:FindFirstChild("non") then
  char = game:GetObjects("rbxassetid://5195737219")[1]
 else
@@ -716,10 +719,12 @@ for _, child in pairs(c:GetChildren()) do
 				end
 			end
         end)
+        task.spawn(function()
         wait(game:GetService("Players").RespawnTime - .05)
         task.wait(.05)
         velocity:Disconnect() 
         connect:Disconnect()
+        end)
 end
 local function redo2()
 wait(.001)
@@ -926,7 +931,7 @@ while true do
     if child.Name==childName then return child end
 end
 end
-local char
+
 if not workspace:FindFirstChild("non") then
  char =  workspace.Terrain.non
 else
@@ -937,8 +942,6 @@ if c ~= char then
 else 
     _G.OxideRealChar = workspace[lp.Name]
 end
-game:GetService("Players").LocalPlayer.Character.PrimaryPart = c.Head
-char.HumanoidRootPart.Anchored = false
 
 speaker = game:GetService("Players").LocalPlayer
 	Clip = false
@@ -1016,7 +1019,9 @@ for _, child in pairs(c:GetChildren()) do
 
 	for _, v in pairs(char:GetChildren()) do
 				if v:IsA("Part") then
+                    pcall(function()
 				v.CollisionGroup = c.Head.CollisionGroup
+                end)
 				end
 			end	
 
@@ -1528,15 +1533,16 @@ connect:Disconnect()
 end
 redo()
 	game:GetService("StarterGui"):SetCore("SendNotification", {
-		Title = "Oxide Reanimation V2 - Respawn Time";
+		Title = "Oxide Reanimation V3 - Respawn Time";
         Duration = 20;
-		Text = "Your character will refit (respawn) every "..game:GetService("Players").RespawnTime.." seconds."
+		Text = "Your character will respawn every "..game:GetService("Players").RespawnTime.." seconds."
 	})
 
  local sin=math.sin
  local oldh = workspace.FallenPartsDestroyHeight
 
 respawnloop = plr.CharacterAdded:Connect(function(re)
+if re ~= char then
 if  _G.ToolFling == true then 
     _G.Fling = false 
 end
@@ -1577,20 +1583,20 @@ if _G.Fling == true  and _G.ToolFling == false then
     local flingpart = _G.flingpart
 local sineee=os.clock()
 if flingpart ~= nil then
-      if flingpart.Parent:FindFirstChildOfClass("Humanoid") then
+      if flingpart.Parent:FindFirstChildOfClass("Humanoid") or flingpart:FindFirstChildOfClass("Humanoid") then
           c.Humanoid:ChangeState(16)
 if flingpart.Name ~= "Torso" or flingpart.Name ~= "HumanoidRootPart" or flingpart.Name ~= "Handle" then
     if flingpart.Parent:FindFirstChildOfClass("Humanoid") then
     flingpart = flingpart.Parent.HumanoidRootPart
-    elseif flingpart.Name == "Handle" then
-flingpart = flingpart.Parent.Parent.HumanoidRootPart
-_G.flingplr = tostring(flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")")
+    elseif flingpart:IsA("Model") then
+flingpart = flingpart.HumanoidRootPart
+_G.flingplr = tostring(flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")")
     end
 end
 flingloop = game:GetService("RunService").Heartbeat:Connect(function()
 sineee=os.clock()
 pcall(function()
-if  flingpart.Parent:WaitForChild("Humanoid") then
+if flingpart:IsA("Part") then 
 c.HumanoidRootPart.CFrame = cfAdd(flingpart.CFrame,flingpart.AssemblyLinearVelocity*(sin(sineee*15)+1))
 end
 c.HumanoidRootPart.Velocity = Vector3.new(9e9,-9e7,9e9)
@@ -1603,7 +1609,7 @@ wait(.05)
 n=n+.05
 until  flingpart.AssemblyLinearVelocity.X <= 3500 and n >= .5 or n >= 1
 	game:GetService("StarterGui"):SetCore("SendNotification", {
-		Title = "Oxide Reanimation V2 - Fling:";
+		Title = "Oxide Reanimation V3.2 - Fling:";
         Duration = 5;
 		Text = "Successfully flung: ".._G.flingplr.." in: "..n.." seconds!"
 	})
@@ -1636,12 +1642,12 @@ workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChild("Humanoid")
 task.wait(.0025)
 workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChild("Humanoid")
 redo2()
-task.wait(.6)
+task.wait(game:GetService("Players").RespawnTime/3)
 if lp.Character ~= workspace.non then 
     lp.Character:BreakJoints()
-    lp.Character.Head:Destroy()
-    task.wait(.05)
+    task.wait(.15)
     lp.Character = workspace.non
+end
 end
 end
 end
@@ -1655,12 +1661,12 @@ getgenv().attackuno= function(part)
 flingpos = game:GetService("Players").LocalPlayer:GetMouse().Hit
 flingpart = part
 _G.flingplr = nil
-if flingpart.Parent ~= workspace.non then
+if flingpart.Parent ~= char then
 if flingpart.Parent:FindFirstChildOfClass("Humanoid") then
 _G.flingpart = flingpart
 _G.flingplr = tostring(flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")")
 	game:GetService("StarterGui"):SetCore("SendNotification", {
-		Title = "Oxide Reanimation V2.1 - Fling:";
+		Title = "Oxide Reanimation V3.2 - Fling:";
         Duration = 3;
 		Text = "Locked onto player: "..flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")"
 	})
@@ -1668,7 +1674,7 @@ _G.flingplr = tostring(flingpart.Parent:FindFirstChildOfClass("Humanoid").Displa
 
         _G.Fling = false
     if faketools[1] ~= nil then 
-        faketools[1].Parent = workspace.non 
+        faketools[1].Parent = char
     end
     task.wait(2.5)
         if faketools[1] ~= nil then 
@@ -1684,7 +1690,7 @@ elseif flingpart:FindFirstChildOfClass("Humanoid") then
 _G.flingpart = flingpart:FindFirstChild("HumanoidRootPart")
 _G.flingplr = tostring(flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")")
 	game:GetService("StarterGui"):SetCore("SendNotification", {
-		Title = "Oxide Reanimation V2.1 - Fling:";
+		Title = "Oxide Reanimation V3.2 - Fling:";
         Duration = 3;
 		Text = "Locked onto player: "..flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")"
 	})
@@ -1694,7 +1700,7 @@ _G.flingplr = tostring(flingpart:FindFirstChildOfClass("Humanoid").DisplayName..
         _G.flingpart = v:FindFirstChild("HumanoidRootPart")
         _G.Fling = false
     if faketools[1] ~= nil then 
-        faketools[1].Parent = workspace.non 
+        faketools[1].Parent = char
     end
     task.wait(2.5)
     _G.Fling = false
