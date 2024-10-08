@@ -2,6 +2,7 @@ _G.HideCharacter = true
 _G.FlingEnabled = true
 _G.TransparentRig = true
 _G.ToolFling = false -- FALSE = HOLDING, TRUE = FLING
+_G.AntiFling = true
 --[[ 
 Oxide V3.2
 Anything below should NOT be changed
@@ -1730,8 +1731,22 @@ end
     end
    end)
 end
-
-
+if _G.AntiFling == true then 
+   local speaker = game:GetService("Players").LocalPlayer
+   local Players = game:GetService("Players")
+   local RunService = game:GetService("RunService")
+    antifling = RunService.Stepped:Connect(function()
+        for _, player in pairs(Players:GetPlayers()) do
+            if player ~= speaker and player.Character then
+                for _, v in pairs(player.Character:GetDescendants()) do
+                    if v:IsA("BasePart") then
+                        v.CanCollide = false
+                    end
+                end
+            end
+        end
+    end)
+    end
 local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
 Mouse.Button1Down:Connect(function()
 	if _G.FlingEnabled == true and stopped == false then
