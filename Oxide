@@ -1194,6 +1194,7 @@ for i,v in tools do
             v.Parent = lp.Backpack
             v.Parent = c 
             v.Parent = lp.Backpack
+            if not char:FindFirstChild("FAKE"..v.Name) then 
             local fv = v:Clone()
             task.wait(.001)
             fv.Parent = lp.Backpack 
@@ -1203,6 +1204,7 @@ for i,v in tools do
             pcall(function()
         fv.Handle.Transparency = 1 
             end)
+ end
              v.Handle.CFrame = char.HumanoidRootPart.CFrame *CFrame.new(0,-25,5)
              end)
                     end
