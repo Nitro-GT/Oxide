@@ -1,3 +1,7 @@
+--[[_G.HideCharacter = true
+_G.FlingEnabled = true
+_G.TransparentRig = true
+_G.ToolFling = false -- FALSE = HOLDING, TRUE = FLING]]
 --[[ 
 Oxide V3.2
 Anything below should NOT be changed
@@ -137,6 +141,10 @@ pcall(function()
 					pcall(function()
     Hat.Rename("rbxassetid://18640914168","","LARM")
     Hat.Rename("rbxassetid://18640914168","","RARM")
+		end)
+        					pcall(function()
+    Hat.Rename("rbxassetid://14255544465","","LARM")
+    Hat.Rename("rbxassetid://14255544465","","RARM")
 		end)
     pcall(function()
     Hat.Rename("rbxassetid://13415110780", "Tor")
@@ -815,6 +823,10 @@ pcall(function()
     Hat.Rename("rbxassetid://17374768001","","RARM")
     Hat.Rename("rbxassetid://14251599953", "Tor")
                     end)
+                            					pcall(function()
+    Hat.Rename("rbxassetid://14255544465","","LARM")
+    Hat.Rename("rbxassetid://14255544465","","RARM")
+		end)
 					pcall(function()
     Hat.Rename("rbxassetid://18640914168","","LARM")
     Hat.Rename("rbxassetid://18640914168","","RARM")
