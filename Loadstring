@@ -35,6 +35,7 @@ _G.CH = {
 		Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
 	}
 }]]
+_G.ClickFling = true
 --[[ 
 Oxide V3.2
 Anything below should NOT be changed
@@ -1912,7 +1913,7 @@ if _G.AntiFling == true then
 end
 local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
 Mouse.Button1Down:Connect(function()
-	if _G.FlingEnabled == true and stopped == false then
+	if _G.FlingEnabled == true and stopped == false and _G.ClickFling == true then
 		attackuno(Mouse.Target)
 	end
 end)
