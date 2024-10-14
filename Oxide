@@ -1740,7 +1740,7 @@ if _G.AntiFling == true then
     antifling = RunService.Stepped:Connect(function()
         for _, player in pairs(Players:GetPlayers()) do
             if player ~= speaker and player.Character then
-                for _, v in pairs(player.Character:GetDescendants()) do
+                for _, v in pairs(player.Character:GetChildren()) do
                     if v:IsA("BasePart") then
                         v.CanCollide = false
                     end
