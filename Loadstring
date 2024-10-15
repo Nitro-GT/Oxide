@@ -36,6 +36,7 @@ _G.CH = {
 	}
 }]]
 _G.ClickFling = true
+_G.TeleportCharacter = true
 --[[ 
 Oxide V3.2
 Anything below should NOT be changed
@@ -1803,8 +1804,9 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 			end
 			if plr.Character.Name ~= "non" then
 				if plr.Character.Name ~= "non" then
-					plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 100, workspace.non.HumanoidRootPart.CFrame.Z  ) 
-
+					if _G.TeleportCharacter == true then
+						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 100, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+					end
 					for i,v in pairs(c:GetDescendants()) do
 						if v:IsA("BasePart") then
 							v.AssemblyAngularVelocity = Vector3.new(0,0,0)
