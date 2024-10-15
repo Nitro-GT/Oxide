@@ -1641,7 +1641,7 @@ end
 end
 if plr.Character.Name ~= "non" then
         if plr.Character.Name ~= "non" then
- plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 100, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+ plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 100, workspace.non.HumanoidRootPart.CFrame.Z +2  ) 
 
 for i,v in pairs(c:GetDescendants()) do
     if v:IsA("BasePart") then
