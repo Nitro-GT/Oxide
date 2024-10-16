@@ -79,7 +79,8 @@ local Hat = {
 		if oname == nil then oname = "Hat" end
 		for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
 			if v:IsA("Accessory") then
-				if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh").TextureId == HatID then
+				if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh") then
+				if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh")TextureId == HatID then
 					if oname == "Hat" then
 						v.Name = NAME
 					elseif oname == "LARM" then
