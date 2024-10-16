@@ -1,4 +1,4 @@
---[[_G.HideCharacter = true
+_G.HideCharacter = true
 _G.FlingEnabled = true
 _G.TransparentRig = true
 _G.ToolFling = false -- false = holding, true = fling
@@ -34,7 +34,7 @@ _G.CH = {
 		TextureId = "17387586304", 
 		Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
 	}
-}]]
+}
 _G.ClickFling = true
 _G.TeleportCharacter = true
 --[[ 
@@ -76,11 +76,23 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 local function cfAdd(a,b) return a+b end
 local Hat = {
 	Rename = function(HatID, NAME, oname)
+    pcall(function()
 		if oname == nil then oname = "Hat" end
 		for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
 			if v:IsA("Accessory") then
-				if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh") then
-				if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh")TextureId == HatID then
+				if game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+					if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh").TextureId == HatID then
+						if oname == "Hat" then
+							v.Name = NAME
+						elseif oname == "LARM" then
+							v.Name = "fooblet"
+						elseif oname == "RARM" then
+							v.Name = "gooblet"
+						else
+							v.Name = NAME
+						end
+					end
+				elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 and v.Handle.TextureId == HatID  then
 					if oname == "Hat" then
 						v.Name = NAME
 					elseif oname == "LARM" then
@@ -90,26 +102,55 @@ local Hat = {
 					else
 						v.Name = NAME
 					end
-				end
-			elseif   v.Handle.TextureId == HatID  then
-				if oname == "Hat" then
-					v.Name = NAME
-				elseif oname == "LARM" then
-					v.Name = "fooblet"
-				elseif oname == "RARM" then
-					v.Name = "gooblet"
-				else
-					v.Name = NAME
+				elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+					if v.Handle.TextureID == HatID then
+						if oname == "Hat" then
+							v.Name = NAME
+						elseif oname == "LARM" then
+							v.Name = "fooblet"
+						elseif oname == "RARM" then
+							v.Name = "gooblet"
+						else
+							v.Name = NAME
+						end
+					end
 				end
 			end
 		end
+                    end)
 	end,
 	Rename2 = function(HatID, NAME,rname, oname)
-	if oname == nil then oname = "Hat" end
-	for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
-		if v:IsA("Accessory") then
-			if game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-				if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh").TextureId == HatID then
+    pcall(function()
+		if oname == nil then oname = "Hat" end
+		for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+			if v:IsA("Accessory") then
+				if game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+					if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh").TextureId == HatID then
+						if v.Name == rname then
+							if oname == "Hat" then
+								v.Name = NAME
+							elseif oname == "LARM" then
+								v.Name = "fooblet"
+							elseif oname == "RARM" then
+								v.Name = "gooblet"
+							else
+								v.Name = NAME
+							end
+						end
+					end
+				elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 and v.Handle.TextureId == HatID  then
+					if v.Name == rname then
+						if oname == "Hat" then
+							v.Name = NAME
+						elseif oname == "LARM" then
+							v.Name = "fooblet"
+						elseif oname == "RARM" then
+							v.Name = "gooblet"
+						else
+							v.Name = NAME
+						end
+					end
+				elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 					if v.Name == rname then
 						if oname == "Hat" then
 							v.Name = NAME
@@ -122,34 +163,10 @@ local Hat = {
 						end
 					end
 				end
-			elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 and v.Handle.TextureId == HatID  then
-				if v.Name == rname then
-					if oname == "Hat" then
-						v.Name = NAME
-					elseif oname == "LARM" then
-						v.Name = "fooblet"
-					elseif oname == "RARM" then
-						v.Name = "gooblet"
-					else
-						v.Name = NAME
-					end
-				end
-			elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
-				if v.Name == rname then
-					if oname == "Hat" then
-						v.Name = NAME
-					elseif oname == "LARM" then
-						v.Name = "fooblet"
-					elseif oname == "RARM" then
-						v.Name = "gooblet"
-					else
-						v.Name = NAME
-					end
-				end
 			end
 		end
-	end
-end,}
+                        end)
+	end,}
 local function redo()
 
 
@@ -278,7 +295,9 @@ local function redo()
 	pcall(function()
 		c["Accessory (RARM)"].Name = "RARM"
 	end)
+    pcall(function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/renameclones3"))()
+    end)
 	if _G.EnableNetLib == true then
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/TypicallyAUser/random-stuff/main/4eyesnetlib.lua"))()
 
@@ -425,7 +444,7 @@ local function redo()
 	else
 
 		for _,v in pairs(c:GetChildren()) do
-			if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "fooblet"  and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" and v:WaitForChild("Handle").MeshId ~= "rbxassetid://11263221350"  then
+			if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "Pouch" and v.Name ~= "Scooper"   and v.Name ~= "fooblet"  and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" and v:WaitForChild("Handle").MeshId ~= "rbxassetid://11263221350"  then
 				if not char:FindFirstChild(v.Name) then
 					local a = v:Clone()
 					a.Handle:BreakJoints()
@@ -942,8 +961,9 @@ local function redo2()
 			end 
 		end 
 	end)
-
+pcall(function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/renameclones3"))()
+    end)
 	local flingloop
 	if _G.Fling == true then
 		local BodyVelocity = Instance.new("BodyVelocity", c.HumanoidRootPart)
@@ -1092,7 +1112,7 @@ local function redo2()
 	else
 
 		for _,v in pairs(c:GetChildren()) do
-			if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)"  and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)"and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head"  then
+			if v:IsA("Accessory") and v.Name ~= "Pouch" and v.Name ~= "Scooper"    and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)"  and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)"and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head"  then
 				if not char:FindFirstChild(v.Name) then
 					local a = v:Clone()
 					a.Handle:BreakJoints()
