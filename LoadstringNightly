@@ -1879,16 +1879,17 @@ getgenv().attackuno= function(part)
 						})
 
 						if _G.ToolFling == true then
-							for i,v in ipairs(flingtable) do  
+							v=next(flingtable)
+							if v then
 								_G.flingpart = v:FindFirstChild("HumanoidRootPart")
-                print(_G.flingpart)
+              							print(_G.flingpart)
 								_G.Fling = false
 								if faketools[1] ~= nil then 
 									faketools[1].Parent = char
 								end
 								task.wait(2.5)
 								_G.Fling = false
-								table.remove(flingtable,table.find(flingtable,v))
+								flingtable[table.find(flingtable,v)] = nil
 							end
 							if faketools[1] ~= nil then 
 								faketools[1].Parent = game:GetService("Players").LocalPlayer.Backpack
@@ -1896,7 +1897,7 @@ getgenv().attackuno= function(part)
 						else 
 							_G.Fling = true
 						end
-					end
+end
 				else
 					print("not a player")
 					_G.Fling = false
