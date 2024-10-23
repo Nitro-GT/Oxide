@@ -1,3 +1,4 @@
+
 --[[_G.HideCharacter = true
 _G.FlingEnabled = true
 _G.TransparentRig = true
@@ -38,7 +39,7 @@ _G.CH = {
 _G.ClickFling = true
 _G.TeleportCharacter = true
 --[[ 
-Oxide V3.2
+Oxide V3.4
 Anything below should NOT be changed
 ]]
 
@@ -69,11 +70,12 @@ _G.R6Mode = false
 _G.MiztCompat = true
 _G.Fling = false
 game:GetService("StarterGui"):SetCore("SendNotification", {
-	Title = "Oxide Reanimation V3.2";
+	Title = "Oxide Reanimation V3.4";
 	Duration = 20;
 	Text = "This script was made by Hemi"
 })
 local function cfAdd(a,b) return a+b end
+game:GetService("CoreGui"):WaitForChild("TopBarApp"):WaitForChild("FullScreenFrame"):WaitForChild("HurtOverlay"):Destroy()
 local Hat = {
 	Rename = function(HatID, NAME, oname)
     pcall(function()
@@ -332,7 +334,7 @@ local function redo()
 		end
 	end
 	if not workspace:FindFirstChild("non") then
-		char = game:GetObjects("rbxassetid://5195737219")[1]
+		char = game:GetObjects("rbxassetid://116691899670552")[1]
 	else
 		char = workspace.non
 	end
@@ -1792,7 +1794,7 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 								n=n+.05
 							until  flingpart.AssemblyLinearVelocity.X <= 3500 and n >= .5 or n >= 1
 							game:GetService("StarterGui"):SetCore("SendNotification", {
-								Title = "Oxide Reanimation V3.2 - Fling:";
+								Title = "Oxide Reanimation V3.4 - Fling:";
 								Duration = 5;
 								Text = "Successfully flung: ".._G.flingplr.." in: "..n.." seconds!"
 							})
@@ -1849,7 +1851,7 @@ getgenv().attackuno= function(part)
 					_G.flingpart = flingpart
 					_G.flingplr = tostring(flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")")
 					game:GetService("StarterGui"):SetCore("SendNotification", {
-						Title = "Oxide Reanimation V3.2 - Fling:";
+						Title = "Oxide Reanimation V3.4 - Fling:";
 						Duration = 3;
 						Text = "Locked onto player: "..flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")"
 					})
@@ -1873,14 +1875,15 @@ getgenv().attackuno= function(part)
 						_G.flingpart = flingpart:FindFirstChild("HumanoidRootPart")
 						_G.flingplr = tostring(flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")")
 						game:GetService("StarterGui"):SetCore("SendNotification", {
-							Title = "Oxide Reanimation V3.2 - Fling:";
+							Title = "Oxide Reanimation V3.4 - Fling:";
 							Duration = 3;
 							Text = "Locked onto player: "..flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")"
 						})
 
 						if _G.ToolFling == true then
-							v=next(flingtable)
-							if v then
+							q=next(flingtable)
+							if q then
+								for i,v in next,table.clone(flingtable) do
 								_G.flingpart = v:FindFirstChild("HumanoidRootPart")
               							print(_G.flingpart)
 								_G.Fling = false
@@ -1889,7 +1892,7 @@ getgenv().attackuno= function(part)
 								end
 								task.wait(2.5)
 								_G.Fling = false
-								flingtable[table.find(flingtable,v)] = nil
+								flingtable[i] = nil
 							end
 							if faketools[1] ~= nil then 
 								faketools[1].Parent = game:GetService("Players").LocalPlayer.Backpack
@@ -1897,6 +1900,7 @@ getgenv().attackuno= function(part)
 						else 
 							_G.Fling = true
 						end
+end
 end
 				else
 					print("not a player")
