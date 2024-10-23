@@ -785,10 +785,13 @@ local function redo()
 		pcall(function()
 			c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))   +antisleep
 		end)
+		pcall(function()
+	c["Accessory (EvilVoidHeadBackpack)].Handle.CFrame = char["Head"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))   +antisleep
+end)
 
 		pcall(function()
 			for _,v in pairs(c:GetChildren()) do
-				if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"   and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+				if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (EvilVoidHeadBackpack)"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
 					v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
 					v.Handle.CanTouch = false
 				end
@@ -1577,14 +1580,17 @@ pcall(function()
 				c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * _G.CH.LeftLeg.Orientation  +antisleep
 			end)
 			pcall(function()
-				for _,v in pairs(c:GetChildren()) do
-					if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"  and v.Name ~= "BlueRobotArm" and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
-						v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
-						v.Handle.CanTouch = false
-					end
-				end
-			end)
+	c["Accessory (EvilVoidHeadBackpack)].Handle.CFrame = char["Head"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))   +antisleep
+end)
 
+		pcall(function()
+			for _,v in pairs(c:GetChildren()) do
+				if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (EvilVoidHeadBackpack)"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+					v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
+					v.Handle.CanTouch = false
+				end
+			end
+		end)     
 			pcall(function()
 				for _,v in pairs(char:GetChildren()) do
 					if v:IsA("Accessory") and v.Name ~= "gooblet" and not string.find(v.Name, "gooblet") and v.Name ~= "fooblet" and v.Name ~= "Black"  and v.Name ~= "Tor"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
