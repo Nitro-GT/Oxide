@@ -654,4 +654,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/Oxide/refs/h
 task.wait(.1) -- we give it time to load properly
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/refs/heads/main/neptunian"))()
 _G.ClickFling = false
+_G.ClickFling = false
+_G.ClickFling = false
+_G.ClickFling = false
+wait(1)
+_G.ClickFling = false
 end)
