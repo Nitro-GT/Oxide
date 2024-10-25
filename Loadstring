@@ -1308,6 +1308,7 @@ pcall(function()
 				if v:IsA("Accessory") or v:IsA("Tool") then
 					pcall(function()
 						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15, 26.794, char.Torso.AssemblyLinearVelocity.Z*15) 
+						v.Handle.CanCollide = false
 					end)
 				end
 			end
