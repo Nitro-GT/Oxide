@@ -332,7 +332,7 @@ filler.ZIndex = 0
 filler.Font = Enum.Font.Ubuntu
 filler.Text = "Neptunian V"
 filler.TextColor3 = Color3.fromRGB(49, 203, 23347)
-filler.TextSize = 13.000
+filler.TextSize = 20.000
 
 Frame_5.Parent = filler
 Frame_5.BackgroundColor3 = Color3.fromRGB(49, 203, 233)
