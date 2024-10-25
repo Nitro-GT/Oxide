@@ -653,4 +653,5 @@ filler.MouseButton1Click:Connect(function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/Oxide/refs/heads/main/Loadstring"))()
 task.wait(.1) -- we give it time to load properly
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/refs/heads/main/neptunian"))()
+_G.ClickFling = false
 end)
