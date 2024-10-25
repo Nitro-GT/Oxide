@@ -1930,6 +1930,7 @@ end
 			end
 		end
 	end)
+print(_G.Fling)
 end
 if _G.AntiFling == true then 
 	local speaker = game:GetService("Players").LocalPlayer
