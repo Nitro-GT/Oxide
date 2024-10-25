@@ -1900,7 +1900,7 @@ getgenv().attackuno= function(part)
 							Duration = 3;
 							Text = "Locked onto player: "..flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")"
 						})
-
+_G.Fling = true
 						if _G.ToolFling == true then
 							q=next(flingtable)
 							if q then
@@ -1918,10 +1918,10 @@ getgenv().attackuno= function(part)
 							if faketools[1] ~= nil then 
 								faketools[1].Parent = game:GetService("Players").LocalPlayer.Backpack
 							end
+end
 						else 
 							_G.Fling = true
 						end
-end
 end
 				else
 					print("not a player")
