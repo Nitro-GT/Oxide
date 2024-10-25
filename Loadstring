@@ -82,7 +82,9 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 })
 local function cfAdd(a,b) return a+b end
 pcall(function()
+task.spawn(function()
 game:GetService("CoreGui"):WaitForChild("TopBarApp"):WaitForChild("FullScreenFrame"):WaitForChild("HurtOverlay"):Destroy()
+end)
 end)
 local Hat = {
 	Rename = function(HatID, NAME, oname)
