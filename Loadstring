@@ -49,6 +49,12 @@ Anything below should NOT be changed
 
 
 local str = game:GetService("SharedTableRegistry")
+local gentgenv
+if not getgenv then 
+	getgenv = function()
+		return _G
+	end
+end
 local flingpos = game.Players.LocalPlayer:GetMouse().Hit
 local flingpart = game.Players.LocalPlayer:GetMouse().Target
 local flingplr = nil
