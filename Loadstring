@@ -1716,7 +1716,7 @@ pcall(function()
 		end
 		for _, child in pairs(char:GetChildren()) do
 			local v = child
-			if child:IsA("Accessory")then
+			if child:IsA("Accessory") and v.Name ~= "Black" then
 				if _G.TransparentRig == true then
 					child.Handle.Transparency = .5
 				else 
