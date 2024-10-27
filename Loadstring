@@ -1274,7 +1274,7 @@ pcall(function()
 			v.Parent = lp.Backpack
 			v.Parent = c 
 			v.Parent = lp.Backpack
-			if not char:FindFirstChild("FAKE"..v.Name) then 
+			if not char:FindFirstChild("FAKE"..v.Name) and not lp.Backpack:FindFirstChild("FAKE"..v.Name) then
 				local fv = v:Clone()
 				task.wait(.001)
 				fv.Parent = lp.Backpack 
@@ -1284,8 +1284,9 @@ pcall(function()
 				pcall(function()
 					fv.Handle.Transparency = 1 
 				end)
-			end
+			
 			v.Handle.CFrame = char.HumanoidRootPart.CFrame *CFrame.new(0,-25,5)
+end
 		end)
 	end
 
