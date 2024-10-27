@@ -1755,7 +1755,6 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 		for i,v in pairs(lp.Backpack:GetDescendants()) do 
 			if v:IsA("Sound") and v:FindFirstAncestorOfClass("Tool") then 
 				v.Volume = 0 
-				v.SoundId = "rbxassetid://0"
 			end 
 		end
 		repeat wait() until plr.Character:FindFirstChild("Head")
