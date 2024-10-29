@@ -1050,6 +1050,9 @@ pcall(function()
 pcall(function()
 		char["Accessory (rightleg)-1"]:Destroy()
 	end)
+pcall(function()
+		c["Accessory (rightleg)-1"].Name = "fooblet"
+	end)
 
 	for i,v in pairs(c:GetChildren()) do
 		if v:IsA("Accessory") and v.Name == "Pants" then
