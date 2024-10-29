@@ -264,7 +264,7 @@ Nameless.ZIndex = 3
 Nameless.Font = Enum.Font.Ubuntu
 Nameless.Text = ":joy:"
 Nameless.TextColor3 = Color3.fromRGB(49, 203, 23347)
-Nameless.TextSize = 18.000
+Nameless.TextSize = 20.000
 
 UICorner_8.Parent = Nameless
 
