@@ -953,6 +953,7 @@ local function redo2()
 	pcall(function()
 		c.fooblet.Name = "gooblet"
 	end)
+
 	pcall(function()
 		if not c:FindFirstChild("Tor") then 
 			c.ExtraNoobTorso.Name = "Tor"
@@ -1046,7 +1047,9 @@ pcall(function()
 
 	end
 
-
+pcall(function()
+		char["Accessory (rightleg)-1"]:Destroy()
+	end)
 
 	for i,v in pairs(c:GetChildren()) do
 		if v:IsA("Accessory") and v.Name == "Pants" then
