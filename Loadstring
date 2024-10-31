@@ -1079,12 +1079,6 @@ pcall(function()
 	local hipHeight = humanoid and humanoid.HipHeight > 0 and (humanoid.HipHeight + 1)
 	local rootPart = getRoot(character)
 	local rootPartPosition = rootPart.Position
-	if _G.HideCharacter == false then
-		rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X +5 ,char.HumanoidRootPart.CFrame.Y,char.HumanoidRootPart.CFrame.Z +5) 
-	else
-		rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X   , workspace.FallenPartsDestroyHeight + 100,char.HumanoidRootPart.CFrame.Z  ) 
-	end
-
 	for i,v in pairs(c:GetDescendants()) do
 		if v:IsA("BasePart") then
 			v.AssemblyAngularVelocity = Vector3.new(0,0,0)
@@ -1841,7 +1835,7 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 			if plr.Character.Name ~= "non" then
 				if plr.Character.Name ~= "non" then
 					if _G.TeleportCharacter == true then
-						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 100, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 150, workspace.non.HumanoidRootPart.CFrame.Z  ) 
 					end
 					for i,v in pairs(c:GetDescendants()) do
 						if v:IsA("BasePart") then
