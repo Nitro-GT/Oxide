@@ -1835,7 +1835,7 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 			if plr.Character.Name ~= "non" then
 				if plr.Character.Name ~= "non" then
 					if _G.TeleportCharacter == true then
-						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 150, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 200, workspace.non.HumanoidRootPart.CFrame.Z  ) 
 					end
 					for i,v in pairs(c:GetDescendants()) do
 						if v:IsA("BasePart") then
