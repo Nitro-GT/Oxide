@@ -4,7 +4,7 @@ task.spawn(function()
 end)
 -- CLOVR - FE FULL-BODY VR SCRIPT
 task.wait(1)
--- JULY 24TH UPDATE (BY NITRO) -- FIXED SCRIPT!
+-- JAN 12TH UPDATE (HEMI) -- FIXED SCRIPT, ADDED TOOL HOLDING, FIXED OTHER STUFF, PERMADEATH SOON!
 
 -- | made by 0866 and Abacaxl
 -- | tysm unverified
