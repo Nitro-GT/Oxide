@@ -1,5 +1,4 @@
 _G.Tools = true
-_G.LegacyFootPlant = false
 task.spawn(function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/Oxide/main/vroxide"))()
 end)
