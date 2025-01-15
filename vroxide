@@ -34,27 +34,14 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 	Duration = 20;
 	Text = "This script was made by Nitro"
 })
-
-local function redo()
-	wait(.1)
-	local Hat = {
-		Rename = function(HatID, NAME, oname)
-			if oname == nil then oname = "Hat" end
-			for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
-				if v:IsA("Accessory") then
-					if game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-						if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh").TextureId == HatID then
-							if oname == "Hat" then
-								v.Name = NAME
-							elseif oname == "LARM" then
-								v.Name = "fooblet"
-							elseif oname == "RARM" then
-								v.Name = "gooblet"
-							else
-								v.Name = NAME
-							end
-						end
-					elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 and v.Handle.TextureId == HatID  then
+local Hat = {
+	Rename = function(HatID, NAME, oname)
+    pcall(function()
+		if oname == nil then oname = "Hat" end
+		for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+			if v:IsA("Accessory") then
+				if game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+					if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh").TextureId == HatID then
 						if oname == "Hat" then
 							v.Name = NAME
 						elseif oname == "LARM" then
@@ -64,8 +51,42 @@ local function redo()
 						else
 							v.Name = NAME
 						end
-					elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
-						if v.Handle.TextureID == HatID then
+					end
+				elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 and v.Handle.TextureId == HatID  then
+					if oname == "Hat" then
+						v.Name = NAME
+					elseif oname == "LARM" then
+						v.Name = "fooblet"
+					elseif oname == "RARM" then
+						v.Name = "gooblet"
+					else
+						v.Name = NAME
+					end
+				elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+					if v.Handle.TextureID == HatID then
+						if oname == "Hat" then
+							v.Name = NAME
+						elseif oname == "LARM" then
+							v.Name = "fooblet"
+						elseif oname == "RARM" then
+							v.Name = "gooblet"
+						else
+							v.Name = NAME
+						end
+					end
+				end
+			end
+		end
+                    end)
+	end,
+	Rename2 = function(HatID, NAME,rname, oname)
+    pcall(function()
+		if oname == nil then oname = "Hat" end
+		for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+			if v:IsA("Accessory") then
+				if game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+					if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh").TextureId == HatID then
+						if v.Name == rname then
 							if oname == "Hat" then
 								v.Name = NAME
 							elseif oname == "LARM" then
@@ -77,9 +98,38 @@ local function redo()
 							end
 						end
 					end
+				elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 and v.Handle.TextureId == HatID  then
+					if v.Name == rname then
+						if oname == "Hat" then
+							v.Name = NAME
+						elseif oname == "LARM" then
+							v.Name = "fooblet"
+						elseif oname == "RARM" then
+							v.Name = "gooblet"
+						else
+							v.Name = NAME
+						end
+					end
+				elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+					if v.Name == rname then
+						if oname == "Hat" then
+							v.Name = NAME
+						elseif oname == "LARM" then
+							v.Name = "fooblet"
+						elseif oname == "RARM" then
+							v.Name = "gooblet"
+						else
+							v.Name = NAME
+						end
+					end
 				end
 			end
-		end}
+		end
+                        end)
+	end,}
+local function redo()
+	wait(.1)
+	
 
 
 	local gay = true -- dont edit >:(
@@ -173,32 +223,49 @@ local function redo()
 		nlia = true 
 	end 
 	print(nria,nlia)
-
-	pcall(function()
-		Hat.Rename("rbxassetid://17374768001","","LARM")
-		Hat.Rename("rbxassetid://17374768001","","RARM")
-		Hat.Rename("rbxassetid://14251599953", "Tor")
-	end)
-	pcall(function()
-		Hat.Rename("rbxassetid://18640914168","","LARM")
-		Hat.Rename("rbxassetid://18640914168","","RARM")
-	end)
-	pcall(function()
-		Hat.Rename("rbxassetid://13415110780", "Tor")
-	end)
-	pcall(function()
-		Hat.Rename("rbxassetid://18640899481", "Tor")
-	end)
-	pcall(function()
-		Hat.Rename("rbxassetid://14255543546","","LARM")
-		Hat.Rename("rbxassetid://14255543546","","RARM")
-	end)
-	pcall(function()
-		Hat.Rename("rbxassetid://14768664565", "Tor")
-		Hat.Rename("rbxassetid://14768683674","","LARM")
-		Hat.Rename("rbxassetid://14768683674","","RARM")
-	end)
-
+	if _G.CustomHats == false then
+		pcall(function()
+			Hat.Rename("rbxassetid://17374768001","","LARM")
+			Hat.Rename("rbxassetid://17374768001","","RARM")
+			Hat.Rename("rbxassetid://14251599953", "Tor")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://18640914168","","LARM")
+			Hat.Rename("rbxassetid://18640914168","","RARM")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://14255544465","","LARM")
+			Hat.Rename("rbxassetid://14255544465","","RARM")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://13415110780", "Tor")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://18640899481", "Tor")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://14255543546","","LARM")
+			Hat.Rename("rbxassetid://14255543546","","RARM")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://14768664565", "Tor")
+			Hat.Rename("rbxassetid://14768683674","","LARM")
+			Hat.Rename("rbxassetid://14768683674","","RARM")
+		end)
+	else
+		pcall(function()
+			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
+			Hat.Rename2("rbxassetid://".._G.CH.LeftArm.TextureId,"",_G.CH.LeftArm.Name,"LARM")
+			Hat.Rename2("rbxassetid://".._G.CH.RightArm.TextureId,"",_G.CH.RightArm.Name,"RARM")
+			Hat.Rename2("rbxassetid://".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
+			Hat.Rename2("rbxassetid://".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftArm.TextureId,"",_G.CH.LeftArm.Name,"LARM")
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightArm.TextureId,"",_G.CH.RightArm.Name,"RARM")
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
+		end)
+	end
 	pcall(function()
 		c.gooblet.Name = "fooblet"
 	end)
@@ -633,6 +700,7 @@ local function redo()
 	local sin = math.sin
 	local connect
 	local antisleepMultiplier=Vector3.new(-.0025,-.005,-.0025)
+	if _G.CustomHats == false then
 	connect = game:GetService("RunService").Heartbeat:Connect(function(set)
 		sine=os.clock
 		local antisleep=sin(sine()*100)*antisleepMultiplier
@@ -669,6 +737,46 @@ local function redo()
 		oldcf = workspace.CurrentCamera.CFrame
 		settings().Physics.AllowSleep = false
 	end)
+else 
+	connect = game:GetService("RunService").Heartbeat:Connect(function(set)
+		sine=os.clock
+		local antisleep=sin(sine()*100)*antisleepMultiplier
+		pcall(function()
+			c["Tor"].Handle.CFrame = char["Torso"].CFrame * _G.CH.Torso.Orientation  +antisleep
+		end)
+		pcall(function()
+			c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * _G.CH.LeftArm.Orientation  +antisleep
+		end)
+		pcall(function()
+			c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * _G.CH.RightArm.Orientation  +antisleep
+		end)
+		pcall(function()
+			c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  *_G.CH.RightLeg.Orientation   +antisleep
+		end)
+		pcall(function()
+			c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * _G.CH.LeftLeg.Orientation   +antisleep
+		end)
+
+		pcall(function()
+			for _,v in pairs(c:GetChildren()) do
+				if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"   and v.Name ~= "Tor" and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+					v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
+					v.Handle.CanTouch = false
+				end
+			end
+		end)       
+		for _,v in pairs(c:GetChildren()) do
+			if v:IsA("Accessory")   then
+				v.Handle.CanCollide = false
+			end
+		end
+
+		oldcf = workspace.CurrentCamera.CFrame
+		settings().Physics.AllowSleep = false
+	end)
+end
+
+
 
 
 
@@ -708,54 +816,7 @@ local function redo()
 end
 local function redo2()
 	wait(.001)
-	local Hat = {
-		Rename = function(HatID, NAME, oname)
-			if oname == nil then oname = "Hat" end
-			for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
-				if v:IsA("Accessory") then
-					if game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-						if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh").TextureId == HatID then
-							if oname == "Hat" then
-								v.Name = NAME
-							elseif oname == "LARM" then
-								v.Name = "fooblet"
-							elseif oname == "RARM" then
-								v.Name = "gooblet"
-							else
-								v.Name = NAME
-							end
-						end
-					elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
-						if not v:WaitForChild("Handle"):FindFirstChildOfClass("SpecialMesh") then
-							if v:WaitForChild("Handle").TextureID == HatID then
-								print("wtf")
-								if oname == "Hat" then
-									v.Name = NAME
-								elseif oname == "LARM" then
-									v.Name = "fooblet"
-								elseif oname == "RARM" then
-									v.Name = "gooblet"
-								else
-									v.Name = NAME
-								end
-							end
-						else
-							if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh").TextureId == HatID then
-								if oname == "Hat" then
-									v.Name = NAME
-								elseif oname == "LARM" then
-									v.Name = "fooblet"
-								elseif oname == "RARM" then
-									v.Name = "gooblet"
-								else
-									v.Name = NAME
-								end
-							end
-						end
-					end
-				end
-			end
-		end}
+
 
 
 	local gay = true -- dont edit >:(
@@ -795,31 +856,49 @@ local function redo2()
 	_G.OxideRealChar = c
 	local nria = false 
 	local nlia = false 
-	pcall(function()
-		Hat.Rename("rbxassetid://17374768001","","LARM")
-		Hat.Rename("rbxassetid://17374768001","","RARM")
-		Hat.Rename("rbxassetid://14251599953", "Tor")
-	end)
-	pcall(function()
-		Hat.Rename("rbxassetid://18640914168","","LARM")
-		Hat.Rename("rbxassetid://18640914168","","RARM")
-	end)
-	pcall(function()
-		Hat.Rename("rbxassetid://13415110780", "Tor")
-	end)
-	pcall(function()
-		Hat.Rename("rbxassetid://18640899481", "Tor")
-	end)
-	pcall(function()
-		Hat.Rename("rbxassetid://14255543546","","LARM")
-		Hat.Rename("rbxassetid://14255543546","","RARM")
-	end)
-	pcall(function()
-		Hat.Rename("rbxassetid://14768664565", "Tor")
-		Hat.Rename("rbxassetid://14768683674","","LARM")
-		Hat.Rename("rbxassetid://14768683674","","RARM")
-	end)
-
+	if _G.CustomHats == false then
+		pcall(function()
+			Hat.Rename("rbxassetid://17374768001","","LARM")
+			Hat.Rename("rbxassetid://17374768001","","RARM")
+			Hat.Rename("rbxassetid://14251599953", "Tor")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://18640914168","","LARM")
+			Hat.Rename("rbxassetid://18640914168","","RARM")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://14255544465","","LARM")
+			Hat.Rename("rbxassetid://14255544465","","RARM")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://13415110780", "Tor")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://18640899481", "Tor")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://14255543546","","LARM")
+			Hat.Rename("rbxassetid://14255543546","","RARM")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://14768664565", "Tor")
+			Hat.Rename("rbxassetid://14768683674","","LARM")
+			Hat.Rename("rbxassetid://14768683674","","RARM")
+		end)
+	else
+		pcall(function()
+			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
+			Hat.Rename2("rbxassetid://".._G.CH.LeftArm.TextureId,"",_G.CH.LeftArm.Name,"LARM")
+			Hat.Rename2("rbxassetid://".._G.CH.RightArm.TextureId,"",_G.CH.RightArm.Name,"RARM")
+			Hat.Rename2("rbxassetid://".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
+			Hat.Rename2("rbxassetid://".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftArm.TextureId,"",_G.CH.LeftArm.Name,"LARM")
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightArm.TextureId,"",_G.CH.RightArm.Name,"RARM")
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
+		end)
+	end
 	pcall(function()
 		c.gooblet.Name = "fooblet"
 	end)
@@ -1316,6 +1395,7 @@ end
 	local sin = math.sin
 	local plrs = game:GetService("Players")
 	local antisleepMultiplier=Vector3.new(.0025,.005,.0025)
+	if _G.CustomHats == false then
 	connect = game:GetService("RunService").Heartbeat:Connect(function(set)
 		sine=os.clock
 		local antisleep=sin(sine()*100)*antisleepMultiplier
@@ -1421,8 +1501,104 @@ end
 		end
 		settings().Physics.AllowSleep = false
 	end)
+else 
+	connect = game:GetService("RunService").Heartbeat:Connect(function(set)
+		sine=os.clock
+		local antisleep=sin(sine()*100)*antisleepMultiplier
+		plrs.LocalPlayer.SimulationRadius = #plrs:GetChildren()*1000
 
+		pcall(function()
+			c["Tor"].Handle.CFrame = char["Torso"].CFrame  * _G.CH.Torso.Orientation + antisleep
+			c["Tor"].Handle.Transparency = .25
+		end)
+		pcall(function()
+			c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * _G.CH.LeftArm.Orientation  +antisleep
+			c["gooblet"].Handle.Transparency = .25
+		end)
+		pcall(function()
+			c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * _G.CH.RightArm.Orientation +antisleep
+			c["fooblet"].Handle.Transparency = .25
+		end)
+		pcall(function()
+			c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * _G.CH.RightLeg.Orientation  +antisleep
+			c["Accessory (rightleg)"].Handle.Transparency = .25
+		end)
+		pcall(function()
+			c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * _G.CH.LeftLeg.Orientation  + antisleep
+			c["Accessory (LLeg)"].Handle.Transparency = .25
+		end)
 
+		pcall(function()
+			for _,v in pairs(c:GetChildren()) do
+				if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"   and v.Name ~= "Tor" and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+					v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
+					v.Handle.CanTouch = false
+					v.Handle.Transparency = .9
+				end
+			end
+		end)
+
+		pcall(function()
+			for _,v in pairs(char:GetChildren()) do
+				if v:IsA("Accessory") and v.Name ~= "gooblet" and not string.find(v.Name, "gooblet") and v.Name ~= "fooblet"   and v.Name ~= "Tor" and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+					if not c:FindFirstChild(v.Name) then 
+						v.Handle.Transparency = 0.5
+					end
+				end
+			end
+			if not c:FindFirstChild("gooblet") then 
+				char["Left Arm"].Transparency = 0.5
+			end 
+			if not c:FindFirstChild("fooblet") then 
+				char["Right Arm"].Transparency = 0.5
+			end 
+			if not c:FindFirstChild("Accessory (rightleg)") then 
+				char["Right Leg"].Transparency = 0.5
+			end 
+			if not c:FindFirstChild("Accessory (LLeg)") then 
+				char["Left Leg"].Transparency = 0.5
+			end 
+			if not c:FindFirstChild("Tor") then 
+				char["Torso"].Transparency = 0.5
+			end 
+		end)
+		pcall(function()
+				for _,v in pairs(c:GetChildren()) do
+					if v:IsA("Accessory")   then
+						v.Handle.CanCollide = false
+						v.Handle.CanTouch = false
+						--v.Handle.Material = Enum.Material.Glass
+						v.Handle.Reflectance = -1
+					end
+				end
+		end)
+
+		for i,z in pairs(c:GetChildren()) do
+			if z:IsA("Tool")  then
+				for i,v in pairs(z:GetDescendants()) do 
+					if v:IsA("BasePart") then
+						pcall(function()
+					if not char:FindFirstChild("FAKE"..z.Name) then
+						v.CFrame = char.HumanoidRootPart.CFrame *CFrame.new(0,-50,0)
+					else 
+						if v.Name == "Handle" then 
+							v.CFrame = char:FindFirstChild("FAKE"..z.Name).Handle.CFrame
+						else
+							if v.Parent == z then
+						v.CFrame = char:FindFirstChild("FAKE"..z.Name)[v.Name].CFrame + antisleep  
+							else 
+								v.CFrame = char:FindFirstChild("FAKE"..z.Name)[v.Parent.Name][v.Name].CFrame + antisleep  	
+							end
+						end
+					end
+				end)
+			end
+			end
+			end
+		end
+		settings().Physics.AllowSleep = false
+	end)
+end
 
 
 
