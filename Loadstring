@@ -1433,7 +1433,7 @@ pcall(function()
 					flingpart = nil
 				end
 			end)
-			local antisleep=sin(sine()*100)*antisleepMultiplier
+			local antisleep=sin(sine()*50)*antisleepMultiplier
 			plrs.LocalPlayer.SimulationRadius = #plrs:GetChildren()*1000
 			pcall(function()
 				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
@@ -1563,7 +1563,7 @@ pcall(function()
 					flingpart = nil
 				end
 			end)
-			local antisleep=sin(sine()*100)*antisleepMultiplier
+			local antisleep=sin(sine()*50)*antisleepMultiplier
 			plrs.LocalPlayer.SimulationRadius = #plrs:GetChildren()*1000
 			pcall(function()
 				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
