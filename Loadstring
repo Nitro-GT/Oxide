@@ -1,45 +1,45 @@
-
 --[[_G.HideCharacter = true
-_G.FlingEnabled = true
+_G.FlingEnabled = false
 _G.TransparentRig = true
 _G.ToolFling = false -- false = holding, true = fling
-_G.AntiFling = false
+_G.AntiFling = true
+_G.HatCollide = false
 _G.CustomHats = false -- Enable or disable custom rig feature (basically old oxide when false)
 _G.CH = {
-	Torso = {
-		Name= "Black",
-		TextureId = "14251599953",
-		Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
-	},
+    Torso = {
+        Name= "Accessory (Guest Torso)",
+        TextureId = "87928159560963",
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
+    },
 
-	LeftArm = {
-		Name= "Accessory (LARM)",
-		TextureId = "17374768001", 
-		Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
-	},
+    LeftArm = {
+        Name= "Accessory (Guest Left Arm)",
+        TextureId = "72193962238808", 
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
+    },
 
-	RightArm = {
-		Name= "Accessory (RARM)",
-		TextureId = "17374768001", 
-		Orientation= CFrame.Angles(math.rad(0),math.rad(45),math.rad(90))
-	},
+    RightArm = {
+        Name= "Accessory (Guest Right Arm)",
+        TextureId = "86835481875891", 
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
+    },
 
-	LeftLeg = {
-		Name= "Accessory (LLeg)",
-		TextureId = "17387586304", 
-		Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
-	},
+    LeftLeg = {
+        Name= "Accessory (LARM)",
+        TextureId = "17374768001", 
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
+    },
 
-	RightLeg = {
-		Name= "Accessory (rightleg)",
-		TextureId = "17387586304", 
-		Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
-	}
+    RightLeg = {
+        Name= "Accessory (RARM)",
+        TextureId = "17374768001", 
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
+    }
 }]]
 _G.ClickFling = true
 _G.TeleportCharacter = true
 --[[ 
-Oxide V3.4
+Oxide V3.5
 Anything below should NOT be changed
 ]]
 
@@ -69,6 +69,7 @@ local tools = {}
 local faketools = {}
 local stopped = false
 local char
+local moveloop
 local respawnloop
 _G.Stopped = false
 _G.SBV4R = false
@@ -76,7 +77,7 @@ _G.R6Mode = false
 _G.MiztCompat = true
 _G.Fling = false
 game:GetService("StarterGui"):SetCore("SendNotification", {
-	Title = "Oxide Reanimation V3.4";
+	Title = "Oxide Reanimation V3.5";
 	Duration = 20;
 	Text = "This script was made by Hemi"
 })
@@ -953,7 +954,6 @@ local function redo2()
 	pcall(function()
 		c.fooblet.Name = "gooblet"
 	end)
-
 	pcall(function()
 		if not c:FindFirstChild("Tor") then 
 			c.ExtraNoobTorso.Name = "Tor"
@@ -1047,12 +1047,7 @@ pcall(function()
 
 	end
 
-pcall(function()
-		char["Accessory (rightleg)-1"]:Destroy()
-	end)
-pcall(function()
-		c["Accessory (rightleg)-1"].Name = "fooblet"
-	end)
+
 
 	for i,v in pairs(c:GetChildren()) do
 		if v:IsA("Accessory") and v.Name == "Pants" then
@@ -1078,7 +1073,8 @@ pcall(function()
 
 	local hipHeight = humanoid and humanoid.HipHeight > 0 and (humanoid.HipHeight + 1)
 	local rootPart = getRoot(character)
-	local rootPartPosition = rootPart.Position
+
+
 	for i,v in pairs(c:GetDescendants()) do
 		if v:IsA("BasePart") then
 			v.AssemblyAngularVelocity = Vector3.new(0,0,0)
@@ -1274,7 +1270,7 @@ pcall(function()
 			v.Parent = lp.Backpack
 			v.Parent = c 
 			v.Parent = lp.Backpack
-			if not char:FindFirstChild("FAKE"..v.Name) and not lp.Backpack:FindFirstChild("FAKE"..v.Name) then
+			if not char:FindFirstChild("FAKE"..v.Name) then 
 				local fv = v:Clone()
 				task.wait(.001)
 				fv.Parent = lp.Backpack 
@@ -1284,9 +1280,8 @@ pcall(function()
 				pcall(function()
 					fv.Handle.Transparency = 1 
 				end)
-			
+			end
 			v.Handle.CFrame = char.HumanoidRootPart.CFrame *CFrame.new(0,-25,5)
-end
 		end)
 	end
 
@@ -1306,7 +1301,11 @@ end
 	task.spawn(function()	
 		task.wait(.02)
 		game:GetService("Players").LocalPlayer.Character=char
+        pcall(function()
+           moveloop:Disconnect()
+           end)
 	end)
+    
 
 	prt:Destroy()
 
@@ -1316,11 +1315,11 @@ end
 	AntiSleepRotate = Vector3.new(0, sin(clock()*10), 0)
 	local velocity 
 	if _G.ToolFling == false then
-		velocity = game:GetService("RunService").Heartbeat:Connect(function()
+		velocity = game:GetService("RunService").PostSimulation:Connect(function()
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory") or v:IsA("Tool") then
 					pcall(function()
-						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15, 26.794, char.Torso.AssemblyLinearVelocity.Z*15) 
+						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 , 28.794, char.Torso.AssemblyLinearVelocity.Z*15 ) 
 						v.Handle.CanCollide = false
 					end)
 				end
@@ -1330,7 +1329,7 @@ end
 		velocity = game:GetService("RunService").Heartbeat:Connect(function()
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory")  then
-					v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15,26.794, char.Torso.AssemblyLinearVelocity.Z*15) 
+					v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15,28.794, char.Torso.AssemblyLinearVelocity.Z*15) 
 				elseif v:IsA("Tool") then 
 					pcall(function()
 						v.Handle.AssemblyLinearVelocity = Vector3.new(9e9 -9e7, 9e9) 
@@ -1410,28 +1409,15 @@ end
 		end
 	end)  
 
-	if _G.SBV4R == true then
-		local v = c:WaitForChild("fooblet")
-		if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-			v.Handle.SpecialMesh.TextureId = ""
-		else
-			v.Handle.TextureID = ""
-		end
-		v.Handle.Material = 1584
-		v.Handle.Transparency = 1
-		char["Right Arm"].Transparency = 0
-		char["Right Arm"].Material = 1584
 
-
-	end
 
 
 	local connect
 	local sin = math.sin
 	local plrs = game:GetService("Players")
-	local antisleepMultiplier=Vector3.new(.0025,.005,.0025)
+	local antisleepMultiplier=Vector3.new(.005,.005,.005)
 	if _G.CustomHats == false then
-		connect = game:GetService("RunService").Heartbeat:Connect(function(set)
+		connect = game:GetService("RunService").PostSimulation:Connect(function(set)
 			sine=os.clock
 			flingpart = _G.flingpart
 			pcall(function()
@@ -1561,7 +1547,7 @@ end
 			settings().Physics.AllowSleep = false
 		end)
 	else 
-		connect = game:GetService("RunService").Heartbeat:Connect(function(set)
+		connect = game:GetService("RunService").PostSimulation:Connect(function(set)
 			sine=os.clock
 			flingpart = _G.flingpart
 			pcall(function()
@@ -1731,7 +1717,7 @@ end
 	local cam = workspace.CurrentCamera
 	local cfr = cam.CFrame
 
-	task.wait(.1)
+	task.wait(.15)
 	transparent()
 	velocity:Disconnect() 
 	--cam.CFrame = cfr
@@ -1740,7 +1726,7 @@ end
 end
 redo()
 game:GetService("StarterGui"):SetCore("SendNotification", {
-	Title = "Oxide Reanimation V3 - Respawn Time";
+	Title = "Oxide Reanimation V3.5 - Respawn Time";
 	Duration = 20;
 	Text = "Your character will respawn every "..game:GetService("Players").RespawnTime.." seconds."
 })
@@ -1750,6 +1736,12 @@ local oldh = workspace.FallenPartsDestroyHeight
 
 respawnloop = plr.CharacterAdded:Connect(function(re)
 	if re ~= char then
+        if _G.HatCollide == false then 
+            repeat wait() until re:FindFirstChildOfClass("Humanoid")
+            moveloop = game:GetService("RunService").Heartbeat:Connect(function()
+         char:FindFirstChildOfClass("Humanoid"):Move(re:FindFirstChildOfClass("Humanoid").MoveDirection)   
+    end)
+    end
 		if  _G.ToolFling == true then 
 			_G.Fling = false 
 		end
@@ -1758,10 +1750,11 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 				v.Volume = 0 
 			end 
 		end
+        if _G.HatCollide == false then
 		repeat wait() until plr.Character:FindFirstChild("Head")
 		workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChild("Humanoid")
 		repeat wait() until plr.Character:FindFirstChildOfClass("Accessory")
-
+        end
 		if _G.HideCharacter == false then
 			if plr.Character.Name ~= "non" then
 				if workspace:FindFirstChild("non") then
@@ -1771,6 +1764,7 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 					end
 					task.wait(.005)
 					redo2()
+                    
 				else
 					workspace.CurrentCamera.CameraSubject = workspace.Terrain.non:FindFirstChildOfClass("Humanoid")
 					if plr.Character.Name ~= "non" then
@@ -1778,13 +1772,14 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 					end
 					task.wait(.005)
 					redo2()
+                     
 				end
 			end
 		else
 			workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChild("Humanoid")
 			local flingloop
 			local c = re
-			if _G.FlingEnabled == true and _G.ToolFling == false then 
+			if _G.FlingEnabled == true and _G.ToolFling == false and _G.HatCollide == false then 
 				if _G.Fling == true  and _G.ToolFling == false then
 					local flingpart = _G.flingpart
 					local sineee=os.clock()
@@ -1815,7 +1810,7 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 								n=n+.05
 							until  flingpart.AssemblyLinearVelocity.X <= 3500 and n >= .5 or n >= 1
 							game:GetService("StarterGui"):SetCore("SendNotification", {
-								Title = "Oxide Reanimation V3.4 - Fling:";
+								Title = "Oxide Reanimation V3.5 - Fling:";
 								Duration = 5;
 								Text = "Successfully flung: ".._G.flingplr.." in: "..n.." seconds!"
 							})
@@ -1832,21 +1827,36 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 					_G.Fling =false
 				end
 			end
-			if plr.Character.Name ~= "non" then
-				if plr.Character.Name ~= "non" then
-					if _G.TeleportCharacter == true then
-						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 200, workspace.non.HumanoidRootPart.CFrame.Z  ) 
-					end
-					for i,v in pairs(c:GetDescendants()) do
+            				for i,v in pairs(c:GetDescendants()) do
 						if v:IsA("BasePart") then
 							v.AssemblyAngularVelocity = Vector3.new(0,0,0)
 							v.AssemblyLinearVelocity = Vector3.new(0,0,0)
 						end
 					end
 				end
+			if plr.Character.Name ~= "non" then
+				if plr.Character.Name ~= "non" then
+					if _G.TeleportCharacter == true then
+                        if _G.HatCollide == false then
+						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 150, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+                        else 
+	plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + .25, workspace.non.HumanoidRootPart.CFrame.Z  ) 
 
-				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChild("Humanoid")
-				task.wait(.0025)
+					end
+                end
+	                local c =plr.Character
+                if c.Name ~= "non" then
+				if _G.HatCollide == true then
+					c:BreakJoints()
+					c:WaitForChild("Humanoid").Health = 0		
+				repeat task.wait() until c:FindFirstChildOfClass("Accessory") or not c:IsDescendantOf(workspace)
+                end
+			end
+        if _G.HatCollide == false then
+				task.wait(.005)
+                else 
+                task.wait(.0025)
+        end
 				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChild("Humanoid")
 				redo2()
 				task.wait(game:GetService("Players").RespawnTime/3)
@@ -1872,7 +1882,7 @@ getgenv().attackuno= function(part)
 					_G.flingpart = flingpart
 					_G.flingplr = tostring(flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")")
 					game:GetService("StarterGui"):SetCore("SendNotification", {
-						Title = "Oxide Reanimation V3.4 - Fling:";
+						Title = "Oxide Reanimation V3.5 - Fling:";
 						Duration = 3;
 						Text = "Locked onto player: "..flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")"
 					})
@@ -1896,7 +1906,7 @@ getgenv().attackuno= function(part)
 						_G.flingpart = flingpart:FindFirstChild("HumanoidRootPart")
 						_G.flingplr = tostring(flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")")
 						game:GetService("StarterGui"):SetCore("SendNotification", {
-							Title = "Oxide Reanimation V3.4 - Fling:";
+							Title = "Oxide Reanimation V3.5 - Fling:";
 							Duration = 3;
 							Text = "Locked onto player: "..flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")"
 						})
