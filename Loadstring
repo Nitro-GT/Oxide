@@ -1315,7 +1315,7 @@ pcall(function()
 	AntiSleepRotate = Vector3.new(0, sin(clock()*10), 0)
 	local velocity 
 	if _G.ToolFling == false then
-		velocity = game:GetService("RunService").PostSimulation:Connect(function()
+		velocity = game:GetService("RunService").Heartbeat:Connect(function()
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory") or v:IsA("Tool") then
 					pcall(function()
@@ -1415,9 +1415,9 @@ pcall(function()
 	local connect
 	local sin = math.sin
 	local plrs = game:GetService("Players")
-	local antisleepMultiplier=Vector3.new(.005,.005,.005)
+	local antisleepMultiplier=Vector3.new(.005,.0015,.005)
 	if _G.CustomHats == false then
-		connect = game:GetService("RunService").PostSimulation:Connect(function(set)
+		connect = game:GetService("RunService").Heartbeat:Connect(function(set)
 			sine=os.clock
 			flingpart = _G.flingpart
 			pcall(function()
@@ -1433,7 +1433,7 @@ pcall(function()
 					flingpart = nil
 				end
 			end)
-			local antisleep=sin(sine()*50)*antisleepMultiplier
+			local antisleep=sin(sine()*100)*antisleepMultiplier
 			plrs.LocalPlayer.SimulationRadius = #plrs:GetChildren()*1000
 			pcall(function()
 				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
@@ -1547,7 +1547,7 @@ pcall(function()
 			settings().Physics.AllowSleep = false
 		end)
 	else 
-		connect = game:GetService("RunService").PostSimulation:Connect(function(set)
+		connect = game:GetService("RunService").Heartbeat:Connect(function(set)
 			sine=os.clock
 			flingpart = _G.flingpart
 			pcall(function()
