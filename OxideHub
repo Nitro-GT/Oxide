@@ -14,7 +14,9 @@ function Library.Notification(title, text, icon, duration)
 	})
 end
 
-
+if _G.HatCollide == nil then 
+_G.HatCollide = false
+end
 
 Library.Notification("Oxide Hub", "Gui made by Hemi", "rbxassetid://18471574044")
 local OxideGui = Instance.new("ScreenGui")
