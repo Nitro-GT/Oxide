@@ -1570,24 +1570,48 @@ pcall(function()
 				workspace.FallenPartsDestroyHeight = oldh 
 			end)
 			pcall(function()
-				c["Tor"].Handle.CFrame = char["Torso"].CFrame  * _G.CH.Torso.Orientation + antisleep
+                                                    						if char["Torso"]:FindFirstChildOfClass("SpecialMesh") then 
+                        c["Tor"].Handle.CFrame = char["Torso"].CFrame  * _G.CH.Torso.Orientation  +antisleep+ char["Torso"]:FindFirstChildOfClass("SpecialMesh").Offset
+                    else
+                     c["Tor"].Handle.CFrame = char["Torso"].CFrame  * _G.CH.Torso.Orientation  +antisleep
+                    end
 			end)
 			pcall(function()
-				c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * _G.CH.LeftArm.Orientation  +antisleep
+                                    						if char["Left Arm"]:FindFirstChildOfClass("SpecialMesh") then 
+                        c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame  * _G.CH.LeftArm.Orientation  +antisleep+ char["Left Arm"]:FindFirstChildOfClass("SpecialMesh").Offset
+                    else
+                     c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame  * _G.CH.LeftArm.Orientation  +antisleep
+                    end
 			end)
 			pcall(function()
-				c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * _G.CH.RightArm.Orientation +antisleep
+                               						if char["Right Arm"]:FindFirstChildOfClass("SpecialMesh") then 
+                        c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame  * _G.CH.RightArm.Orientation  +antisleep+ char["Right Arm"]:FindFirstChildOfClass("SpecialMesh").Offset
+                    else
+                     c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame  * _G.CH.RightArm.Orientation  +antisleep
+                    end
+                			end)
+			pcall(function()
+                               						if char["Right Leg"]:FindFirstChildOfClass("SpecialMesh") then 
+                        c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * _G.CH.RightLeg.Orientation  +antisleep+ char["Right Leg"]:FindFirstChildOfClass("SpecialMesh").Offset
+                    else
+                     c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * _G.CH.RightLeg.Orientation  +antisleep
+                    end
 			end)
 			pcall(function()
-				c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * _G.CH.RightLeg.Orientation  +antisleep
-			end)
-			pcall(function()
-				c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * _G.CH.LeftLeg.Orientation  +antisleep
+                						if char["Left Leg"]:FindFirstChildOfClass("SpecialMesh") then 
+                        c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * _G.CH.LeftLeg.Orientation  +antisleep+ char["Left Leg"]:FindFirstChildOfClass("SpecialMesh").Offset
+                    else
+                     c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * _G.CH.LeftLeg.Orientation  +antisleep
+                    end
 			end)
 			pcall(function()
 				for _,v in pairs(c:GetChildren()) do
 					if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"  and v.Name ~= "BlueRobotArm" and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
-						v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
+								if char[v.Name].Handle:FindFirstChildOfClass("SpecialMesh") then 
+                        v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep + char[v.Name].Handle:FindFirstChildOfClass("SpecialMesh").Offset
+                    else
+                        v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
+                    end
 						v.Handle.CanTouch = false
 					end
 				end
