@@ -1890,6 +1890,7 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 				redo2()
 				task.wait(game:GetService("Players").RespawnTime/3)
 				if lp.Character ~= workspace.non then 
+					moveloop:Disconnect()
 					lp.Character:BreakJoints()
 					task.wait(.15)
 					lp.Character = workspace.non
