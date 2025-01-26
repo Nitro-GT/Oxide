@@ -1,45 +1,46 @@
-
---[[_G.HideCharacter = true
-_G.FlingEnabled = true
+-- -hats 123305754996947,127671621543010,80629770394501
+_G.HideCharacter = true
+_G.FlingEnabled = false
 _G.TransparentRig = true
 _G.ToolFling = false -- false = holding, true = fling
-_G.AntiFling = false
-_G.CustomHats = false -- Enable or disable custom rig feature (basically old oxide when false)
+_G.AntiFling = true
+_G.HatCollide = false
+_G.CustomHats = true -- Enable or disable custom rig feature (basically old oxide when false)
 _G.CH = {
-	Torso = {
-		Name= "Black",
-		TextureId = "14251599953",
-		Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
-	},
+    Torso = {
+        Name= "Accessory (Huge Void Backpack)",
+        TextureId = "17269636558",
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
+    },
 
-	LeftArm = {
-		Name= "Accessory (LARM)",
-		TextureId = "17374768001", 
-		Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
-	},
+    LeftArm = {
+        Name= "Accessory (Left ArmAccessory)",
+        TextureId = "103757531289975", 
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
+    },
 
-	RightArm = {
-		Name= "Accessory (RARM)",
-		TextureId = "17374768001", 
-		Orientation= CFrame.Angles(math.rad(0),math.rad(45),math.rad(90))
-	},
+    RightArm = {
+        Name= "Accessory (Right ArmAccessory)",
+        TextureId = "103757531289975", 
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
+    },
 
-	LeftLeg = {
-		Name= "Accessory (LLeg)",
-		TextureId = "17387586304", 
-		Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
-	},
+    LeftLeg = {
+        Name= "Accessory (RightLeg1Accessory)",
+        TextureId = "103160995675216", 
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
+    },
 
-	RightLeg = {
-		Name= "Accessory (rightleg)",
-		TextureId = "17387586304", 
-		Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
-	}
-}]]
+    RightLeg = {
+        Name= "Accessory (LeftLeg1Accessory)",
+        TextureId = "103160995675216", 
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
+    }
+}
 _G.ClickFling = true
 _G.TeleportCharacter = true
 --[[ 
-Oxide V3.4
+Oxide V3.5
 Anything below should NOT be changed
 ]]
 
@@ -49,6 +50,12 @@ Anything below should NOT be changed
 
 
 local str = game:GetService("SharedTableRegistry")
+local gentgenv
+if not getgenv then 
+	getgenv = function()
+		return _G
+	end
+end
 local flingpos = game.Players.LocalPlayer:GetMouse().Hit
 local flingpart = game.Players.LocalPlayer:GetMouse().Target
 local flingplr = nil
@@ -63,6 +70,7 @@ local tools = {}
 local faketools = {}
 local stopped = false
 local char
+local moveloop
 local respawnloop
 _G.Stopped = false
 _G.SBV4R = false
@@ -70,12 +78,16 @@ _G.R6Mode = false
 _G.MiztCompat = true
 _G.Fling = false
 game:GetService("StarterGui"):SetCore("SendNotification", {
-	Title = "Oxide Reanimation V3.4";
+	Title = "Oxide Reanimation V3.5";
 	Duration = 20;
 	Text = "This script was made by Hemi"
 })
 local function cfAdd(a,b) return a+b end
+pcall(function()
+task.spawn(function()
 game:GetService("CoreGui"):WaitForChild("TopBarApp"):WaitForChild("FullScreenFrame"):WaitForChild("HurtOverlay"):Destroy()
+end)
+end)
 local Hat = {
 	Rename = function(HatID, NAME, oname)
     pcall(function()
@@ -255,7 +267,12 @@ local function redo()
 			Hat.Rename2("rbxassetid://".._G.CH.LeftArm.TextureId,"",_G.CH.LeftArm.Name,"LARM")
 			Hat.Rename2("rbxassetid://".._G.CH.RightArm.TextureId,"",_G.CH.RightArm.Name,"RARM")
 			Hat.Rename2("rbxassetid://".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
-			Hat.Rename2("rbxassetid://".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightArm.Name)	
+			Hat.Rename2("rbxassetid://".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftArm.TextureId,"",_G.CH.LeftArm.Name,"LARM")
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightArm.TextureId,"",_G.CH.RightArm.Name,"RARM")
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
 		end)
 	end
 	pcall(function()
@@ -334,7 +351,7 @@ local function redo()
 		end
 	end
 	if not workspace:FindFirstChild("non") then
-		char = game:GetObjects("rbxassetid://116691899670552")[1]
+		char = game:GetObjects("rbxassetid://129709921260373")[1]
 	else
 		char = workspace.non
 	end
@@ -416,7 +433,7 @@ local function redo()
 
 	if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 		for _,v in pairs(c:GetChildren()) do
-			if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "fooblet" and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" and v:WaitForChild("Handle"):FindFirstChildOfClass("SpecialMesh").MeshId ~= "rbxassetid://11263221350"  then
+			if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "Accessory (HeadAccessory)" and v.Name ~= "fooblet" and v.Name ~= "Accessory (RARM)" and v.Name ~= "Accessory (LARM)" and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" and v:WaitForChild("Handle"):FindFirstChildOfClass("SpecialMesh").MeshId ~= "rbxassetid://11263221350"  then
 				if not char:FindFirstChild(v.Name) then
 					local a = v:Clone()
 					a.Handle.AccessoryWeld.Part1 = char[a.Handle.AccessoryWeld.Part1.Name]
@@ -446,7 +463,7 @@ local function redo()
 	else
 
 		for _,v in pairs(c:GetChildren()) do
-			if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "Pouch" and v.Name ~= "Scooper"   and v.Name ~= "fooblet"  and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" and v:WaitForChild("Handle").MeshId ~= "rbxassetid://11263221350"  then
+			if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "Accessory (HeadAccessory)" and v.Name ~= "Pouch" and v.Name ~= "Scooper"   and v.Name ~= "fooblet"  and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" and v:WaitForChild("Handle").MeshId ~= "rbxassetid://11263221350"  then
 				if not char:FindFirstChild(v.Name) then
 					local a = v:Clone()
 					a.Handle:BreakJoints()
@@ -785,13 +802,10 @@ local function redo()
 		pcall(function()
 			c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))   +antisleep
 		end)
-		pcall(function()
-	c["Accessory (EvilVoidHeadBackpack)].Handle.CFrame = char["Head"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))   +antisleep
-end)
 
 		pcall(function()
 			for _,v in pairs(c:GetChildren()) do
-				if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (EvilVoidHeadBackpack)"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+				if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (HeadAccessory)"   and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
 					v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
 					v.Handle.CanTouch = false
 				end
@@ -907,7 +921,12 @@ local function redo2()
 			Hat.Rename2("rbxassetid://".._G.CH.LeftArm.TextureId,"",_G.CH.LeftArm.Name,"LARM")
 			Hat.Rename2("rbxassetid://".._G.CH.RightArm.TextureId,"",_G.CH.RightArm.Name,"RARM")
 			Hat.Rename2("rbxassetid://".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
-			Hat.Rename2("rbxassetid://".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightArm.Name)	
+			Hat.Rename2("rbxassetid://".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftArm.TextureId,"",_G.CH.LeftArm.Name,"LARM")
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightArm.TextureId,"",_G.CH.RightArm.Name,"RARM")
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
 		end)
 	end
 
@@ -1055,12 +1074,7 @@ pcall(function()
 
 	local hipHeight = humanoid and humanoid.HipHeight > 0 and (humanoid.HipHeight + 1)
 	local rootPart = getRoot(character)
-	local rootPartPosition = rootPart.Position
-	if _G.HideCharacter == false then
-		rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X +5 ,char.HumanoidRootPart.CFrame.Y,char.HumanoidRootPart.CFrame.Z +5) 
-	else
-		rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X   , workspace.FallenPartsDestroyHeight + 100,char.HumanoidRootPart.CFrame.Z  ) 
-	end
+
 
 	for i,v in pairs(c:GetDescendants()) do
 		if v:IsA("BasePart") then
@@ -1102,7 +1116,7 @@ pcall(function()
 
 	if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 		for _,v in pairs(c:GetChildren()) do
-			if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)"   and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)"  and v.Name ~= "Accessory (LLeg)" and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "RectangleHead-2"  and v.Name ~= "Tor" and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" then
+			if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "Accessory (HeadAccessory)" and v.Name ~= "Accessory (RARM)" and v.Name ~= "Accessory (LARM)" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)"   and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)"  and v.Name ~= "Accessory (LLeg)" and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "RectangleHead-2"  and v.Name ~= "Tor" and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" then
 				if not char:FindFirstChild(v.Name) then
 					local a = v:Clone()
 					a.Handle.AccessoryWeld.Part1 = char[a.Handle.AccessoryWeld.Part1.Name]
@@ -1117,7 +1131,7 @@ pcall(function()
 	else
 
 		for _,v in pairs(c:GetChildren()) do
-			if v:IsA("Accessory") and v.Name ~= "Pouch" and v.Name ~= "Scooper"    and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)"  and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)"and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head"  then
+			if v:IsA("Accessory") and v.Name ~= "Pouch" and v.Name ~= "Scooper"   and v.Name ~= "Accessory (HeadAccessory)"  and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)"  and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)"and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head"  then
 				if not char:FindFirstChild(v.Name) then
 					local a = v:Clone()
 					a.Handle:BreakJoints()
@@ -1209,7 +1223,7 @@ pcall(function()
 	end 
 
 	for _, child in pairs(char:GetChildren()) do
-		if child:IsA("BasePart") then
+		if child:IsA("BasePart") and child.Name ~= "Part" then
 			child.Transparency = 1
 		end
 	end
@@ -1288,7 +1302,11 @@ pcall(function()
 	task.spawn(function()	
 		task.wait(.02)
 		game:GetService("Players").LocalPlayer.Character=char
+        pcall(function()
+           moveloop:Disconnect()
+           end)
 	end)
+    
 
 	prt:Destroy()
 
@@ -1302,7 +1320,8 @@ pcall(function()
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory") or v:IsA("Tool") then
 					pcall(function()
-						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15, 26.794, char.Torso.AssemblyLinearVelocity.Z*15) 
+						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 , 28.794, char.Torso.AssemblyLinearVelocity.Z*15 ) 
+						v.Handle.CanCollide = false
 					end)
 				end
 			end
@@ -1311,7 +1330,7 @@ pcall(function()
 		velocity = game:GetService("RunService").Heartbeat:Connect(function()
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory")  then
-					v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15,26.794, char.Torso.AssemblyLinearVelocity.Z*15) 
+					v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15,28.794, char.Torso.AssemblyLinearVelocity.Z*15) 
 				elseif v:IsA("Tool") then 
 					pcall(function()
 						v.Handle.AssemblyLinearVelocity = Vector3.new(9e9 -9e7, 9e9) 
@@ -1391,26 +1410,13 @@ pcall(function()
 		end
 	end)  
 
-	if _G.SBV4R == true then
-		local v = c:WaitForChild("fooblet")
-		if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-			v.Handle.SpecialMesh.TextureId = ""
-		else
-			v.Handle.TextureID = ""
-		end
-		v.Handle.Material = 1584
-		v.Handle.Transparency = 1
-		char["Right Arm"].Transparency = 0
-		char["Right Arm"].Material = 1584
 
-
-	end
 
 
 	local connect
 	local sin = math.sin
 	local plrs = game:GetService("Players")
-	local antisleepMultiplier=Vector3.new(.0025,.005,.0025)
+    local antisleepMultiplier=Vector3.new(.005,.005,.005)
 	if _G.CustomHats == false then
 		connect = game:GetService("RunService").Heartbeat:Connect(function(set)
 			sine=os.clock
@@ -1469,9 +1475,10 @@ pcall(function()
 			pcall(function()
 				c["BlueRobotArm"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))  *CFrame.Angles(0,0,-.001*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
 			end)
+            
 			pcall(function()
 				for _,v in pairs(c:GetChildren()) do
-					if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"  and v.Name ~= "BlueRobotArm" and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+					if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "Accessory (HeadAccessory)" and v.Name ~= "fooblet"  and v.Name ~= "BlueRobotArm" and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
 						v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
 						v.Handle.CanTouch = false
 					end
@@ -1480,7 +1487,7 @@ pcall(function()
 
 			pcall(function()
 				for _,v in pairs(char:GetChildren()) do
-					if v:IsA("Accessory") and v.Name ~= "gooblet" and not string.find(v.Name, "gooblet") and v.Name ~= "fooblet" and v.Name ~= "Black"  and v.Name ~= "Tor"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+					if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "Accessory (HeadAccessory)" and not string.find(v.Name, "gooblet") and v.Name ~= "fooblet" and v.Name ~= "Black"  and v.Name ~= "Tor"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
 						if not c:FindFirstChild(v.Name) then 
 							v.Handle.Transparency = 0.5
 						end
@@ -1558,39 +1565,63 @@ pcall(function()
 					flingpart = nil
 				end
 			end)
-			local antisleep=sin(sine()*100)*antisleepMultiplier
+			local antisleep=sin(sine()*75)*antisleepMultiplier
 			plrs.LocalPlayer.SimulationRadius = #plrs:GetChildren()*1000
 			pcall(function()
 				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
 				workspace.FallenPartsDestroyHeight = oldh 
 			end)
-			pcall(function()
-				c["Tor"].Handle.CFrame = char["Torso"].CFrame  * _G.CH.Torso.Orientation + antisleep
-			end)
-			pcall(function()
-				c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * _G.CH.LeftArm.Orientation  +antisleep
-			end)
-			pcall(function()
-				c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * _G.CH.RightArm.Orientation +antisleep
-			end)
-			pcall(function()
-				c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * _G.CH.RightLeg.Orientation  +antisleep
-			end)
-			pcall(function()
-				c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * _G.CH.LeftLeg.Orientation  +antisleep
-			end)
-			pcall(function()
-	c["Accessory (EvilVoidHeadBackpack)].Handle.CFrame = char["Head"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))   +antisleep
-end)
-
 		pcall(function()
-			for _,v in pairs(c:GetChildren()) do
-				if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (EvilVoidHeadBackpack)"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
-					v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
-					v.Handle.CanTouch = false
+                                                    						if char["Torso"]:FindFirstChildOfClass("SpecialMesh") then 
+                        c["Tor"].Handle.CFrame = char["Torso"].CFrame  * _G.CH.Torso.Orientation  +antisleep+ char["Torso"]:FindFirstChildOfClass("SpecialMesh").Offset 
+                    else
+                     c["Tor"].Handle.CFrame = char["Torso"].CFrame  * _G.CH.Torso.Orientation  +antisleep
+                    end
+			end)
+			pcall(function()
+                                    						if char["Left Arm"]:FindFirstChildOfClass("SpecialMesh") then 
+                        c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame  * _G.CH.LeftArm.Orientation  +antisleep+ char["Left Arm"]:FindFirstChildOfClass("SpecialMesh").Offset
+                    else
+                     c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame  * _G.CH.LeftArm.Orientation  +antisleep
+                    end
+			end)
+			pcall(function()
+                               						if char["Right Arm"]:FindFirstChildOfClass("SpecialMesh") then 
+                        c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame  * _G.CH.RightArm.Orientation  +antisleep+ char["Right Arm"]:FindFirstChildOfClass("SpecialMesh").Offset 
+                    else
+                     c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame  * _G.CH.RightArm.Orientation  +antisleep
+                    end
+                			end)
+			pcall(function()
+                               						if char["Right Leg"]:FindFirstChildOfClass("SpecialMesh") then 
+                        c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * _G.CH.RightLeg.Orientation  +antisleep+ char["Right Leg"]:FindFirstChildOfClass("SpecialMesh").Offset 
+                    else
+                     c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * _G.CH.RightLeg.Orientation  +antisleep
+                    end
+			end)
+			pcall(function()
+                						if char["Left Leg"]:FindFirstChildOfClass("SpecialMesh") then 
+                        c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * _G.CH.LeftLeg.Orientation  +antisleep+ char["Left Leg"]:FindFirstChildOfClass("SpecialMesh").Offset 
+                    else
+                     c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * _G.CH.LeftLeg.Orientation  +antisleep
+                    end
+			end)
+            	pcall(function()
+				           						if char["Head"]:FindFirstChildOfClass("SpecialMesh") then 
+                        c["Accessory (HeadAccessory)"].Handle.CFrame = char["Head"].CFrame  * CFrame.Angles(0,math.rad(180),0)  +antisleep+ char["Head"]:FindFirstChildOfClass("SpecialMesh").Offset 
+                    else
+                     c["Accessory (HeadAccessory)"].Handle.CFrame = char["Head"].CFrame  * CFrame.Angles(0,math.rad(180),0) +antisleep
+                    end
+			end)
+			pcall(function()
+				for _,v in pairs(c:GetChildren()) do
+					if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "Accessory (HeadAccessory)" and v.Name ~= "fooblet"  and v.Name ~= "BlueRobotArm" and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+						v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
+						v.Handle.CanTouch = false
+					end
 				end
-			end
-		end)     
+			end)
+
 			pcall(function()
 				for _,v in pairs(char:GetChildren()) do
 					if v:IsA("Accessory") and v.Name ~= "gooblet" and not string.find(v.Name, "gooblet") and v.Name ~= "fooblet" and v.Name ~= "Black"  and v.Name ~= "Tor"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
@@ -1701,7 +1732,7 @@ end)
 		end
 		for _, child in pairs(char:GetChildren()) do
 			local v = child
-			if child:IsA("Accessory")then
+			if child:IsA("Accessory") and v.Name ~= "Black" then
 				if _G.TransparentRig == true then
 					child.Handle.Transparency = .5
 				else 
@@ -1715,7 +1746,7 @@ end)
 	local cam = workspace.CurrentCamera
 	local cfr = cam.CFrame
 
-	task.wait(.1)
+	task.wait(.15)
 	transparent()
 	velocity:Disconnect() 
 	--cam.CFrame = cfr
@@ -1724,7 +1755,7 @@ end)
 end
 redo()
 game:GetService("StarterGui"):SetCore("SendNotification", {
-	Title = "Oxide Reanimation V3 - Respawn Time";
+	Title = "Oxide Reanimation V3.5 - Respawn Time";
 	Duration = 20;
 	Text = "Your character will respawn every "..game:GetService("Players").RespawnTime.." seconds."
 })
@@ -1734,19 +1765,25 @@ local oldh = workspace.FallenPartsDestroyHeight
 
 respawnloop = plr.CharacterAdded:Connect(function(re)
 	if re ~= char then
+        if _G.HatCollide == false then 
+            repeat wait() until re:FindFirstChildOfClass("Humanoid")
+            moveloop = game:GetService("RunService").Heartbeat:Connect(function()
+         char:FindFirstChildOfClass("Humanoid"):Move(re:FindFirstChildOfClass("Humanoid").MoveDirection)   
+    end)
+    end
 		if  _G.ToolFling == true then 
 			_G.Fling = false 
 		end
 		for i,v in pairs(lp.Backpack:GetDescendants()) do 
 			if v:IsA("Sound") and v:FindFirstAncestorOfClass("Tool") then 
 				v.Volume = 0 
-				v.SoundId = "rbxassetid://0"
 			end 
 		end
+        if _G.HatCollide == false then
 		repeat wait() until plr.Character:FindFirstChild("Head")
 		workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChild("Humanoid")
 		repeat wait() until plr.Character:FindFirstChildOfClass("Accessory")
-
+        end
 		if _G.HideCharacter == false then
 			if plr.Character.Name ~= "non" then
 				if workspace:FindFirstChild("non") then
@@ -1756,6 +1793,7 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 					end
 					task.wait(.005)
 					redo2()
+                    
 				else
 					workspace.CurrentCamera.CameraSubject = workspace.Terrain.non:FindFirstChildOfClass("Humanoid")
 					if plr.Character.Name ~= "non" then
@@ -1763,13 +1801,14 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 					end
 					task.wait(.005)
 					redo2()
+                     
 				end
 			end
 		else
 			workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChild("Humanoid")
 			local flingloop
 			local c = re
-			if _G.FlingEnabled == true and _G.ToolFling == false then 
+			if _G.FlingEnabled == true and _G.ToolFling == false and _G.HatCollide == false then 
 				if _G.Fling == true  and _G.ToolFling == false then
 					local flingpart = _G.flingpart
 					local sineee=os.clock()
@@ -1800,7 +1839,7 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 								n=n+.05
 							until  flingpart.AssemblyLinearVelocity.X <= 3500 and n >= .5 or n >= 1
 							game:GetService("StarterGui"):SetCore("SendNotification", {
-								Title = "Oxide Reanimation V3.4 - Fling:";
+								Title = "Oxide Reanimation V3.5 - Fling:";
 								Duration = 5;
 								Text = "Successfully flung: ".._G.flingplr.." in: "..n.." seconds!"
 							})
@@ -1817,21 +1856,36 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 					_G.Fling =false
 				end
 			end
-			if plr.Character.Name ~= "non" then
-				if plr.Character.Name ~= "non" then
-					if _G.TeleportCharacter == true then
-						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 100, workspace.non.HumanoidRootPart.CFrame.Z  ) 
-					end
-					for i,v in pairs(c:GetDescendants()) do
+            				for i,v in pairs(c:GetDescendants()) do
 						if v:IsA("BasePart") then
 							v.AssemblyAngularVelocity = Vector3.new(0,0,0)
 							v.AssemblyLinearVelocity = Vector3.new(0,0,0)
 						end
 					end
 				end
+			if plr.Character.Name ~= "non" then
+				if plr.Character.Name ~= "non" then
+					if _G.TeleportCharacter == true then
+                        if _G.HatCollide == false then
+						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 150, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+                        else 
+	plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + .25, workspace.non.HumanoidRootPart.CFrame.Z  ) 
 
-				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChild("Humanoid")
-				task.wait(.0025)
+					end
+                end
+	                local c =plr.Character
+                if c.Name ~= "non" then
+				if _G.HatCollide == true then
+					c:BreakJoints()
+					c:WaitForChild("Humanoid").Health = 0		
+				repeat task.wait() until c:FindFirstChildOfClass("Accessory") or not c:IsDescendantOf(workspace)
+                end
+			end
+        if _G.HatCollide == false then
+				task.wait(.005)
+                else 
+                task.wait(.0025)
+        end
 				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChild("Humanoid")
 				redo2()
 				task.wait(game:GetService("Players").RespawnTime/3)
@@ -1857,7 +1911,7 @@ getgenv().attackuno= function(part)
 					_G.flingpart = flingpart
 					_G.flingplr = tostring(flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")")
 					game:GetService("StarterGui"):SetCore("SendNotification", {
-						Title = "Oxide Reanimation V3.4 - Fling:";
+						Title = "Oxide Reanimation V3.5 - Fling:";
 						Duration = 3;
 						Text = "Locked onto player: "..flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")"
 					})
@@ -1881,11 +1935,11 @@ getgenv().attackuno= function(part)
 						_G.flingpart = flingpart:FindFirstChild("HumanoidRootPart")
 						_G.flingplr = tostring(flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")")
 						game:GetService("StarterGui"):SetCore("SendNotification", {
-							Title = "Oxide Reanimation V3.4 - Fling:";
+							Title = "Oxide Reanimation V3.5 - Fling:";
 							Duration = 3;
 							Text = "Locked onto player: "..flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")"
 						})
-
+_G.Fling = true
 						if _G.ToolFling == true then
 							q=next(flingtable)
 							if q then
@@ -1903,10 +1957,10 @@ getgenv().attackuno= function(part)
 							if faketools[1] ~= nil then 
 								faketools[1].Parent = game:GetService("Players").LocalPlayer.Backpack
 							end
+end
 						else 
 							_G.Fling = true
 						end
-end
 end
 				else
 					print("not a player")
@@ -1915,6 +1969,7 @@ end
 			end
 		end
 	end)
+print(_G.Fling)
 end
 if _G.AntiFling == true then 
 	local speaker = game:GetService("Players").LocalPlayer
