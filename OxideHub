@@ -59,7 +59,7 @@ local ImageLabel = Instance.new("ImageLabel")
 --Properties:
 
 OxideHub2.Name = "OxideHub"
-OxideHub2.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+OxideHub2.Parent = game:GetService("CoreGui")
 OxideHub2.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 OxideHub2.ResetOnSpawn = false
 
