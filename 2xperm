@@ -1893,7 +1893,6 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 		end
 	end
 end)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/camera"))()
 local flingtable= {}
 getgenv().attackuno= function(part)
 	task.spawn(function()
