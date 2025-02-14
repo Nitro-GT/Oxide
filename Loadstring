@@ -39,7 +39,7 @@ _G.CH = {
 _G.ClickFling = true
 _G.TeleportCharacter = true
 --[[ 
-Oxide V3.5
+Oxide V3.6
 Anything below should NOT be changed
 ]]
 
@@ -77,7 +77,7 @@ _G.R6Mode = false
 _G.MiztCompat = true
 _G.Fling = false
 game:GetService("StarterGui"):SetCore("SendNotification", {
-	Title = "Oxide Reanimation V3.5";
+	Title = "Oxide Reanimation V3.6";
 	Duration = 20;
 	Text = "This script was made by Hemi"
 })
@@ -260,6 +260,26 @@ local function redo()
 			Hat.Rename("rbxassetid://14768683674","","LARM")
 			Hat.Rename("rbxassetid://14768683674","","RARM")
 		end)
+        pcall(function()
+			Hat.Rename("rbxassetid://125975972015302", "Tor")
+			Hat.Rename("rbxassetid://135650240593878","","LARM")
+			Hat.Rename("rbxassetid://135650240593878","","RARM")
+		end)
+        pcall(function()
+            c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
+          end)
+          pcall(function()
+            c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LArm)"].Name = "gooblet"
+        end)
+        pcall(function()
+            c["Accessory (RArm)"].Name = "fooblet"
+        end)
 	else
 		pcall(function()
 			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
@@ -286,6 +306,7 @@ local function redo()
 	pcall(function()
 		c["Accessory (RARM)"].Name = "RARM"
 	end)
+
 	pcall(function()
 		if not c:FindFirstChild("Accessory (rightleg)") then
 			c.gooblet.Name = "Accessory (rightleg)"
@@ -914,6 +935,26 @@ local function redo2()
 			Hat.Rename("rbxassetid://14768683674","","LARM")
 			Hat.Rename("rbxassetid://14768683674","","RARM")
 		end)
+        pcall(function()
+			Hat.Rename("rbxassetid://125975972015302", "Tor")
+			Hat.Rename("rbxassetid://135650240593878","","LARM")
+			Hat.Rename("rbxassetid://135650240593878","","RARM")
+		end)
+        pcall(function()
+            c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
+          end)
+          pcall(function()
+            c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LArm)"].Name = "gooblet"
+        end)
+        pcall(function()
+            c["Accessory (RArm)"].Name = "fooblet"
+        end)
 	else
 		pcall(function()
 			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
@@ -987,31 +1028,7 @@ local function redo2()
 pcall(function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/renameclones3"))()
     end)
-	local flingloop
-	if _G.Fling == true then
-		local BodyVelocity = Instance.new("BodyVelocity", c.HumanoidRootPart)
-		BodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
-		BodyVelocity.Velocity = Vector3.new(0, 0, 0)
-		flinger = Instance.new("BodyAngularVelocity",c.HumanoidRootPart)
-		flinger.MaxTorque = Vector3.new(math.huge,math.huge,math.huge)
-		flinger.P = 1000000000000000000000000000
-		flinger.AngularVelocity = Vector3.new(5000000000000000000,5000000000000000000,5000000000000000000)
 
-		flingloop = game:GetService("RunService").Heartbeat:Connect(function()
-			c.HumanoidRootPart.CFrame = flingpos
-			c.HumanoidRootPart.Velocity = Vector3.new(9e9,9e9,9e9)
-		end)
-		wait(.35)
-		flingloop:Disconnect()
-		BodyVelocity:Destroy()
-		flinger:Destroy()
-		for i,v in pairs(c:GetDescendants()) do
-			if v:IsA("BasePart") then
-				v.AssemblyAngularVelocity = Vector3.new(0,0,0)
-			end
-		end
-		_G.Fling =false
-	end
 
 
 
@@ -1319,7 +1336,8 @@ pcall(function()
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory") or v:IsA("Tool") then
 					pcall(function()
-						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 , 30.794, char.Torso.AssemblyLinearVelocity.Z*15 ) 
+                        v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -5   , 30.499+math.sin(os.clock()*1000), char.Torso.AssemblyLinearVelocity.Z*15 +5) 
+						v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity
 						v.Handle.CanCollide = false
 					end)
 				end
@@ -1329,7 +1347,8 @@ pcall(function()
 		velocity = game:GetService("RunService").Heartbeat:Connect(function()
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory")  then
-					v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15,30.794, char.Torso.AssemblyLinearVelocity.Z*15) 
+                    v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -5   , 30.499+math.sin(os.clock()*1000), char.Torso.AssemblyLinearVelocity.Z*15 +5) 
+                    v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity
 				elseif v:IsA("Tool") then 
 					pcall(function()
 						v.Handle.AssemblyLinearVelocity = Vector3.new(9e9 -9e7, 9e9) 
@@ -1750,7 +1769,7 @@ pcall(function()
 end
 redo()
 game:GetService("StarterGui"):SetCore("SendNotification", {
-	Title = "Oxide Reanimation V3.5 - Respawn Time";
+	Title = "Oxide Reanimation V3.6 - Respawn Time";
 	Duration = 20;
 	Text = "Your character will respawn every "..game:GetService("Players").RespawnTime.." seconds."
 })
@@ -1834,7 +1853,7 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 								n=n+.05
 							until  flingpart.AssemblyLinearVelocity.X <= 3500 and n >= .5 or n >= 1
 							game:GetService("StarterGui"):SetCore("SendNotification", {
-								Title = "Oxide Reanimation V3.5 - Fling:";
+								Title = "Oxide Reanimation V3.6 - Fling:";
 								Duration = 5;
 								Text = "Successfully flung: ".._G.flingplr.." in: "..n.." seconds!"
 							})
@@ -1907,7 +1926,7 @@ getgenv().attackuno= function(part)
 					_G.flingpart = flingpart
 					_G.flingplr = tostring(flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")")
 					game:GetService("StarterGui"):SetCore("SendNotification", {
-						Title = "Oxide Reanimation V3.5 - Fling:";
+						Title = "Oxide Reanimation V3.6 - Fling:";
 						Duration = 3;
 						Text = "Locked onto player: "..flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")"
 					})
@@ -1931,7 +1950,7 @@ getgenv().attackuno= function(part)
 						_G.flingpart = flingpart:FindFirstChild("HumanoidRootPart")
 						_G.flingplr = tostring(flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")")
 						game:GetService("StarterGui"):SetCore("SendNotification", {
-							Title = "Oxide Reanimation V3.5 - Fling:";
+							Title = "Oxide Reanimation V3.6 - Fling:";
 							Duration = 3;
 							Text = "Locked onto player: "..flingpart:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Name..")"
 						})
