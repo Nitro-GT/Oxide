@@ -57,6 +57,8 @@ if not getgenv then
 		return _G
 	end
 end
+local connect
+local velocity
 local flingpos = game.Players.LocalPlayer:GetMouse().Hit
 local flingpart = game.Players.LocalPlayer:GetMouse().Target
 local flingplr = nil
@@ -775,7 +777,6 @@ local function redo()
 	end
 
 	local sin = math.sin
-	local connect
 	local antisleepMultiplier=Vector3.new(-.0025,-.005,-.0025)
 	connect = game:GetService("RunService").Heartbeat:Connect(function(set)
 		sine=os.clock
@@ -1315,13 +1316,13 @@ pcall(function()
 	local clock = os.clock
 	local rad, cos, sin, random = math.rad, math.cos, math.sin, math.random
 	AntiSleepRotate = Vector3.new(0, sin(clock()*10), 0)
-	local velocity 
 	if _G.ToolFling == false then
 		velocity = game:GetService("RunService").Heartbeat:Connect(function()
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory") or v:IsA("Tool") then
 					pcall(function()
-						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 , 28.794, char.Torso.AssemblyLinearVelocity.Z*15 ) 
+						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -5   , 30.499+math.sin(os.clock()*1000), char.Torso.AssemblyLinearVelocity.Z*15 +5) 
+						v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity * 10
 						v.Handle.CanCollide = false
 					end)
 				end
@@ -1414,7 +1415,6 @@ pcall(function()
 
 
 
-	local connect
 	local sin = math.sin
 	local plrs = game:GetService("Players")
     local antisleepMultiplier=Vector3.new(.005,.005,.005)
@@ -1985,5 +1985,13 @@ local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
 Mouse.Button1Down:Connect(function()
 	if _G.FlingEnabled == true and stopped == false and _G.ClickFling == true then
 		attackuno(Mouse.Target)
+	end
+end)
+Mouse.KeyDown:Connect(function(k)
+	if k == "-" then 
+		replicatesignal("1")
+		task.wait(game.Players.RespawnTime)
+		connect:Disconnect()
+		velocity:Disconnect()
 	end
 end)
