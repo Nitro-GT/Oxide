@@ -1546,6 +1546,15 @@ pcall(function()
 			end
 		end
 	end
+	wait(game:GetService("Players").RespawnTime - .1)
+	local cam = workspace.CurrentCamera
+	local cfr = cam.CFrame
+	task.wait(.15)
+	transparent()
+	velocity:Disconnect() 
+	--cam.CFrame = cfr
+	task.wait(.5)
+	connect:Disconnect()
 end
 redo()
 game:GetService("StarterGui"):SetCore("SendNotification", {
