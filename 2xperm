@@ -1987,11 +1987,12 @@ Mouse.Button1Down:Connect(function()
 		attackuno(Mouse.Target)
 	end
 end)
-Mouse.KeyDown:Connect(function(k)
-	if k == "-" then 
-		replicatesignal("1")
-		task.wait(game.Players.RespawnTime)
-		connect:Disconnect()
-		velocity:Disconnect()
-	end
+local uis = game:GetService("UserInputService")
+uis.InputBegan:Connect(function(k)
+if k.KeyCode == Enum.KeyCode.Minus then 
+	replicatesignal("1")
+	task.wait(game.Players.RespawnTime)
+	connect:Disconnect()
+	velocity:Disconnect()
+end
 end)
