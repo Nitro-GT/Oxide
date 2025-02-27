@@ -1,53 +1,44 @@
---[[_G.HideCharacter = true
+-- -gh 108186273151388,84451219120140,139904067056008,72292903231768,95290698984301
+_G.HideCharacter = true
 _G.FlingEnabled = false
 _G.TransparentRig = true
 _G.ToolFling = false -- false = holding, true = fling
 _G.AntiFling = true
 _G.HatCollide = false
-_G.CustomHats = true -- Enable or disable custom rig feature (basically old oxide when false)
+_G.CustomHats = false -- Enable or disable custom rig feature (basically old oxide when false)
 _G.CH = {
     Torso = {
-        Name= "Accessory (Guest Torso)",
-        TextureId = "87928159560963",
+        Name= "Accessory (TorsoNoob)",
+        TextureId = "125975972015302",
         Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
     },
-
-    LeftArm = {
-        Name= "Accessory (Guest Left Arm)",
-        TextureId = "72193962238808", 
-        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
-    },
-
     RightArm = {
-        Name= "Accessory (Guest Right Arm)",
-        TextureId = "86835481875891", 
-        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
+        Name= "Accessory (RArmNoob)",
+        TextureId = "135650240593878", 
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
     },
-
-    LeftLeg = {
+    LeftArm = {
+        Name= "Accessory (LArmNoob)",
+        TextureId = "135650240593878", 
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
+    },
+    RightLeg = {
         Name= "Accessory (LARM)",
         TextureId = "17374768001", 
         Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
     },
-
-    RightLeg = {
+    LeftLeg = {
         Name= "Accessory (RARM)",
         TextureId = "17374768001", 
         Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
     }
-}]]
+}
 _G.ClickFling = true
 _G.TeleportCharacter = true
 --[[ 
 Oxide V3.5
 Anything below should NOT be changed
 ]]
-
-
-
-
-
-
 local str = game:GetService("SharedTableRegistry")
 local gentgenv
 if not getgenv then 
@@ -55,6 +46,8 @@ if not getgenv then
 		return _G
 	end
 end
+local connect
+local velocity
 local flingpos = game.Players.LocalPlayer:GetMouse().Hit
 local flingpart = game.Players.LocalPlayer:GetMouse().Target
 local flingplr = nil
@@ -181,9 +174,6 @@ local Hat = {
                         end)
 	end,}
 local function redo()
-
-
-
 	local gay = true -- dont edit >:(
 	hmode = nil
 	if gay == true then
@@ -191,15 +181,9 @@ local function redo()
 	else
 		hmode = "alsoo3" -- hate this guy
 	end
-
-
-
 	Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/library"))()
-
 	local HatMode=hmode
-
 	if HatMode=="alsoo3" then
-
 		local HATDUPES = Library.MakeTableOfHats("Mesh",{Mesh_Id=4315410540})
 		HATDUPES[1].Name = "DemonGodSword"
 		HATDUPES[2].Name = "RainbowGodSword"
@@ -208,19 +192,13 @@ local function redo()
 		if Library.FindHat("ShadowBladeMasterAccessory") then
 			Library.FindHat("ShadowBladeMasterAccessory").Name="VoidLordSword"
 		end
-
 		if Library.FindHat("BladeMasterAccessory") then
 			Library.FindHat("BladeMasterAccessory").Name="AuroraSword"
-
 		end
 	else
 	end
-
-
 	--game:GetService("Workspace")["Error_30363"].EyesOfTheEverWorld.Name = "Puffer Vest"
-
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/stuff"))()
-
 	local c = game:GetService("Players").LocalPlayer.Character
 	_G.OxideRealChar = c
 	local nria = false 
@@ -260,6 +238,29 @@ local function redo()
 			Hat.Rename("rbxassetid://14768683674","","LARM")
 			Hat.Rename("rbxassetid://14768683674","","RARM")
 		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://125975972015302", "Tor")
+			Hat.Rename("rbxassetid://135650240593878","","LARM")
+			Hat.Rename("rbxassetid://135650240593878","","RARM")
+		end)
+        pcall(function()
+            c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
+          end)
+          pcall(function()
+            c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LArm)"].Name = "gooblet"
+        end)
+        pcall(function()
+            c["Accessory (RArm)"].Name = "fooblet"
+        end)
+		pcall(function()
+            c["RARM"].Name = "fooblet"
+        end)
 	else
 		pcall(function()
 			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
@@ -318,29 +319,20 @@ local function redo()
     end)
 	if _G.EnableNetLib == true then
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/TypicallyAUser/random-stuff/main/4eyesnetlib.lua"))()
-
 		Network.CharacterRelative = false
-
 		coroutine.resume(Network["PartOwnership"]["Enable"])
 	end
-
-
-
-
 	Connection = workspace.DescendantAdded:Connect(function(c)
 		if c.Name == "Animate" then
 			c.Disabled=false        
 		end
 	end)
-
 	repeat wait() until game:GetService("Players").LocalPlayer.Character
 	Char = game:GetService("Players").LocalPlayer.Character
 	Died = game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Died:Connect(function()
 		Connection:Disconnect()
 		Died:Disconnect()
 	end)
-
-
 	function waitForChild(parent, childName)
 		local child = parent:findFirstChild(childName)
 		if child then return child end
@@ -355,6 +347,9 @@ local function redo()
 		char = workspace.non
 	end
 	_G.OxideFakeChar = char 
+	if c:FindFirstChildOfClass("CharacterMesh") then 
+		c:FindFirstChildOfClass("CharacterMesh"):Clone().Parent = char 
+	end
 	if _G.MiztCompat == false then
 		char.Name = c.Name.." (Dummy)"
 	else
@@ -368,7 +363,6 @@ local function redo()
 	if not workspace:FindFirstChild("non") then
 		char:SetPrimaryPartCFrame(c.HumanoidRootPart.CFrame *CFrame.new(0,0,2))
 	end
-
 	c["Body Colors"]:Clone().Parent = char
 	game:GetService("Players").LocalPlayer.Character.PrimaryPart = c.Head
 	char.HumanoidRootPart.Anchored = false
@@ -380,11 +374,7 @@ local function redo()
 	char.Parent = workspace
 	c.Parent = char
 	_G.Flinging = false
-
 	local swordbigvel = false
-
-
-
 	velocity = game:GetService("RunService").Heartbeat:Connect(function(set)
 		for i,v in pairs(c:GetChildren()) do
 			if v:IsA("Accessory")  then
@@ -392,25 +382,15 @@ local function redo()
 			end
 		end
 	end)
-
 	local function force(part,force)
 		local bodyforce = Instance.new("BodyForce", part)
 		bodyforce.Force = force
 	end
-
-
-
 	for i,v in pairs(c:GetChildren()) do
 		if v:IsA("Part") or v:IsA("MeshPart") then
 			force(v,Vector3.new(80,80,80))
 		end
 	end
-
-
-
-
-
-
 	speaker = game:GetService("Players").LocalPlayer
 	for _, child in pairs(c:GetChildren()) do
 		if child:IsA("Part") then
@@ -419,17 +399,11 @@ local function redo()
 			child.Handle.Anchored = true
 		end
 	end
-
 	for _, v in pairs(char:GetChildren()) do
 		if v:IsA("Part") then
 			v.CollisionGroup = c.Head.CollisionGroup
 		end
 	end	
-
-
-
-
-
 	if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 		for _,v in pairs(c:GetChildren()) do
 			if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (RARM)" and v.Name ~= "Accessory (LARM)" and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" and v:WaitForChild("Handle"):FindFirstChildOfClass("SpecialMesh").MeshId ~= "rbxassetid://11263221350"  then
@@ -437,22 +411,6 @@ local function redo()
 					local a = v:Clone()
 					a.Handle.AccessoryWeld.Part1 = char[a.Handle.AccessoryWeld.Part1.Name]
 					Accessory = v
-					Handle = Accessory.Handle
-					pcall(function() Handle:FindFirstChildOfClass("Weld"):Destroy() end)
-					local NewWeld = Instance.new("Weld")
-					NewWeld.Name = "AccessoryWeld"
-					NewWeld.Part0 = Handle
-					local Attachment = Handle:FindFirstChildOfClass("Attachment")
-					if Attachment then
-						NewWeld.C0 = Attachment.CFrame
-						NewWeld.C1 = char:FindFirstChild(tostring(Attachment), true).CFrame
-						NewWeld.Part1 = char:FindFirstChild(tostring(Attachment), true).Parent
-					else
-						NewWeld.Part1 = FakeCharacter:FindFirstChild("Head")
-						NewWeld.C1 = CFrame.new(0,char:FindFirstChild("Head").Size.Y / 2,0) * Accessory.AttachmentPoint:Inverse()
-					end
-					Handle.CFrame = NewWeld.Part1.CFrame * NewWeld.C1 * NewWeld.C0:Inverse()
-					NewWeld.Parent = Accessory.Handle 
 					a.Parent = char
 					a.Handle.Anchored = false
 					a.Handle.Transparency = 1
@@ -460,7 +418,6 @@ local function redo()
 			end
 		end
 	else
-
 		for _,v in pairs(c:GetChildren()) do
 			if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "Pouch" and v.Name ~= "Scooper"   and v.Name ~= "fooblet"  and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" and v:WaitForChild("Handle").MeshId ~= "rbxassetid://11263221350"  then
 				if not char:FindFirstChild(v.Name) then
@@ -529,23 +486,15 @@ local function redo()
 						w.Part1 = char["Head"]
 						w.C1 =  char["Head"].HairAttachment.CFrame 
 					end
-
-
 				end
 			end
 		end
-
 	end
-
-
-
-
 	for i,v in pairs(c:GetChildren()) do
 		if v:IsA("Accessory") then
 			force(v.Handle,Vector3.new(80,80,80))
 		end
 	end
-
 	for _,v in pairs(c:GetChildren()) do
 		if v:IsA("Accessory") and v.Name ~= "RectangleHead" and v.Name ~= "RectangleHead-1"  and v.Name ~= "RectangleHead-3"  and v.Name ~= "funnihead" and v.Name ~= "RectangleFace-1" and v.Name ~= "RectangleFace" and v.Name ~= "RectangleFace-2" and v.Name ~= "RectangleHead-2"     then
 			v.Handle:BreakJoints()
@@ -556,15 +505,11 @@ local function redo()
 			v.Handle:BreakJoints()
 		end
 	end 
-
 	for _, child in pairs(char:GetChildren()) do
 		if child:IsA("BasePart") then
 			child.Transparency = 1
 		end
 	end
-
-
-
 	local ch = game:GetService("Players").LocalPlayer.Character
 	local prt=Instance.new("Model", workspace)
 	local z1 =  Instance.new("Part", prt)
@@ -579,7 +524,6 @@ local function redo()
 	z3.Name="Humanoid"
 	z1.Position = Vector3.new(0,9999,0)
 	z2.Position = Vector3.new(0,9991,0)
-
 	function getRoot(char)
 		local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso')
 		return rootPart
@@ -590,28 +534,16 @@ local function redo()
 		humanoid.Sit = false
 		wait(0.1)
 	end
-
 	local hipHeight = humanoid and humanoid.HipHeight > 0 and (humanoid.HipHeight + 1)
 	local rootPart = getRoot(character)
 	local rootPartPosition = rootPart.Position
-
-
 	game:GetService("Players").LocalPlayer.Character=prt
 	game:GetService("Players").LocalPlayer.Character=char
-
-
-
 	if _G.wackyhead == true then 
 		wait(game:GetService("Players").RespawnTime + 0.5)  
-
 	end
-
-
 	--wait(game:GetService("Players").RespawnTime + 0.25)  
 	rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X,char.HumanoidRootPart.CFrame.Y,char.HumanoidRootPart.CFrame.Z) + Vector3.new(0, hipHeight or 4, 0)
-
-
-
 	if _G.ReanimatedAnimations == true then
 		pcall(function()
 			c.Animate.Disabled = true
@@ -648,44 +580,28 @@ local function redo()
 		--c.Head.Neck:Destroy()
 		c.Humanoid:TakeDamage(c.Humanoid.MaxHealth)
 	end
-
 	local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TypicallyAUser/TypicalsConvertingLibrary/main/Main"))()
-
-
 	speaker = game:GetService("Players").LocalPlayer
 	Clip = false
-
 	local function NoclipLoop()
 		for _, child in pairs(c:GetChildren()) do
 			if child:IsA("BasePart") then
 				child.CanCollide = false
 			end
 		end
-
-
 	end
 	Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
-
-
-
-
-
-
 	local Char = game:GetService("Players").LocalPlayer.Character
 	local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
-
 	for i,v in next, Hum:GetPlayingAnimationTracks() do
 		v:Stop()
 	end
 	if _G.Fling == true then
 		local Held = false
-
 		local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
-
 		Mouse.Button1Down:Connect(function()
 			Held = true
 		end)
-
 		Mouse.Button1Up:Connect(function()
 			Held = false
 		end)
@@ -711,7 +627,6 @@ local function redo()
 			end
 		end)
 	end
-
 	for _, child in pairs(c:GetChildren()) do
 		if child:IsA("Part") then
 			child.Anchored = true
@@ -720,11 +635,6 @@ local function redo()
 		end
 	end
 	local removinghealth = false
-
-
-
-
-
 	local canactuallydo
 	if _G.FasterLoad == true then
 		canactuallydo = false
@@ -736,44 +646,31 @@ local function redo()
 			--     v.Handle:FindFirstChild("Attachment"):Destroy() -- destroying basic welds
 		end
 	end
-
 	-- workspace[game:GetService("Players").LocalPlayer.Name.." Protected Welds"]:Destroy()
-
-
-
 	local function Align(Part1, Part0, Position, Angle)
 		if _G.EnableNetLib == true then
 			Network.RetainPart(Part1)
 		end
 		game:GetService("RunService").Heartbeat:Connect(function(set)
 			Part1.CFrame = Part0.CFrame * Position * Angle
-
-
 		end)
 	end
-
 	local function Align2(Part1, Part0, Position, Angle)
-
 		game:GetService("RunService").Heartbeat:Connect(function(set)
 			if removinghealth == false then
 				Part1.CFrame = Part0.CFrame * Position * Angle
 			end
-
 		end)
 	end
-
 	local function Align3 (Part1, Part0, Position, Angle)
-
 		game:GetService("RunService").Heartbeat:Connect(function(set)
 			if _G.Fling == false then
 				Part1.CFrame = Part0.CFrame * Position * Angle
 			end
-
 		end)
 	end
-
 	local sin = math.sin
-	local connect
+
 	local antisleepMultiplier=Vector3.new(-.0025,-.005,-.0025)
 	connect = game:GetService("RunService").Heartbeat:Connect(function(set)
 		sine=os.clock
@@ -801,7 +698,6 @@ local function redo()
 		pcall(function()
 			c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))   +antisleep
 		end)
-
 		pcall(function()
 			for _,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"   and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
@@ -815,17 +711,10 @@ local function redo()
 				v.Handle.CanCollide = false
 			end
 		end
-
 		oldcf = workspace.CurrentCamera.CFrame
 		settings().Physics.AllowSleep = false
 	end)
-
-
-
-
 	settings().Physics.AllowSleep = false
-
-
 	wait()
 	pcall(function()
 		rootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X,-300,char.HumanoidRootPart.CFrame.Z) + Vector3.new(0, hipHeight or 4, 0)
@@ -848,8 +737,6 @@ local function redo()
 end
 local function redo2()
 	wait(.001)
-
-
 	local gay = true -- dont edit >:(
 	hmode = nil
 	if gay == true then
@@ -857,15 +744,9 @@ local function redo2()
 	else
 		hmode = "alsoo3" -- hate this guy
 	end
-
-
-
 	Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/library"))()
-
 	local HatMode=hmode
-
 	if HatMode=="alsoo3" then
-
 		local HATDUPES = Library.MakeTableOfHats("Mesh",{Mesh_Id=4315410540})
 		HATDUPES[1].Name = "DemonGodSword"
 		HATDUPES[2].Name = "RainbowGodSword"
@@ -874,16 +755,12 @@ local function redo2()
 		if Library.FindHat("ShadowBladeMasterAccessory") then
 			Library.FindHat("ShadowBladeMasterAccessory").Name="VoidLordSword"
 		end
-
 		if Library.FindHat("BladeMasterAccessory") then
 			Library.FindHat("BladeMasterAccessory").Name="AuroraSword"
-
 		end
 	else
 	end
 	local c = game:GetService("Players").LocalPlayer.Character
-
-
 	--game:GetService("Workspace")["Error_30363"].EyesOfTheEverWorld.Name = "Puffer Vest"
 	if _G.CustomHats == false then
 		pcall(function()
@@ -914,6 +791,30 @@ local function redo2()
 			Hat.Rename("rbxassetid://14768683674","","LARM")
 			Hat.Rename("rbxassetid://14768683674","","RARM")
 		end)
+
+		pcall(function()
+			Hat.Rename("rbxassetid://125975972015302", "Tor")
+			Hat.Rename("rbxassetid://135650240593878","","LARM")
+			Hat.Rename("rbxassetid://135650240593878","","RARM")
+		end)
+        pcall(function()
+            c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
+          end)
+          pcall(function()
+            c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LArm)"].Name = "gooblet"
+        end)
+        pcall(function()
+            c["Accessory (RArm)"].Name = "fooblet"
+        end)
+		pcall(function()
+			Hat.Rename("rbxassetid://79186624401216","fooblet")
+        end)
 	else
 		pcall(function()
 			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
@@ -922,13 +823,12 @@ local function redo2()
 			Hat.Rename2("rbxassetid://".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
 			Hat.Rename2("rbxassetid://".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
 			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
-			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftArm.TextureId,"",_G.CH.LeftArm.Name,"LARM")
-			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightArm.TextureId,"",_G.CH.RightArm.Name,"RARM")
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftArm.TextureId,"gooblet",_G.CH.LeftArm.Name)
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightArm.TextureId,"fooblet",_G.CH.RightArm.Name)
 			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
 			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
 		end)
 	end
-
 	pcall(function()
 		c.gooblet.Name = "fooblet"
 	end)
@@ -940,6 +840,9 @@ local function redo2()
 	end)
 	pcall(function()
 		c["Accessory (RARM)"].Name = "RARM"
+	end)
+	pcall(function()
+		c["RARM"].Name = "fooblet"
 	end)
 	pcall(function()
 		if not c:FindFirstChild("Accessory (rightleg)") then
@@ -959,7 +862,6 @@ local function redo2()
 			c.ExtraNoobTorso.Name = "Tor"
 		end
 	end)
-
 	local nria = false 
 	local nlia = false 
 	pcall(function()
@@ -987,6 +889,9 @@ local function redo2()
 pcall(function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/renameclones3"))()
     end)
+	pcall(function()
+		c["gooblet-1"].Name = "fooblet"
+	end)
 	local flingloop
 	if _G.Fling == true then
 		local BodyVelocity = Instance.new("BodyVelocity", c.HumanoidRootPart)
@@ -996,7 +901,6 @@ pcall(function()
 		flinger.MaxTorque = Vector3.new(math.huge,math.huge,math.huge)
 		flinger.P = 1000000000000000000000000000
 		flinger.AngularVelocity = Vector3.new(5000000000000000000,5000000000000000000,5000000000000000000)
-
 		flingloop = game:GetService("RunService").Heartbeat:Connect(function()
 			c.HumanoidRootPart.CFrame = flingpos
 			c.HumanoidRootPart.Velocity = Vector3.new(9e9,9e9,9e9)
@@ -1012,9 +916,6 @@ pcall(function()
 		end
 		_G.Fling =false
 	end
-
-
-
 	function waitForChild(parent, childName)
 		local child = parent:findFirstChild(childName)
 		if child then return child end
@@ -1023,7 +924,6 @@ pcall(function()
 			if child.Name==childName then return child end
 		end
 	end
-
 	if not workspace:FindFirstChild("non") then
 		char =  workspace.Terrain.non
 	else
@@ -1034,32 +934,25 @@ pcall(function()
 	else 
 		_G.OxideRealChar = workspace[lp.Name]
 	end
-
 	speaker = game:GetService("Players").LocalPlayer
 	Clip = false
-
 	local function NoclipLoop()
 		for _, child in pairs(c:GetChildren()) do
 			if child:IsA("BasePart") then
 				child.CanCollide = false
 			end
 		end
-
 	end
-
-
-
 	for i,v in pairs(c:GetChildren()) do
 		if v:IsA("Accessory") and v.Name == "Pants" then
 			v:Destroy()
 		end
 	end
+
 	char.Parent = workspace
 	c.Parent = char
 	_G.Flinging = false
-
 	local swordbigvel = false
-
 	function getRoot(char)
 		local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') 
 		return rootPart
@@ -1070,31 +963,18 @@ pcall(function()
 		humanoid.Sit = false
 		wait(0.1)
 	end
-
 	local hipHeight = humanoid and humanoid.HipHeight > 0 and (humanoid.HipHeight + 1)
 	local rootPart = getRoot(character)
-
-
 	for i,v in pairs(c:GetDescendants()) do
 		if v:IsA("BasePart") then
 			v.AssemblyAngularVelocity = Vector3.new(0,0,0)
 			v.AssemblyLinearVelocity = Vector3.new(0,0,0)
 		end
 	end
-
-
-
 	local function force(part,force)
 		local bodyforce = Instance.new("BodyForce", part)
 		bodyforce.Force = force
 	end
-
-
-
-
-
-
-
 	speaker = game:GetService("Players").LocalPlayer
 	for _, child in pairs(c:GetChildren()) do
 		if child:IsA("Part") then
@@ -1103,7 +983,6 @@ pcall(function()
 			child.Handle.Anchored = true
 		end
 	end
-
 	for _, v in pairs(char:GetChildren()) do
 		if v:IsA("Part") then
 			pcall(function()
@@ -1111,8 +990,6 @@ pcall(function()
 			end)
 		end
 	end	
-
-
 	if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 		for _,v in pairs(c:GetChildren()) do
 			if v:IsA("Accessory")  and v.Name ~= "gooblet"  and v.Name ~= "Accessory (RARM)" and v.Name ~= "Accessory (LARM)" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)"   and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)"  and v.Name ~= "Accessory (LLeg)" and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "RectangleHead-2"  and v.Name ~= "Tor" and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" then
@@ -1128,7 +1005,6 @@ pcall(function()
 			end
 		end
 	else
-
 		for _,v in pairs(c:GetChildren()) do
 			if v:IsA("Accessory") and v.Name ~= "Pouch" and v.Name ~= "Scooper"    and v.Name ~= "gooblet" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)"  and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)"and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head"  then
 				if not char:FindFirstChild(v.Name) then
@@ -1200,16 +1076,10 @@ pcall(function()
 						w.Part1 = char["Head"]
 						w.C1 =  char["Head"].HairAttachment.CFrame 
 					end
-
-
 				end
 			end
 		end
-
 	end
-
-
-
 	for _,v in pairs(c:GetChildren()) do
 		if v:IsA("Accessory") and v.Name ~= "RectangleHead" and v.Name ~= "RectangleHead-1"  and v.Name ~= "RectangleHead-3"  and v.Name ~= "funnihead" and v.Name ~= "RectangleFace-1" and v.Name ~= "RectangleFace" and v.Name ~= "RectangleFace-2" and v.Name ~= "RectangleHead-2"     then
 			v.Handle:BreakJoints()
@@ -1220,21 +1090,16 @@ pcall(function()
 			v.Handle:BreakJoints()
 		end
 	end 
-
 	for _, child in pairs(char:GetChildren()) do
 		if child:IsA("BasePart") then
 			child.Transparency = 1
 		end
 	end
-
 	for _, child in pairs(char:GetChildren()) do
 		if child:IsA("Accessory") then
 			child.Handle.Transparency = 1
 		end
 	end
-
-
-
 	local ch = game:GetService("Players").LocalPlayer.Character
 	local prt=Instance.new("Model", workspace)
 	local z1 =  Instance.new("Part", prt)
@@ -1249,12 +1114,9 @@ pcall(function()
 	z3.Name="Humanoid"
 	z1.Position = Vector3.new(0,9999,0)
 	z2.Position = Vector3.new(0,9991,0)
-
-
 	for i,v in tools do
 		table.remove(tools,table.find(tools,v))
 	end
-
 	for i,v in pairs(lp.Backpack:GetChildren()) do 
 		if v:IsA("Tool") and not string.find(v.Name,"FAKE")  then 
 			pcall(function()
@@ -1263,7 +1125,6 @@ pcall(function()
 			table.insert(tools,v)
 		end 
 	end
-
 	for i,v in tools do
 		pcall(function()
 			v.Parent = c 
@@ -1284,7 +1145,6 @@ pcall(function()
 			v.Handle.CFrame = char.HumanoidRootPart.CFrame *CFrame.new(0,-25,5)
 		end)
 	end
-
 	task.spawn(function()
 		task.wait(.01)
 		for i,v in tools do
@@ -1300,26 +1160,23 @@ pcall(function()
 	end)
 	task.spawn(function()	
 		task.wait(.02)
-		game:GetService("Players").LocalPlayer.Character=char
+		game:GetService("Players").LocalPlayer.Character=char 
         pcall(function()
            moveloop:Disconnect()
            end)
 	end)
-    
-
 	prt:Destroy()
-
-
 	local clock = os.clock
 	local rad, cos, sin, random = math.rad, math.cos, math.sin, math.random
 	AntiSleepRotate = Vector3.new(0, sin(clock()*10), 0)
-	local velocity 
 	if _G.ToolFling == false then
 		velocity = game:GetService("RunService").Heartbeat:Connect(function()
+			game.Players.LocalPlayer.SimulationRadius = 999.9
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory") or v:IsA("Tool") then
 					pcall(function()
-						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 , 30.794, char.Torso.AssemblyLinearVelocity.Z*15 ) 
+						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*10000000),0.5,1),   28.7849+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6.12463345 ) 
+						v.Handle.AssemblyAngularVelocity = Vector3.new(0, sin(clock()*11000000000), 0)
 						v.Handle.CanCollide = false
 					end)
 				end
@@ -1329,7 +1186,7 @@ pcall(function()
 		velocity = game:GetService("RunService").Heartbeat:Connect(function()
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory")  then
-					v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15,30.794, char.Torso.AssemblyLinearVelocity.Z*15) 
+					v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15,30.499, char.Torso.AssemblyLinearVelocity.Z*15) 
 				elseif v:IsA("Tool") then 
 					pcall(function()
 						v.Handle.AssemblyLinearVelocity = Vector3.new(9e9 -9e7, 9e9) 
@@ -1340,16 +1197,7 @@ pcall(function()
 			end
 		end)
 	end
-
-
-
 	--wait(game:GetService("Players").RespawnTime + 0.25)  
-
-
-
-
-
-
 	for _, child in pairs(c:GetChildren()) do
 		if child:IsA("Part") then
 			child.Anchored = true
@@ -1357,16 +1205,7 @@ pcall(function()
 			child.Handle.Anchored = true
 		end
 	end
-
 	local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TypicallyAUser/TypicalsConvertingLibrary/main/Main"))()
-
-
-
-
-
-
-
-
 	for _, child in pairs(c:GetChildren()) do
 		if child:IsA("Part") then
 			child.Anchored = true
@@ -1375,12 +1214,6 @@ pcall(function()
 		end
 	end
 	local removinghealth = false
-
-
-
-
-
-
 	pcall(function()
 		for _,v in pairs(c:GetChildren()) do
 			if v:IsA("Accessory") and v.Name == "Heavenly Void Wings" then  
@@ -1408,14 +1241,9 @@ pcall(function()
 			end
 		end
 	end)  
-
-
-
-
-	local connect
 	local sin = math.sin
 	local plrs = game:GetService("Players")
-    local antisleepMultiplier=Vector3.new(.005,.003,.005)
+    local antisleepMultiplier=Vector3.new(.005,.005,.005)
 	if _G.CustomHats == false then
 		connect = game:GetService("RunService").Heartbeat:Connect(function(set)
 			sine=os.clock
@@ -1433,8 +1261,8 @@ pcall(function()
 					flingpart = nil
 				end
 			end)
-			local antisleep=sin(sine()*100)*antisleepMultiplier
-			plrs.LocalPlayer.SimulationRadius = #plrs:GetChildren()*1000
+			local antisleep=sin(sine()*10000)*antisleepMultiplier
+		
 			pcall(function()
 				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
 				workspace.FallenPartsDestroyHeight = oldh 
@@ -1482,7 +1310,6 @@ pcall(function()
 					end
 				end
 			end)
-
 			pcall(function()
 				for _,v in pairs(char:GetChildren()) do
 					if v:IsA("Accessory") and v.Name ~= "gooblet" and not string.find(v.Name, "gooblet") and v.Name ~= "fooblet" and v.Name ~= "Black"  and v.Name ~= "Tor"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
@@ -1514,8 +1341,7 @@ pcall(function()
 					for _,v in pairs(c:GetChildren()) do
 						if v:IsA("Accessory")   then
 							v.Handle.CanCollide = false
-							--v.Handle.Material = Enum.Material.Glass
-							v.Handle.Reflectance = -1
+							v.Handle:ApplyImpulseAtPosition(Vector3.one,Vector3.one)
 						end
 					end
 				else
@@ -1528,7 +1354,6 @@ pcall(function()
 					c["fooblet"].Handle.Color = char["Right Arm"].Color
 				end
 			end)
-
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Tool")  then
 					pcall(function()
@@ -1564,7 +1389,6 @@ pcall(function()
 				end
 			end)
 			local antisleep=sin(sine()*100)*antisleepMultiplier
-			plrs.LocalPlayer.SimulationRadius = #plrs:GetChildren()*1000
 			pcall(function()
 				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
 				workspace.FallenPartsDestroyHeight = oldh 
@@ -1616,7 +1440,6 @@ pcall(function()
 					end
 				end
 			end)
-
 			pcall(function()
 				for _,v in pairs(char:GetChildren()) do
 					if v:IsA("Accessory") and v.Name ~= "gooblet" and not string.find(v.Name, "gooblet") and v.Name ~= "fooblet" and v.Name ~= "Black"  and v.Name ~= "Tor"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
@@ -1648,8 +1471,7 @@ pcall(function()
 					for _,v in pairs(c:GetChildren()) do
 						if v:IsA("Accessory")   then
 							v.Handle.CanCollide = false
-							--v.Handle.Material = Enum.Material.Glass
-							v.Handle.Reflectance = -1
+							v.Handle:ApplyImpulseAtPosition(Vector3.one,Vector3.zero)
 						end
 					end
 				else
@@ -1662,7 +1484,6 @@ pcall(function()
 					c["fooblet"].Handle.Color = char["Right Arm"].Color
 				end
 			end)
-
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Tool")  then
 					pcall(function()
@@ -1681,29 +1502,21 @@ pcall(function()
 			settings().Physics.AllowSleep = false
 		end)
 	end
-
-
 	local qr = 0
-
 	task.spawn(function()
 		task.wait(.05)
 		qr = qr + .05
 	end)
-
 	char:FindFirstChildOfClass("Humanoid").Died:Connect(function()
-
 		stopped = true
 		_G.Stopped = true
 		respawnloop:Disconnect()
-
 		task.wait(game.Players.RespawnTime - qr)
 		connect:Disconnect()
 		char:Destroy()
 		velocity:Disconnect()
 	end)
-
 	settings().Physics.AllowSleep = false
-
 	for _, child in pairs(c:GetChildren()) do
 		if child:IsA("Part") then
 			child.Anchored = false
@@ -1711,9 +1524,7 @@ pcall(function()
 			child.Handle.Anchored = false
 		end
 	end
-
 	local n = 0
-
 	local function transparent() 
 		for _, child in pairs(char:GetChildren()) do
 			local v = child
@@ -1736,7 +1547,6 @@ pcall(function()
 			end
 		end
 	end
-
 end
 redo()
 game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -1744,19 +1554,18 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 	Duration = 20;
 	Text = "Your character will respawn every "..game:GetService("Players").RespawnTime.." seconds."
 })
-
 local sin=math.sin
 local oldh = workspace.FallenPartsDestroyHeight
-
 respawnloop = plr.CharacterAdded:Connect(function(re)
 	if re ~= char then
-repeat task.wait() until workspace:HasTag("Permadeath")
-        if _G.HatCollide == false then 
+		if _G.HatCollide == false then 
             repeat wait() until re:FindFirstChildOfClass("Humanoid")
             moveloop = game:GetService("RunService").Heartbeat:Connect(function()
          char:FindFirstChildOfClass("Humanoid"):Move(re:FindFirstChildOfClass("Humanoid").MoveDirection)   
     end)
     end
+	replicatesignal(game.Players.LocalPlayer.ConnectDiedSignalBackend)
+	task.wait(game.Players.RespawnTime)
 		if  _G.ToolFling == true then 
 			_G.Fling = false 
 		end
@@ -1779,7 +1588,6 @@ repeat task.wait() until workspace:HasTag("Permadeath")
 					end
 					task.wait(.005)
 					redo2()
-                    
 				else
 					workspace.CurrentCamera.CameraSubject = workspace.Terrain.non:FindFirstChildOfClass("Humanoid")
 					if plr.Character.Name ~= "non" then
@@ -1787,7 +1595,6 @@ repeat task.wait() until workspace:HasTag("Permadeath")
 					end
 					task.wait(.005)
 					redo2()
-                     
 				end
 			end
 		else
@@ -1853,10 +1660,9 @@ repeat task.wait() until workspace:HasTag("Permadeath")
 				if plr.Character.Name ~= "non" then
 					if _G.TeleportCharacter == true then
                         if _G.HatCollide == false then
-						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + 150, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X + 5 , workspace.FallenPartsDestroyHeight + 450, workspace.non.HumanoidRootPart.CFrame.Z  ) 
                         else 
-	plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X  , workspace.FallenPartsDestroyHeight + .25, workspace.non.HumanoidRootPart.CFrame.Z  ) 
-
+							plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X + 5 , workspace.FallenPartsDestroyHeight + 450, workspace.non.HumanoidRootPart.CFrame.Z  ) 
 					end
                 end
 	                local c =plr.Character
@@ -1885,7 +1691,6 @@ repeat task.wait() until workspace:HasTag("Permadeath")
 		end
 	end
 end)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/camera"))()
 local flingtable= {}
 getgenv().attackuno= function(part)
 	task.spawn(function()
@@ -1903,7 +1708,6 @@ getgenv().attackuno= function(part)
 						Text = "Locked onto player: "..flingpart.Parent:FindFirstChildOfClass("Humanoid").DisplayName.." (@"..flingpart.Parent.Name..")"
 					})
 					if _G.ToolFling == true then
-
 						_G.Fling = false
 						if faketools[1] ~= nil then 
 							faketools[1].Parent = char
@@ -1979,4 +1783,14 @@ Mouse.Button1Down:Connect(function()
 	if _G.FlingEnabled == true and stopped == false and _G.ClickFling == true then
 		attackuno(Mouse.Target)
 	end
+end)
+local uis = game:GetService("UserInputService")
+uis.InputBegan:Connect(function(k,chatting)
+	if chatting then return end
+if k.KeyCode == Enum.KeyCode.Minus then 
+	replicatesignal(game.Players.LocalPlayer.ConnectDiedSignalBackend)
+	task.wait(game.Players.RespawnTime)
+	connect:Disconnect()
+	velocity:Disconnect()
+end
 end)
