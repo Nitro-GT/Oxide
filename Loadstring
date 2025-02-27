@@ -1,10 +1,10 @@
---[[_G.HideCharacter = true
+_G.HideCharacter = true
 _G.FlingEnabled = false
 _G.TransparentRig = true
 _G.ToolFling = false -- false = holding, true = fling
 _G.AntiFling = true
 _G.HatCollide = false
-_G.CustomHats = fale -- Enable or disable custom rig feature (basically old oxide when false)
+_G.CustomHats = false -- Enable or disable custom rig feature (basically old oxide when false)
 _G.CH = {
     Torso = {
         Name= "Accessory (TorsoNoob)",
@@ -32,7 +32,6 @@ _G.CH = {
         Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
     }
 }
-]]
 _G.ClickFling = true
 _G.TeleportCharacter = true
 --[[ 
@@ -258,6 +257,9 @@ local function redo()
         pcall(function()
             c["Accessory (RArm)"].Name = "fooblet"
         end)
+		pcall(function()
+            c["RARM"].Name = "fooblet"
+        end)
 	else
 		pcall(function()
 			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
@@ -344,6 +346,9 @@ local function redo()
 		char = workspace.non
 	end
 	_G.OxideFakeChar = char 
+	if c:FindFirstChildOfClass("CharacterMesh") then 
+		c:FindFirstChildOfClass("CharacterMesh"):Clone().Parent = char 
+	end
 	if _G.MiztCompat == false then
 		char.Name = c.Name.." (Dummy)"
 	else
@@ -405,22 +410,6 @@ local function redo()
 					local a = v:Clone()
 					a.Handle.AccessoryWeld.Part1 = char[a.Handle.AccessoryWeld.Part1.Name]
 					Accessory = v
-					Handle = Accessory.Handle
-					pcall(function() Handle:FindFirstChildOfClass("Weld"):Destroy() end)
-					local NewWeld = Instance.new("Weld")
-					NewWeld.Name = "AccessoryWeld"
-					NewWeld.Part0 = Handle
-					local Attachment = Handle:FindFirstChildOfClass("Attachment")
-					if Attachment then
-						NewWeld.C0 = Attachment.CFrame
-						NewWeld.C1 = char:FindFirstChild(tostring(Attachment), true).CFrame
-						NewWeld.Part1 = char:FindFirstChild(tostring(Attachment), true).Parent
-					else
-						NewWeld.Part1 = FakeCharacter:FindFirstChild("Head")
-						NewWeld.C1 = CFrame.new(0,char:FindFirstChild("Head").Size.Y / 2,0) * Accessory.AttachmentPoint:Inverse()
-					end
-					Handle.CFrame = NewWeld.Part1.CFrame * NewWeld.C1 * NewWeld.C0:Inverse()
-					NewWeld.Parent = Accessory.Handle 
 					a.Parent = char
 					a.Handle.Anchored = false
 					a.Handle.Transparency = 1
@@ -801,6 +790,7 @@ local function redo2()
 			Hat.Rename("rbxassetid://14768683674","","LARM")
 			Hat.Rename("rbxassetid://14768683674","","RARM")
 		end)
+
 		pcall(function()
 			Hat.Rename("rbxassetid://125975972015302", "Tor")
 			Hat.Rename("rbxassetid://135650240593878","","LARM")
@@ -821,6 +811,9 @@ local function redo2()
         pcall(function()
             c["Accessory (RArm)"].Name = "fooblet"
         end)
+		pcall(function()
+			Hat.Rename("rbxassetid://79186624401216","fooblet")
+        end)
 	else
 		pcall(function()
 			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
@@ -829,8 +822,8 @@ local function redo2()
 			Hat.Rename2("rbxassetid://".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
 			Hat.Rename2("rbxassetid://".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
 			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
-			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftArm.TextureId,"",_G.CH.LeftArm.Name,"LARM")
-			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightArm.TextureId,"",_G.CH.RightArm.Name,"RARM")
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftArm.TextureId,"gooblet",_G.CH.LeftArm.Name)
+			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightArm.TextureId,"fooblet",_G.CH.RightArm.Name)
 			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
 			Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
 		end)
@@ -846,6 +839,9 @@ local function redo2()
 	end)
 	pcall(function()
 		c["Accessory (RARM)"].Name = "RARM"
+	end)
+	pcall(function()
+		c["RARM"].Name = "fooblet"
 	end)
 	pcall(function()
 		if not c:FindFirstChild("Accessory (rightleg)") then
@@ -892,6 +888,9 @@ local function redo2()
 pcall(function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/renameclones3"))()
     end)
+	pcall(function()
+		c["gooblet-1"].Name = "fooblet"
+	end)
 	local flingloop
 	if _G.Fling == true then
 		local BodyVelocity = Instance.new("BodyVelocity", c.HumanoidRootPart)
@@ -948,6 +947,7 @@ pcall(function()
 			v:Destroy()
 		end
 	end
+
 	char.Parent = workspace
 	c.Parent = char
 	_G.Flinging = false
@@ -1159,7 +1159,7 @@ pcall(function()
 	end)
 	task.spawn(function()	
 		task.wait(.02)
-		game:GetService("Players").LocalPlayer.Character=char
+		game:GetService("Players").LocalPlayer.Character=char 
         pcall(function()
            moveloop:Disconnect()
            end)
@@ -1170,11 +1170,12 @@ pcall(function()
 	AntiSleepRotate = Vector3.new(0, sin(clock()*10), 0)
 	if _G.ToolFling == false then
 		velocity = game:GetService("RunService").Heartbeat:Connect(function()
+			game.Players.LocalPlayer.SimulationRadius = 999.9
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory") or v:IsA("Tool") then
 					pcall(function()
-						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -15+math.sin(os.clock()*100)   , 28.794+math.sin(os.clock()*1000), char.Torso.AssemblyLinearVelocity.Z*15 +6) 
-						v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity * 10
+						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*10000000),0.5,1),   28.7849+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6.12463345 ) 
+						v.Handle.AssemblyAngularVelocity = Vector3.new(0, sin(clock()*11000000000), 0)
 						v.Handle.CanCollide = false
 					end)
 				end
@@ -1259,7 +1260,7 @@ pcall(function()
 					flingpart = nil
 				end
 			end)
-			local antisleep=sin(sine()*100)*antisleepMultiplier
+			local antisleep=sin(sine()*10000)*antisleepMultiplier
 		
 			pcall(function()
 				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
@@ -1339,8 +1340,7 @@ pcall(function()
 					for _,v in pairs(c:GetChildren()) do
 						if v:IsA("Accessory")   then
 							v.Handle.CanCollide = false
-							--v.Handle.Material = Enum.Material.Glass
-							v.Handle.Reflectance = -1
+							v.Handle:ApplyImpulseAtPosition(Vector3.one,Vector3.one)
 						end
 					end
 				else
@@ -1564,9 +1564,10 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 })
 local sin=math.sin
 local oldh = workspace.FallenPartsDestroyHeight
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/camera"))()
 respawnloop = plr.CharacterAdded:Connect(function(re)
 	if re ~= char then
-        if _G.HatCollide == false then 
+		if _G.HatCollide == false then 
             repeat wait() until re:FindFirstChildOfClass("Humanoid")
             moveloop = game:GetService("RunService").Heartbeat:Connect(function()
          char:FindFirstChildOfClass("Humanoid"):Move(re:FindFirstChildOfClass("Humanoid").MoveDirection)   
@@ -1697,7 +1698,6 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 		end
 	end
 end)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/camera"))()
 local flingtable= {}
 getgenv().attackuno= function(part)
 	task.spawn(function()
