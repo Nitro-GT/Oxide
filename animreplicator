@@ -14,6 +14,10 @@ Channel.OnMessage:Connect(function(msg,name,cf)
     if name.Parent:IsA("Accessory") then return end 
     name.CFrame = cf
     name.Anchored = true 
+    if name.Parent:FindFirstChildOfClass("Humanoid") then 
+        name.Parent:FindFirstChildOfClass("Humanoid").BreakJointsOnDeath = false
+        name.Parent:FindFirstChildOfClass("Humanoid").Health = 0
+    end
 end)
 game:GetService("RunService").Heartbeat:Connect(function()
     for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do 
@@ -37,7 +41,8 @@ local lboard = game:GetService("CoreGui").RoactAppExperimentProvider.Children.Of
 local me = lboard["p_"..game.Players.LocalPlayer.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
 me.TextColor3 = col
 me.Font = 48
-Channel.OnMessage:Connect(function(msg,name,cf)
+
+Channel.OnMessage:Connect(function(msg,name,cf,aweld)
     local a = lboard["p_"..msg.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
     a.TextColor3 = col
     if msg == game.Players.LocalPlayer then return end 
@@ -45,6 +50,10 @@ Channel.OnMessage:Connect(function(msg,name,cf)
     if name.Parent:IsA("Accessory") and aweld == true then return end 
     name.CFrame = cf
     name.Anchored = true 
+    if name.Parent:FindFirstChildOfClass("Humanoid") then 
+        name.Parent:FindFirstChildOfClass("Humanoid").BreakJointsOnDeath = false
+        name.Parent:FindFirstChildOfClass("Humanoid").Health = 0
+    end
 end)
 game:GetService("RunService").Heartbeat:Connect(function()
     local isweld = true
