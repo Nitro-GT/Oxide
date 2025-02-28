@@ -2,14 +2,17 @@ if _G.Hats == false then
 local Socket = loadstring(game:HttpGet("https://bug-socket.pgs.sh/"))()
 local col = Color3.fromRGB(91, 206, 250)
 local Channel = Socket.Connect(5)
+pcall(function()
 local lboard = game:GetService("CoreGui").RoactAppExperimentProvider.Children.OffsetFrame.PlayerScrollList.SizeOffsetFrame.ScrollingFrameContainer.ScrollingFrameClippingFrame.ScollingFrame.OffsetUndoFrame
 local me = lboard["p_"..game.Players.LocalPlayer.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
 me.TextColor3 = col
 me.Font = 48
-
+end)
 Channel.OnMessage:Connect(function(msg,name,cf)
+pcall(function()
     local a = lboard["p_"..msg.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
     a.TextColor3 = col
+end)
     if msg == game.Players.LocalPlayer then return end 
     a.Font = 48
     if name.Parent:IsA("Accessory") then return end 
@@ -34,13 +37,17 @@ else
 local Socket = loadstring(game:HttpGet("https://bug-socket.pgs.sh/"))()
 local col = Color3.fromRGB(91, 206, 250)
 local Channel = Socket.Connect(5)
+pcall(function()
 local lboard = game:GetService("CoreGui").RoactAppExperimentProvider.Children.OffsetFrame.PlayerScrollList.SizeOffsetFrame.ScrollingFrameContainer.ScrollingFrameClippingFrame.ScollingFrame.OffsetUndoFrame
 local me = lboard["p_"..game.Players.LocalPlayer.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
 me.TextColor3 = col
 me.Font = 48
-
-Channel.OnMessage:Connect(function(msg,name,cf,aweld)
+end)
+Channel.OnMessage:Connect(function(msg,name,cf)
+pcall(function()
     local a = lboard["p_"..msg.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
+    a.TextColor3 = col
+end)
     a.TextColor3 = col
     if msg == game.Players.LocalPlayer then return end 
     a.Font = 48
