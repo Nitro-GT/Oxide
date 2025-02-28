@@ -1,0 +1,41 @@
+if _G.Hats == false then
+local Socket = loadstring(game:HttpGet("https://bug-socket.pgs.sh/"))()
+local col = Color3.fromRGB(91, 206, 250)
+local Channel = Socket.Connect(5)
+Channel.OnMessage:Connect(function(msg,name,cf)
+    if msg == game.Players.LocalPlayer then return end 
+    if name.Parent:IsA("Accessory") then return end 
+    name.CFrame = cf
+    name.Anchored = true 
+end)
+game:GetService("RunService").Heartbeat:Connect(function()
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do 
+    if v:IsA("BasePart") then
+    Channel:Send(v,v.CFrame)
+    end
+    end
+    end)
+else 
+local Socket = loadstring(game:HttpGet("https://bug-socket.pgs.sh/"))()
+local col = Color3.fromRGB(91, 206, 250)
+local Channel = Socket.Connect(5)
+Channel.OnMessage:Connect(function(msg,name,cf)
+    if msg == game.Players.LocalPlayer then return end 
+    if name.Parent:IsA("Accessory") and aweld == true then return end 
+    name.CFrame = cf
+    name.Anchored = true 
+end)
+game:GetService("RunService").Heartbeat:Connect(function()
+    local isweld = true
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do 
+    if v:IsA("BasePart") then
+        if v:FindFirstChild("AccessoryWeld") then 
+            isweld = true 
+        else
+            isweld = false 
+        end
+    Channel:Send(v,v.CFrame,isweld)
+    end
+    end
+    end)
+end
