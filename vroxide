@@ -252,6 +252,29 @@ local function redo()
 			Hat.Rename("rbxassetid://14768683674","","LARM")
 			Hat.Rename("rbxassetid://14768683674","","RARM")
 		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://125975972015302", "Tor")
+			Hat.Rename("rbxassetid://135650240593878","","LARM")
+			Hat.Rename("rbxassetid://135650240593878","","RARM")
+		end)
+        pcall(function()
+            c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
+          end)
+          pcall(function()
+            c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LArm)"].Name = "gooblet"
+        end)
+        pcall(function()
+            c["Accessory (RArm)"].Name = "fooblet"
+        end)
+		pcall(function()
+            c["RARM"].Name = "fooblet"
+        end)
 	else
 		pcall(function()
 			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
@@ -885,6 +908,29 @@ local function redo2()
 			Hat.Rename("rbxassetid://14768683674","","LARM")
 			Hat.Rename("rbxassetid://14768683674","","RARM")
 		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://125975972015302", "Tor")
+			Hat.Rename("rbxassetid://135650240593878","","LARM")
+			Hat.Rename("rbxassetid://135650240593878","","RARM")
+		end)
+        pcall(function()
+            c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
+          end)
+          pcall(function()
+            c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LArm)"].Name = "gooblet"
+        end)
+        pcall(function()
+            c["Accessory (RArm)"].Name = "fooblet"
+        end)
+		pcall(function()
+            c["RARM"].Name = "fooblet"
+        end)
 	else
 		pcall(function()
 			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
