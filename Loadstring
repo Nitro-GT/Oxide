@@ -3,7 +3,7 @@ _G.FlingEnabled = false
 _G.TransparentRig = true
 _G.ToolFling = false -- false = holding, true = fling
 _G.AntiFling = true
-_G.HatCollide = false
+_G.HatCollide = true
 _G.CustomHats = false -- Enable or disable custom rig feature (basically old oxide when false)
 _G.CH = {
     Torso = {
@@ -45,8 +45,7 @@ if not getgenv then
 		return _G
 	end
 end
-local connect
-local velocity
+
 local flingpos = game.Players.LocalPlayer:GetMouse().Hit
 local flingpart = game.Players.LocalPlayer:GetMouse().Target
 local flingplr = nil
@@ -374,6 +373,7 @@ local function redo()
 	c.Parent = char
 	_G.Flinging = false
 	local swordbigvel = false
+   local velocity
 	velocity = game:GetService("RunService").Heartbeat:Connect(function(set)
 		for i,v in pairs(c:GetChildren()) do
 			if v:IsA("Accessory")  then
@@ -671,6 +671,7 @@ local function redo()
 	local sin = math.sin
 
 	local antisleepMultiplier=Vector3.new(-.0025,-.005,-.0025)
+   local connect 
 	connect = game:GetService("RunService").Heartbeat:Connect(function(set)
 		sine=os.clock
 		local antisleep=sin(sine()*100)*antisleepMultiplier
@@ -1168,6 +1169,7 @@ pcall(function()
 	local clock = os.clock
 	local rad, cos, sin, random = math.rad, math.cos, math.sin, math.random
 	AntiSleepRotate = Vector3.new(0, sin(clock()*10), 0)
+   local velocity
 	if _G.ToolFling == false then
 		velocity = game:GetService("RunService").Heartbeat:Connect(function()
 			game.Players.LocalPlayer.SimulationRadius = 999.9
@@ -1243,6 +1245,7 @@ pcall(function()
 	local sin = math.sin
 	local plrs = game:GetService("Players")
     local antisleepMultiplier=Vector3.new(.005,.005,.005)
+    local connect
 	if _G.CustomHats == false then
 		connect = game:GetService("RunService").Heartbeat:Connect(function(set)
 			sine=os.clock
@@ -1564,7 +1567,6 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 })
 local sin=math.sin
 local oldh = workspace.FallenPartsDestroyHeight
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/camera"))()
 respawnloop = plr.CharacterAdded:Connect(function(re)
 	if re ~= char then
 		if _G.HatCollide == false then 
@@ -1667,7 +1669,7 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 				if plr.Character.Name ~= "non" then
 					if _G.TeleportCharacter == true then
                         if _G.HatCollide == false then
-						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X + 5 , workspace.FallenPartsDestroyHeight + .350, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X + 5 , workspace.FallenPartsDestroyHeight + 350, workspace.non.HumanoidRootPart.CFrame.Z  ) 
                         else 
 							plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X + 5 , workspace.FallenPartsDestroyHeight + .25, workspace.non.HumanoidRootPart.CFrame.Z  ) 
 					end
