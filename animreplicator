@@ -1,4 +1,3 @@
-if _G.Hats == false then
 local Socket = loadstring(game:HttpGet("https://bug-socket.pgs.sh/"))()
 local col = Color3.fromRGB(91, 206, 250)
 local Channel = Socket.Connect(5)
@@ -6,73 +5,39 @@ local lboard = game:GetService("CoreGui").RoactAppExperimentProvider.Children.Of
 local me = lboard["p_"..game.Players.LocalPlayer.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
 me.TextColor3 = col
 me.Font = 48
-Channel.OnMessage:Connect(function(msg,name,cf)
+local ql 
+local con 
+ql = Channel.OnMessage:Connect(function(msg,name,cf,colr,scale)
     local a = lboard["p_"..msg.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
     a.TextColor3 = col
     if msg == game.Players.LocalPlayer then return end 
     a.Font = 48
-    if name.Parent:IsA("Accessory") then return end 
+    if name.Parent:IsA("Accessory")  then return end 
     name.CFrame = cf
     name.Anchored = true 
+    name.Color = colr
     if name.Parent:FindFirstChildOfClass("Humanoid") then 
-        name.Parent:FindFirstChildOfClass("Humanoid").BreakJointsOnDeath = false
-        name.Parent:FindFirstChildOfClass("Humanoid").Health = 0
+        name.Parent:ScaleTo(scale)
     end
 end)
-game:GetService("RunService").Heartbeat:Connect(function()
+con = game:GetService("RunService").Heartbeat:Connect(function()
     for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do 
     if v:IsA("BasePart") then
-    Channel:Send(v,v.CFrame)
+    Channel:Send(v,v.CFrame,v.Color,game.Players.LocalPlayer.Character:GetScale())
     end
     end
     end)
-
-    while true do
-        for i = 0,1,(1/120) do
-            task.wait(1/30)
-            col  = Color3.fromHSV(i,1,1)
-        end
-    end
-else 
-local Socket = loadstring(game:HttpGet("https://bug-socket.pgs.sh/"))()
-local col = Color3.fromRGB(91, 206, 250)
-local Channel = Socket.Connect(5)
-local lboard = game:GetService("CoreGui").RoactAppExperimentProvider.Children.OffsetFrame.PlayerScrollList.SizeOffsetFrame.ScrollingFrameContainer.ScrollingFrameClippingFrame.ScollingFrame.OffsetUndoFrame
-local me = lboard["p_"..game.Players.LocalPlayer.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
-me.TextColor3 = col
-me.Font = 48
-
-Channel.OnMessage:Connect(function(msg,name,cf,aweld)
-    local a = lboard["p_"..msg.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
-    a.TextColor3 = col
-    if msg == game.Players.LocalPlayer then return end 
-    a.Font = 48
-    if name.Parent:IsA("Accessory") and aweld == true then return end 
-    name.CFrame = cf
-    name.Anchored = true 
-    if name.Parent:FindFirstChildOfClass("Humanoid") then 
-        name.Parent:FindFirstChildOfClass("Humanoid").BreakJointsOnDeath = false
-        name.Parent:FindFirstChildOfClass("Humanoid").Health = 0
-    end
-end)
-game:GetService("RunService").Heartbeat:Connect(function()
-    local isweld = true
-    for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do 
-    if v:IsA("BasePart") then
-        if v:FindFirstChild("AccessoryWeld") then 
-            isweld = true 
-        else
-            isweld = false 
-        end
-    Channel:Send(v,v.CFrame,isweld)
-    end
-    end
-    end)
-
-    while true do
-        for i = 0,1,(1/120) do
-            task.wait(1/30)
-            col  = Color3.fromHSV(i,1,1)
-        end
-    end
+local uis = game:GetService("UserInputService")
+uis.InputBegan:Connect(function(k,chatting)
+	if chatting then return end
+if k.KeyCode == Enum.KeyCode.Minus then 
+	con:Disconnect()
+	ql:Disconnect()
 end
+end)
+    while true do
+        for i = 0,1,(1/120) do
+            task.wait(1/30)
+            col  = Color3.fromHSV(i,1,1)
+        end
+    end
