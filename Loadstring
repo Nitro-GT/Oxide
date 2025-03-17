@@ -1176,8 +1176,8 @@ pcall(function()
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory") or v:IsA("Tool") then
 					pcall(function()
-						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*10000000),0.5,1),   28.7849+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6.12463345 ) 
-						v.Handle.AssemblyAngularVelocity = Vector3.new(0, sin(clock()*11000000000), 0)
+		v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*1000),0.5,1)   ,30.499+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6) 
+						v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity * 10
 						v.Handle.CanCollide = false
 					end)
 				end
@@ -1187,7 +1187,8 @@ pcall(function()
 		velocity = game:GetService("RunService").Heartbeat:Connect(function()
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory")  then
-					v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15,30.499, char.Torso.AssemblyLinearVelocity.Z*15) 
+						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*1000),0.5,1)   ,30.499+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6) 
+						v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity * 10
 				elseif v:IsA("Tool") then 
 					pcall(function()
 						v.Handle.AssemblyLinearVelocity = Vector3.new(9e9 -9e7, 9e9) 
