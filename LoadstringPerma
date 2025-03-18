@@ -4,6 +4,7 @@ _G.FlingEnabled = false
 _G.TransparentRig = true
 _G.ToolFling = false -- false = holding, true = fling
 _G.AntiFling = true
+_G.HatCollide = false
 _G.CustomHats = false -- Enable or disable custom rig feature (basically old oxide when false)
 _G.CH = {
     Torso = {
@@ -32,7 +33,6 @@ _G.CH = {
         Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
     }
 }]]
-_G.HatCollide = false
 _G.ClickFling = true
 _G.TeleportCharacter = true
 --[[ 
@@ -48,8 +48,8 @@ if not getgenv then
 end
 local connect
 local velocity
-local flingpos = game.Players.LocalPlayer:GetMouse().Hit
-local flingpart = game.Players.LocalPlayer:GetMouse().Target
+local flingpos = game:GetService("Players").LocalPlayer:GetMouse().Hit
+local flingpart = game:GetService("Players").LocalPlayer:GetMouse().Target
 local flingplr = nil
 local sineee=os.clock()
 local sine=os.clock()
@@ -211,6 +211,34 @@ local function redo()
 	end 
 	if _G.CustomHats == false then
 		pcall(function()
+			Hat.Rename("rbxassetid://125975972015302", "Tor")
+			Hat.Rename("rbxassetid://135650240593878","","LARM")
+			Hat.Rename("rbxassetid://135650240593878","","RARM")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://70661572547971", "Tor")
+			Hat.Rename("rbxassetid://136752500636691","","LARM")
+			Hat.Rename("rbxassetid://136752500636691","","RARM")
+		end)
+        pcall(function()
+            c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
+          end)
+          pcall(function()
+            c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LArm)"].Name = "gooblet"
+        end)
+        pcall(function()
+            c["Accessory (RArm)"].Name = "fooblet"
+        end)
+		pcall(function()
+            c["RARM"].Name = "fooblet"
+        end)
+		pcall(function()
 			Hat.Rename("rbxassetid://17374768001","","LARM")
 			Hat.Rename("rbxassetid://17374768001","","RARM")
 			Hat.Rename("rbxassetid://14251599953", "Tor")
@@ -238,29 +266,7 @@ local function redo()
 			Hat.Rename("rbxassetid://14768683674","","LARM")
 			Hat.Rename("rbxassetid://14768683674","","RARM")
 		end)
-		pcall(function()
-			Hat.Rename("rbxassetid://125975972015302", "Tor")
-			Hat.Rename("rbxassetid://135650240593878","","LARM")
-			Hat.Rename("rbxassetid://135650240593878","","RARM")
-		end)
-        pcall(function()
-            c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
-          end)
-          pcall(function()
-            c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
-          end)
-          pcall(function()
-            c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
-          end)
-          pcall(function()
-            c["Accessory (LArm)"].Name = "gooblet"
-        end)
-        pcall(function()
-            c["Accessory (RArm)"].Name = "fooblet"
-        end)
-		pcall(function()
-            c["RARM"].Name = "fooblet"
-        end)
+
 	else
 		pcall(function()
 			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
@@ -358,6 +364,7 @@ local function redo()
 	zz = Instance.new("Highlight",char)
 	zz.FillTransparency = 1
 	zz.DepthMode = Enum.HighlightDepthMode.Occluded
+	zz.Enabled = false
 	local qqz = Instance.new("Shirt",char)
 	qqz.ShirtTemplate = "rbxassetid://0"
 	if not workspace:FindFirstChild("non") then
@@ -511,19 +518,6 @@ local function redo()
 		end
 	end
 	local ch = game:GetService("Players").LocalPlayer.Character
-	local prt=Instance.new("Model", workspace)
-	local z1 =  Instance.new("Part", prt)
-	z1.Name="Torso"
-	z1.CanCollide = false
-	z1.Anchored = true
-	local z2  =Instance.new("Part", prt)
-	z2.Name="Head"
-	z2.Anchored = true
-	z2.CanCollide = false
-	local z3 =Instance.new("Humanoid", prt)
-	z3.Name="Humanoid"
-	z1.Position = Vector3.new(0,9999,0)
-	z2.Position = Vector3.new(0,9991,0)
 	function getRoot(char)
 		local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso')
 		return rootPart
@@ -537,7 +531,6 @@ local function redo()
 	local hipHeight = humanoid and humanoid.HipHeight > 0 and (humanoid.HipHeight + 1)
 	local rootPart = getRoot(character)
 	local rootPartPosition = rootPart.Position
-	game:GetService("Players").LocalPlayer.Character=prt
 	game:GetService("Players").LocalPlayer.Character=char
 	if _G.wackyhead == true then 
 		wait(game:GetService("Players").RespawnTime + 0.5)  
@@ -815,6 +808,11 @@ local function redo2()
 		pcall(function()
 			Hat.Rename("rbxassetid://79186624401216","fooblet")
         end)
+		pcall(function()
+			Hat.Rename("rbxassetid://70661572547971", "Tor")
+			Hat.Rename("rbxassetid://136752500636691","","LARM")
+			Hat.Rename("rbxassetid://136752500636691","","RARM")
+		end)
 	else
 		pcall(function()
 			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
@@ -893,29 +891,6 @@ pcall(function()
 		c["gooblet-1"].Name = "fooblet"
 	end)
 	local flingloop
-	if _G.Fling == true then
-		local BodyVelocity = Instance.new("BodyVelocity", c.HumanoidRootPart)
-		BodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
-		BodyVelocity.Velocity = Vector3.new(0, 0, 0)
-		flinger = Instance.new("BodyAngularVelocity",c.HumanoidRootPart)
-		flinger.MaxTorque = Vector3.new(math.huge,math.huge,math.huge)
-		flinger.P = 1000000000000000000000000000
-		flinger.AngularVelocity = Vector3.new(5000000000000000000,5000000000000000000,5000000000000000000)
-		flingloop = game:GetService("RunService").Heartbeat:Connect(function()
-			c.HumanoidRootPart.CFrame = flingpos
-			c.HumanoidRootPart.Velocity = Vector3.new(9e9,9e9,9e9)
-		end)
-		wait(.35)
-		flingloop:Disconnect()
-		BodyVelocity:Destroy()
-		flinger:Destroy()
-		for i,v in pairs(c:GetDescendants()) do
-			if v:IsA("BasePart") then
-				v.AssemblyAngularVelocity = Vector3.new(0,0,0)
-			end
-		end
-		_G.Fling =false
-	end
 	function waitForChild(parent, childName)
 		local child = parent:findFirstChild(childName)
 		if child then return child end
@@ -970,10 +945,6 @@ pcall(function()
 			v.AssemblyAngularVelocity = Vector3.new(0,0,0)
 			v.AssemblyLinearVelocity = Vector3.new(0,0,0)
 		end
-	end
-	local function force(part,force)
-		local bodyforce = Instance.new("BodyForce", part)
-		bodyforce.Force = force
 	end
 	speaker = game:GetService("Players").LocalPlayer
 	for _, child in pairs(c:GetChildren()) do
@@ -1080,16 +1051,6 @@ pcall(function()
 			end
 		end
 	end
-	for _,v in pairs(c:GetChildren()) do
-		if v:IsA("Accessory") and v.Name ~= "RectangleHead" and v.Name ~= "RectangleHead-1"  and v.Name ~= "RectangleHead-3"  and v.Name ~= "funnihead" and v.Name ~= "RectangleFace-1" and v.Name ~= "RectangleFace" and v.Name ~= "RectangleFace-2" and v.Name ~= "RectangleHead-2"     then
-			v.Handle:BreakJoints()
-		end
-	end 
-	for _,v in pairs(c:GetChildren()) do
-		if v:IsA("Accessory") and v.Name == "RectangleHead" and v.Name =="Puffer Vest" and v.Name == "RectangleFace" and v.Name == "RectangleFace-2" and v.Name == "RectangleHead-2"     then
-			v.Handle:BreakJoints()
-		end
-	end 
 	for _, child in pairs(char:GetChildren()) do
 		if child:IsA("BasePart") then
 			child.Transparency = 1
@@ -1100,20 +1061,6 @@ pcall(function()
 			child.Handle.Transparency = 1
 		end
 	end
-	local ch = game:GetService("Players").LocalPlayer.Character
-	local prt=Instance.new("Model", workspace)
-	local z1 =  Instance.new("Part", prt)
-	z1.Name="Torso"
-	z1.CanCollide = false
-	z1.Anchored = true
-	local z2  =Instance.new("Part", prt)
-	z2.Name="Head"
-	z2.Anchored = true
-	z2.CanCollide = false
-	local z3 =Instance.new("Humanoid", prt)
-	z3.Name="Humanoid"
-	z1.Position = Vector3.new(0,9999,0)
-	z2.Position = Vector3.new(0,9991,0)
 	for i,v in tools do
 		table.remove(tools,table.find(tools,v))
 	end
@@ -1165,18 +1112,19 @@ pcall(function()
            moveloop:Disconnect()
            end)
 	end)
-	prt:Destroy()
+	local burgermeat = false 
 	local clock = os.clock
 	local rad, cos, sin, random = math.rad, math.cos, math.sin, math.random
 	AntiSleepRotate = Vector3.new(0, sin(clock()*10), 0)
+	local plrs = game:GetService("Players")
 	if _G.ToolFling == false then
 		velocity = game:GetService("RunService").Heartbeat:Connect(function()
-			game.Players.LocalPlayer.SimulationRadius = 999.9
+			plrs.LocalPlayer.SimulationRadius = #plrs:GetChildren()*1000
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory") or v:IsA("Tool") then
 					pcall(function()
-						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*10000000),0.5,1),   28.7849+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6.12463345 ) 
-						v.Handle.AssemblyAngularVelocity = Vector3.new(0, sin(clock()*11000000000), 0)
+						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*1000),0.5,1)   ,30.499+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6) 
+						v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity * 10
 						v.Handle.CanCollide = false
 					end)
 				end
@@ -1186,64 +1134,35 @@ pcall(function()
 		velocity = game:GetService("RunService").Heartbeat:Connect(function()
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Accessory")  then
-					v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15,30.499, char.Torso.AssemblyLinearVelocity.Z*15) 
+					v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*1000),0.5,1)   ,30.499+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6) 
+					v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity * 10
 				elseif v:IsA("Tool") then 
-					pcall(function()
-						v.Handle.AssemblyLinearVelocity = Vector3.new(9e9 -9e7, 9e9) 
-						v.Handle.AssemblyAngularVelocity = Vector3.new(9e9 -9e7, 9e9) 
-						v.Handle.CanCollide = false
-					end)
+					if burgermeat == true then
+						pcall(function()
+							v.Handle.AssemblyLinearVelocity = Vector3.new(9e9 -9e7, 9e9) 
+							v.Handle.AssemblyAngularVelocity = Vector3.new(9e9 -9e7, 9e9) 
+							v.Handle.CanCollide = false
+						end)
+					else 
+						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -5   , 35.499+math.sin(os.clock()*100), char.Torso.AssemblyLinearVelocity.Z*15 +5) 
+						v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity
+					end
 				end
 			end
 		end)
 	end
+	pcall(function()
+		char["Accessory (sapphireTophatAccessory)"].Handle.AccessoryWeld.C0 = CFrame.new(0,0,0) 
+		char["Accessory (sapphireTophatAccessory)"].Handle.AccessoryWeld.C1 = CFrame.new(0,0,0)*  CFrame.Angles(0,math.rad(-90),math.rad(90))
+   end)
+   
 	--wait(game:GetService("Players").RespawnTime + 0.25)  
-	for _, child in pairs(c:GetChildren()) do
-		if child:IsA("Part") then
-			child.Anchored = true
-		elseif child:IsA("Accessory") then
-			child.Handle.Anchored = true
-		end
-	end
 	local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TypicallyAUser/TypicalsConvertingLibrary/main/Main"))()
-	for _, child in pairs(c:GetChildren()) do
-		if child:IsA("Part") then
-			child.Anchored = true
-		elseif child:IsA("Accessory") then
-			child.Handle.Anchored = false
-		end
-	end
 	local removinghealth = false
-	pcall(function()
-		for _,v in pairs(c:GetChildren()) do
-			if v:IsA("Accessory") and v.Name == "Heavenly Void Wings" then  
-				if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-					v.Handle.SpecialMesh.MeshId = "rbxassetid://17578463084"
-					v.Handle.SpecialMesh.TextureId = ""
-					v.Handle.Color = Color3.fromRGB(0,0,0)
-				else
-					v.Handle.TextureID = ""
-					v.Handle.Color = Color3.fromRGB(0,0,0)
-				end
-			end
-		end
-	end)
-	pcall(function()
-		for _,v in pairs(c:GetChildren()) do
-			if v:IsA("Accessory") and v.Name == "Ultra-Fabulous Hair" then  
-				if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-					v.Handle.Mesh.TextureId = ""
-					v.Handle.Color = Color3.fromRGB(0,0,0)
-				else
-					v.Handle.TextureID = ""
-					v.Handle.Color = Color3.fromRGB(0,0,0)
-				end
-			end
-		end
-	end)  
 	local sin = math.sin
 	local plrs = game:GetService("Players")
-    local antisleepMultiplier=Vector3.new(.005,.005,.005)
+    local antisleepMultiplier=Vector3.new(.0045,.005,.0045)
+	_G.HeadAngle = CFrame.Angles(0,0,0)
 	if _G.CustomHats == false then
 		connect = game:GetService("RunService").Heartbeat:Connect(function(set)
 			sine=os.clock
@@ -1261,12 +1180,7 @@ pcall(function()
 					flingpart = nil
 				end
 			end)
-			local antisleep=sin(sine()*10000)*antisleepMultiplier
-		
-			pcall(function()
-				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
-				workspace.FallenPartsDestroyHeight = oldh 
-			end)
+			local antisleep=sin(sine()*100)*antisleepMultiplier
 			pcall(function()
 				c["Tor"].Handle.CFrame = char["Torso"].CFrame   + antisleep
 			end)
@@ -1290,21 +1204,10 @@ pcall(function()
 			pcall(function()
 				c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
 			end)
-			pcall(function()
-				c["RobotArmTest"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)) * CFrame.Angles(0,0,-.0005*math.sin(100*tick())) *CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
-			end)
-			pcall(function()
-				c["PurpleRobotArm"].Handle.CFrame = char["Right Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))* CFrame.Angles(0,0,-.0005*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
-			end)
-			pcall(function()
-				c["GreyRobotArm"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))  *CFrame.Angles(0,0,-.001*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
-			end)
-			pcall(function()
-				c["BlueRobotArm"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))  *CFrame.Angles(0,0,-.001*math.sin(100*tick()))*CFrame.new(-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()),-.0025*math.sin(100*tick()))
-			end)
+	
 			pcall(function()
 				for _,v in pairs(c:GetChildren()) do
-					if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"  and v.Name ~= "BlueRobotArm" and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+					if v:IsA("Accessory") and v.Name ~= "gooblet"  and v.Name ~= "fooblet"  and v.Name ~= "BlueRobotArm" and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
 						v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
 						v.Handle.CanTouch = false
 					end
@@ -1337,22 +1240,12 @@ pcall(function()
 				end 
 			end)
 			pcall(function()
-				if _G.SBV4R == false then
 					for _,v in pairs(c:GetChildren()) do
 						if v:IsA("Accessory")   then
 							v.Handle.CanCollide = false
-							v.Handle:ApplyImpulseAtPosition(Vector3.one,Vector3.one)
+							v.Handle:ApplyImpulseAtPosition(Vector3.new(2,2,2),Vector3.zero)
 						end
 					end
-				else
-					for _,v in pairs(c:GetChildren()) do
-						if v:IsA("Accessory")   then
-							v.Handle.CanCollide = false
-						end
-					end
-					c["fooblet"].Handle.Material = 1584
-					c["fooblet"].Handle.Color = char["Right Arm"].Color
-				end
 			end)
 			for i,v in pairs(c:GetChildren()) do
 				if v:IsA("Tool")  then
@@ -1511,7 +1404,8 @@ pcall(function()
 		stopped = true
 		_G.Stopped = true
 		respawnloop:Disconnect()
-		task.wait(game.Players.RespawnTime - qr)
+		replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
+		task.wait(game:GetService("Players").RespawnTime - qr)
 		connect:Disconnect()
 		char:Destroy()
 		velocity:Disconnect()
@@ -1525,6 +1419,10 @@ pcall(function()
 		end
 	end
 	local n = 0
+	task.spawn(function()
+		task.wait(1.5)
+		burgermeat = true 
+	end)
 	local function transparent() 
 		for _, child in pairs(char:GetChildren()) do
 			local v = child
@@ -1564,8 +1462,8 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
          char:FindFirstChildOfClass("Humanoid"):Move(re:FindFirstChildOfClass("Humanoid").MoveDirection)   
     end)
     end
-	replicatesignal(game.Players.LocalPlayer.ConnectDiedSignalBackend)
-	task.wait(game.Players.RespawnTime)
+	replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
+	task.wait(game:GetService("Players").RespawnTime)
 		if  _G.ToolFling == true then 
 			_G.Fling = false 
 		end
@@ -1660,9 +1558,9 @@ respawnloop = plr.CharacterAdded:Connect(function(re)
 				if plr.Character.Name ~= "non" then
 					if _G.TeleportCharacter == true then
                         if _G.HatCollide == false then
-						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X + 5 , workspace.FallenPartsDestroyHeight + 450, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+						plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X + 5 , workspace.FallenPartsDestroyHeight + 485, workspace.non.HumanoidRootPart.CFrame.Z  ) 
                         else 
-							plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X + 5 , workspace.FallenPartsDestroyHeight + 450, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+							plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X + 5 , workspace.FallenPartsDestroyHeight + 490, workspace.non.HumanoidRootPart.CFrame.Z  ) 
 					end
                 end
 	                local c =plr.Character
@@ -1772,6 +1670,8 @@ if _G.AntiFling == true then
 				for _, v in pairs(player.Character:GetChildren()) do
 					if v:IsA("BasePart") then
 						v.CanCollide = false
+					elseif v:IsA("Tool") then
+						v.Handle.CanCollide = false
 					end
 				end
 			end
@@ -1788,8 +1688,8 @@ local uis = game:GetService("UserInputService")
 uis.InputBegan:Connect(function(k,chatting)
 	if chatting then return end
 if k.KeyCode == Enum.KeyCode.Minus then 
-	replicatesignal(game.Players.LocalPlayer.ConnectDiedSignalBackend)
-	task.wait(game.Players.RespawnTime)
+	replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
+	task.wait(game:GetService("Players").RespawnTime)
 	connect:Disconnect()
 	velocity:Disconnect()
 end
