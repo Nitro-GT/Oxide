@@ -1061,6 +1061,11 @@ pcall(function()
 			child.Handle.Transparency = 1
 		end
 	end
+	for _, child in pairs(c:GetChildren()) do
+		if child:IsA("Accessory") then
+			child.Handle:BreakJoints()
+		end
+	end
 	for i,v in tools do
 		table.remove(tools,table.find(tools,v))
 	end
