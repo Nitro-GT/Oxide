@@ -208,6 +208,34 @@ local function redo()
 		nlia = true 
 	end 
 	if _G.CustomHats == false then
+			pcall(function()
+			Hat.Rename("rbxassetid://125975972015302", "Tor")
+			Hat.Rename("rbxassetid://135650240593878","","LARM")
+			Hat.Rename("rbxassetid://135650240593878","","RARM")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://70661572547971", "Tor")
+			Hat.Rename("rbxassetid://136752500636691","","LARM")
+			Hat.Rename("rbxassetid://136752500636691","","RARM")
+		end)
+        pcall(function()
+            c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
+          end)
+          pcall(function()
+            c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LArm)"].Name = "gooblet"
+        end)
+        pcall(function()
+            c["Accessory (RArm)"].Name = "fooblet"
+        end)
+		pcall(function()
+            c["RARM"].Name = "fooblet"
+        end)
 		pcall(function()
 			Hat.Rename("rbxassetid://17374768001","","LARM")
 			Hat.Rename("rbxassetid://17374768001","","RARM")
@@ -236,29 +264,7 @@ local function redo()
 			Hat.Rename("rbxassetid://14768683674","","LARM")
 			Hat.Rename("rbxassetid://14768683674","","RARM")
 		end)
-		pcall(function()
-			Hat.Rename("rbxassetid://125975972015302", "Tor")
-			Hat.Rename("rbxassetid://135650240593878","","LARM")
-			Hat.Rename("rbxassetid://135650240593878","","RARM")
-		end)
-        pcall(function()
-            c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
-          end)
-          pcall(function()
-            c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
-          end)
-          pcall(function()
-            c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
-          end)
-          pcall(function()
-            c["Accessory (LArm)"].Name = "gooblet"
-        end)
-        pcall(function()
-            c["Accessory (RArm)"].Name = "fooblet"
-        end)
-		pcall(function()
-            c["RARM"].Name = "fooblet"
-        end)
+
 	else
 		pcall(function()
 			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
@@ -763,6 +769,34 @@ local function redo2()
 	local c = game:GetService("Players").LocalPlayer.Character
 	--game:GetService("Workspace")["Error_30363"].EyesOfTheEverWorld.Name = "Puffer Vest"
 	if _G.CustomHats == false then
+			pcall(function()
+			Hat.Rename("rbxassetid://125975972015302", "Tor")
+			Hat.Rename("rbxassetid://135650240593878","","LARM")
+			Hat.Rename("rbxassetid://135650240593878","","RARM")
+		end)
+		pcall(function()
+			Hat.Rename("rbxassetid://70661572547971", "Tor")
+			Hat.Rename("rbxassetid://136752500636691","","LARM")
+			Hat.Rename("rbxassetid://136752500636691","","RARM")
+		end)
+        pcall(function()
+            c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
+          end)
+          pcall(function()
+            c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
+          end)
+          pcall(function()
+            c["Accessory (LArm)"].Name = "gooblet"
+        end)
+        pcall(function()
+            c["Accessory (RArm)"].Name = "fooblet"
+        end)
+		pcall(function()
+            c["RARM"].Name = "fooblet"
+        end)
 		pcall(function()
 			Hat.Rename("rbxassetid://17374768001","","LARM")
 			Hat.Rename("rbxassetid://17374768001","","RARM")
@@ -791,30 +825,6 @@ local function redo2()
 			Hat.Rename("rbxassetid://14768683674","","LARM")
 			Hat.Rename("rbxassetid://14768683674","","RARM")
 		end)
-
-		pcall(function()
-			Hat.Rename("rbxassetid://125975972015302", "Tor")
-			Hat.Rename("rbxassetid://135650240593878","","LARM")
-			Hat.Rename("rbxassetid://135650240593878","","RARM")
-		end)
-        pcall(function()
-            c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
-          end)
-          pcall(function()
-            c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
-          end)
-          pcall(function()
-            c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
-          end)
-          pcall(function()
-            c["Accessory (LArm)"].Name = "gooblet"
-        end)
-        pcall(function()
-            c["Accessory (RArm)"].Name = "fooblet"
-        end)
-		pcall(function()
-			Hat.Rename("rbxassetid://79186624401216","fooblet")
-        end)
 	else
 		pcall(function()
 			Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
@@ -1217,32 +1227,9 @@ pcall(function()
 	end
 	local removinghealth = false
 	pcall(function()
-		for _,v in pairs(c:GetChildren()) do
-			if v:IsA("Accessory") and v.Name == "Heavenly Void Wings" then  
-				if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-					v.Handle.SpecialMesh.MeshId = "rbxassetid://17578463084"
-					v.Handle.SpecialMesh.TextureId = ""
-					v.Handle.Color = Color3.fromRGB(0,0,0)
-				else
-					v.Handle.TextureID = ""
-					v.Handle.Color = Color3.fromRGB(0,0,0)
-				end
-			end
-		end
-	end)
-	pcall(function()
-		for _,v in pairs(c:GetChildren()) do
-			if v:IsA("Accessory") and v.Name == "Ultra-Fabulous Hair" then  
-				if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-					v.Handle.Mesh.TextureId = ""
-					v.Handle.Color = Color3.fromRGB(0,0,0)
-				else
-					v.Handle.TextureID = ""
-					v.Handle.Color = Color3.fromRGB(0,0,0)
-				end
-			end
-		end
-	end)  
+		char["Accessory (sapphireTophatAccessory)"].Handle.AccessoryWeld.C0 = CFrame.new(0,0,0) 
+		char["Accessory (sapphireTophatAccessory)"].Handle.AccessoryWeld.C1 = CFrame.new(0,0,0)*  CFrame.Angles(0,math.rad(-90),math.rad(90))
+   end)
 	local sin = math.sin
 	local plrs = game:GetService("Players")
     local antisleepMultiplier=Vector3.new(.005,.005,.005)
