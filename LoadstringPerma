@@ -1636,6 +1636,7 @@ getgenv().attackuno= function(part)
 						})
 _G.Fling = true
 						if _G.ToolFling == true then
+				q=next(flingtable)
 							local flinghigh = Instance.new("Highlight",flingpart)
 							if q then
 								for i,v in next,table.clone(flingtable) do
