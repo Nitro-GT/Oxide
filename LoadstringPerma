@@ -1636,7 +1636,7 @@ getgenv().attackuno= function(part)
 						})
 _G.Fling = true
 						if _G.ToolFling == true then
-							q=next(flingtable)
+							local flinghigh = Instance.new("Highlight",flingpart)
 							if q then
 								for i,v in next,table.clone(flingtable) do
 								_G.flingpart = v:FindFirstChild("HumanoidRootPart")
@@ -1646,6 +1646,7 @@ _G.Fling = true
 									faketools[1].Parent = char
 								end
 								task.wait(2.5)
+								flinghigh:Destroy()
 								_G.Fling = false
 								flingtable[i] = nil
 							end
