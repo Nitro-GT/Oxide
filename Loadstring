@@ -1558,6 +1558,7 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 })
 local sin=math.sin
 local oldh = workspace.FallenPartsDestroyHeight
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/camera"))()
 respawnloop = plr.CharacterAdded:Connect(function(re)
 	if re ~= char then
 		if _G.HatCollide == false then 
