@@ -675,7 +675,10 @@ local function redo()
 		end)
 	end
 	local sin = math.sin
-
+	pcall(function()
+		char["Accessory (sapphireTophatAccessory)"].Handle.AccessoryWeld.C0 = CFrame.new(0,0,0) 
+		char["Accessory (sapphireTophatAccessory)"].Handle.AccessoryWeld.C1 = CFrame.new(0,0,0)*  CFrame.Angles(0,math.rad(-90),math.rad(90))
+   end)
 	local antisleepMultiplier=Vector3.new(-.0025,-.005,-.0025)
    local connect 
 	connect = game:GetService("RunService").Heartbeat:Connect(function(set)
