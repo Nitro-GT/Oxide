@@ -2,7 +2,7 @@
 local candoperma  = false 
 pcall(function()
 replicatesignal(game:GetService("Players").LocalPlayer.Kill)
-task.wait(.15)
+task.wait(.5)
 if game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 then 
 candoperma= true 
 end
