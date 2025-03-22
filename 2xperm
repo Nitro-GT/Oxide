@@ -1757,7 +1757,7 @@ local oldh = workspace.FallenPartsDestroyHeight
 
 respawnloop = plr.CharacterAdded:Connect(function(re)
 	if re ~= char then
- replicatesignal("1")
+ 	replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
  task.wait(game.Players.RespawnTime+.1)
         if _G.HatCollide == false then 
             repeat wait() until re:FindFirstChildOfClass("Humanoid")
@@ -1990,7 +1990,7 @@ end)
 local uis = game:GetService("UserInputService")
 uis.InputBegan:Connect(function(k)
 if k.KeyCode == Enum.KeyCode.Minus then 
-	replicatesignal("1")
+		replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
 	task.wait(game.Players.RespawnTime)
 	connect:Disconnect()
 	velocity:Disconnect()
