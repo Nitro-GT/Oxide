@@ -1147,6 +1147,7 @@ pcall(function()
 				if v:IsA("Accessory")  then
 					v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*1000),0.5,1)   ,30.499+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6) 
 					v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity * 10
+v.Handle.CanCollide = false
 				elseif v:IsA("Tool") then 
 					if burgermeat == true then
 						pcall(function()
