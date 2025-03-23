@@ -554,6 +554,9 @@ local function IBDIG_fake_script() -- FacT.LocalScript
 	elseif n == 3 then
 		script.Parent.Text = "Fun Fact: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
 	end
+	if candoperma == true then
+		script.Parent.Text = "Permadeath is currently enabled"
+	end
 end
 coroutine.wrap(IBDIG_fake_script)()
 -- Gui to Lua
