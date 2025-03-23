@@ -1,5 +1,5 @@
 -- -gh 108186273151388,84451219120140,139904067056008,72292903231768,95290698984301
-_G.HideCharacter = true
+--[[_G.HideCharacter = true
 _G.FlingEnabled = false
 _G.TransparentRig = true
 _G.ToolFling = false -- false = holding, true = fling
@@ -32,7 +32,7 @@ _G.CH = {
         TextureId = "17374768001", 
         Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
     }
-}
+}]]
 _G.ClickFling = true
 _G.TeleportCharacter = true
 --[[ 
