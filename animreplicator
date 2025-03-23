@@ -2,16 +2,20 @@ local Socket = loadstring(game:HttpGet("https://bug-socket.pgs.sh/"))()
 local col = Color3.fromRGB(91, 206, 250)
 local Channel = Socket.Connect(5)
 local lboard = game:GetService("CoreGui").PlayerList.Children.OffsetFrame.PlayerScrollList.SizeOffsetFrame.ScrollingFrameContainer.ScrollingFrameClippingFrame.ScollingFrame.OffsetUndoFrame
+pcall(function()
 local me = lboard["p_"..game.Players.LocalPlayer.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
 me.TextColor3 = col
 me.Font = 48
+end)
 local ql 
 local con 
 ql = Channel.OnMessage:Connect(function(msg,name,cf,colr,scale)
+pcall(function()
     local a = lboard["p_"..msg.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
     a.TextColor3 = col
-    if msg == game.Players.LocalPlayer then return end 
     a.Font = 48
+end)
+    if msg == game.Players.LocalPlayer then return end 
     if name.Parent:IsA("Accessory")  then return end 
     name.CFrame = cf
     name.Anchored = true 
