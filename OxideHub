@@ -768,6 +768,31 @@ end
 if not isfile("echo.mp3") then 
 	writefile("echo.mp3",game:HttpGet("https://github.com/Nitro-GT/music/raw/refs/heads/main/echo.mp3"))
 end
+if not isfile("joy.mp3") then 
+	writefile("joy.mp3",game:HttpGet("https://github.com/Nitro-GT/music/raw/refs/heads/main/joy.mp3"))
+end
+if not isfile("laugh.mp3") then 
+	writefile("laugh.mp3",game:HttpGet("https://github.com/Nitro-GT/music/raw/refs/heads/main/laugh.mp3"))
+end
+if not isfile("torture.mp3") then 
+	writefile("torture.mp3",game:HttpGet("https://github.com/Nitro-GT/music/raw/refs/heads/main/torture.mp3"))
+end
+if not isfile("car.mp3") then 
+	writefile("car.mp3",game:HttpGet("https://github.com/Nitro-GT/music/raw/refs/heads/main/car.mp3"))
+end
+if not isfile("roadroller.mp3") then 
+	writefile("roadroller.mp3",game:HttpGet("https://github.com/Nitro-GT/music/raw/refs/heads/main/roadroller.mp3"))
+end
+if not isfile("bruhmoments.mp3") then 
+	writefile("bruhmoments.mp3",game:HttpGet("https://github.com/Nitro-GT/music/raw/refs/heads/main/bruhmoments.mp3"))
+end
+if not isfile("fraudchase.mp3") then 
+	writefile("fraudchase.mp3",game:HttpGet("https://github.com/Nitro-GT/music/raw/refs/heads/main/fraudchase.mp3"))
+end
+if not isfile("fraudidle.mp3") then 
+	writefile("fraudidle.mp3",game:HttpGet("https://github.com/Nitro-GT/music/raw/refs/heads/main/fraudidle.mp3"))
+end
+
 
 
 
