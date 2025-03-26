@@ -357,14 +357,14 @@ Name.TextSize = 25.000
 
 filler.Name = "filler"
 filler.Parent = NeptunianF
-filler.BackgroundColor3 = Color3.fromRGB(8, 180, 108)
+filler.BackgroundColor3 = Color3.fromRGB(49, 203, 233)
 filler.BorderColor3 = Color3.fromRGB(0, 0, 0)
 filler.BorderSizePixel = 0
 filler.Position = UDim2.new(0.207729474, 0, 0.674481153, 0)
 filler.Size = UDim2.new(0.584541082, 0, 0.259415776, 0)
 filler.Font = Enum.Font.GothamBold
 filler.Text = "Execute"
-filler.TextColor3 = Color3.fromRGB(255, 255, 255)
+filler.TextColor3 = Color3.fromRGB(38, 38, 38)
 filler.TextSize = 30.000
 
 UICorner_12.Parent = filler
@@ -413,14 +413,14 @@ Name_2.TextSize = 25.000
 
 Goner.Name = "Goner"
 Goner.Parent = GonerF
-Goner.BackgroundColor3 = Color3.fromRGB(8, 180, 108)
+Goner.BackgroundColor3 = Color3.fromRGB(49, 203, 233)
 Goner.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Goner.BorderSizePixel = 0
 Goner.Position = UDim2.new(0.207729474, 0, 0.674481153, 0)
 Goner.Size = UDim2.new(0.584541082, 0, 0.259415776, 0)
 Goner.Font = Enum.Font.GothamBold
 Goner.Text = "Execute"
-Goner.TextColor3 = Color3.fromRGB(255, 255, 255)
+Goner.TextColor3 = Color3.fromRGB(38, 38, 38)
 Goner.TextSize = 30.000
 
 UICorner_14.Parent = Goner
@@ -469,14 +469,14 @@ Name_3.TextSize = 25.000
 
 Achromatic.Name = "Achromatic"
 Achromatic.Parent = AchroF
-Achromatic.BackgroundColor3 = Color3.fromRGB(8, 180, 108)
+Achromatic.BackgroundColor3 = Color3.fromRGB(49, 203, 233)
 Achromatic.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Achromatic.BorderSizePixel = 0
 Achromatic.Position = UDim2.new(0.207729474, 0, 0.674481153, 0)
 Achromatic.Size = UDim2.new(0.5846259, 0, 0.259710312, 0)
 Achromatic.Font = Enum.Font.GothamBold
 Achromatic.Text = "Execute"
-Achromatic.TextColor3 = Color3.fromRGB(255, 255, 255)
+Achromatic.TextColor3 =Color3.fromRGB(38, 38, 38)
 Achromatic.TextSize = 30.000
 
 UICorner_16.Parent = Achromatic
@@ -517,7 +517,7 @@ ImageLabel.BackgroundTransparency = 1.000
 ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ImageLabel.BorderSizePixel = 0
 ImageLabel.Position = UDim2.new(0, 0, 0, -1)
-ImageLabel.Size = UDim2.new(0, 59, 0, 60)
+ImageLabel.Size = UDim2.new(0.081, 0,1.088, 0)
 ImageLabel.ZIndex = 900
 ImageLabel.Image = "rbxassetid://96495217215688"
 
@@ -601,14 +601,14 @@ Name82.RichText = true
 
 Echo.Name = "Echo"
 Echo.Parent = EchoF
-Echo.BackgroundColor3 = Color3.fromRGB(8, 180, 108)
+Echo.BackgroundColor3 = Color3.fromRGB(49, 203, 233)
 Echo.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Echo.BorderSizePixel = 0
 Echo.Position = UDim2.new(0.207729474, 0, 0.674481153, 0)
 Echo.Size = UDim2.new(0.5846259, 0, 0.259710312, 0)
 Echo.Font = Enum.Font.GothamBold
 Echo.Text = "Execute"
-Echo.TextColor3 = Color3.fromRGB(255, 255, 255)
+Echo.TextColor3 = Color3.fromRGB(38, 38, 38)
 Echo.TextSize = 30.000
 
 UICorner.Parent = Echo
@@ -630,6 +630,137 @@ Desc5.Text = "extremely shitty sword script. THIS DOES NOT RUN WELL"
 Desc5.TextColor3 = Color3.fromRGB(255, 255, 255)
 Desc5.TextSize = 20.000
 Desc5.TextWrapped = true
+
+local FraudF = Instance.new("Frame")
+local eee_2 = Instance.new("UICorner")
+local FraudName = Instance.new("TextLabel")
+local FraudDesc = Instance.new("TextLabel")
+local Fraud = Instance.new("TextButton")
+local UICorner_18 = Instance.new("UICorner")
+local UIPadding_5 = Instance.new("UIPadding")
+local JoyF = Instance.new("Frame")
+local eee_3 = Instance.new("UICorner")
+local JoyN = Instance.new("TextLabel")
+local JoyDesc = Instance.new("TextLabel")
+local Nameless = Instance.new("TextButton")
+local UICorner_19 = Instance.new("UICorner")
+local UIPadding_6 = Instance.new("UIPadding")
+
+FraudF.Name = "FraudF"
+FraudF.Parent = ScrollingFrame
+FraudF.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+FraudF.BorderColor3 = Color3.fromRGB(0, 0, 0)
+FraudF.BorderSizePixel = 0
+FraudF.Position = UDim2.new(0.649292052, 0, 0, 0)
+FraudF.Size = UDim2.new(0.295999914, 0, 0.215687484, 0)
+
+eee_2.Name = "eee"
+eee_2.Parent = FraudF
+
+FraudName.Name = "FraudName"
+FraudName.Parent = FraudF
+FraudName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+FraudName.BackgroundTransparency = 1.000
+FraudName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+FraudName.BorderSizePixel = 0
+FraudName.Position = UDim2.new(0, 0, -0.00823045243, 0)
+FraudName.Size = UDim2.new(1.00014484, 0, 0.162956387, 0)
+FraudName.Font = Enum.Font.GothamBold
+FraudName.Text = "<u>Fraud</u>"
+FraudName.TextColor3 = Color3.fromRGB(0, 0, 0)
+FraudName.TextSize = 25.000
+FraudName.RichText = true
+
+FraudDesc.Name = "FraudDesc"
+FraudDesc.Parent = FraudF
+FraudDesc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+FraudDesc.BackgroundTransparency = 1.000
+FraudDesc.BorderColor3 = Color3.fromRGB(0, 0, 0)
+FraudDesc.BorderSizePixel = 0
+FraudDesc.Position = UDim2.new(0, 0, 0.152789831, 0)
+FraudDesc.Size = UDim2.new(1.00014484, 0, 0.427861035, 0)
+FraudDesc.Font = Enum.Font.Gotham
+FraudDesc.Text = "the black guy that steals character but it doesnt because its fe"
+FraudDesc.TextColor3 = Color3.fromRGB(255, 255, 255)
+FraudDesc.TextSize = 20.000
+FraudDesc.TextWrapped = true
+
+Fraud.Name = "Fraud"
+Fraud.Parent = FraudF
+Fraud.BackgroundColor3 = Color3.fromRGB(49, 203, 233)
+Fraud.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Fraud.BorderSizePixel = 0
+Fraud.Position = UDim2.new(0.207729474, 0, 0.674481153, 0)
+Fraud.Size = UDim2.new(0.5846259, 0, 0.259710312, 0)
+Fraud.Font = Enum.Font.GothamBold
+Fraud.Text = "Execute"
+Fraud.TextColor3 = Color3.fromRGB(38, 38, 38)
+Fraud.TextSize = 30.000
+
+UICorner_18.Parent = Fraud
+
+UIPadding_5.Parent = Fraud
+UIPadding_5.PaddingLeft = UDim.new(0, 5)
+UIPadding_5.PaddingRight = UDim.new(0, 5)
+
+JoyF.Name = "JoyF"
+JoyF.Parent = ScrollingFrame
+JoyF.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+JoyF.BorderColor3 = Color3.fromRGB(0, 0, 0)
+JoyF.BorderSizePixel = 0
+JoyF.Position = UDim2.new(0.649292052, 0, 0, 0)
+JoyF.Size = UDim2.new(0.295999914, 0, 0.215687484, 0)
+
+eee_3.Name = "eee"
+eee_3.Parent = JoyF
+
+JoyN.Name = "JoyN"
+JoyN.Parent = JoyF
+JoyN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+JoyN.BackgroundTransparency = 1.000
+JoyN.BorderColor3 = Color3.fromRGB(0, 0, 0)
+JoyN.BorderSizePixel = 0
+JoyN.Position = UDim2.new(0, 0, -0.00823045243, 0)
+JoyN.Size = UDim2.new(1.00014484, 0, 0.162956387, 0)
+JoyN.Font = Enum.Font.Cartoon
+JoyN.Text = "<u>:Joy:</u>"
+JoyN.RichText = true
+JoyN.TextColor3 = Color3.fromRGB(255, 255, 255)
+JoyN.TextSize = 30.000
+JoyN.TextStrokeColor3 = Color3.fromRGB(17, 17, 17)
+JoyN.TextStrokeTransparency = 0.000
+
+JoyDesc.Name = "JoyDesc"
+JoyDesc.Parent = JoyF
+JoyDesc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+JoyDesc.BackgroundTransparency = 1.000
+JoyDesc.BorderColor3 = Color3.fromRGB(0, 0, 0)
+JoyDesc.BorderSizePixel = 0
+JoyDesc.Position = UDim2.new(0, 0, 0.152789831, 0)
+JoyDesc.Size = UDim2.new(1.00014484, 0, 0.427861035, 0)
+JoyDesc.Font = Enum.Font.Gotham
+JoyDesc.Text = "silly old script, :joy: my beloved <3"
+JoyDesc.TextColor3 = Color3.fromRGB(255, 255, 255)
+JoyDesc.TextSize = 20.000
+JoyDesc.TextWrapped = true
+
+Nameless.Name = "Nameless"
+Nameless.Parent = JoyF
+Nameless.BackgroundColor3 = Color3.fromRGB(49, 203, 233)
+Nameless.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Nameless.BorderSizePixel = 0
+Nameless.Position = UDim2.new(0.207729474, 0, 0.674481153, 0)
+Nameless.Size = UDim2.new(0.5846259, 0, 0.259710312, 0)
+Nameless.Font = Enum.Font.GothamBold
+Nameless.Text = "Execute"
+Nameless.TextColor3 = Color3.fromRGB(38, 38, 38)
+Nameless.TextSize = 30.000
+
+UICorner_19.Parent = Nameless
+
+UIPadding_6.Parent = Nameless
+UIPadding_6.PaddingLeft = UDim.new(0, 5)
+UIPadding_6.PaddingRight = UDim.new(0, 5)
 local function OGBLK_fake_script() -- Frame.LocalScript 
 	local script = Instance.new('LocalScript', Frame)
 
@@ -837,4 +968,22 @@ end
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/refs/heads/main/neptunian"))()
 	wait(1)
 	_G.ClickFling = false
+end)
+Nameless.MouseButton1Click:Connect(function()
+	if candoperma == false then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/Oxide/refs/heads/main/Loadstring"))()
+        else
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/Oxide/refs/heads/main/LoadstringPerma"))()
+        end
+    task.wait(.1) -- we give it time to load properly
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/refs/heads/main/joy"))()
+	wait(1)
+	_G.ClickFling = false
+    end)
+Fraud.MouseButton1Click:Connect(function()
+	if candoperma == false then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/refs/heads/main/fraud"))()
+    else 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/refs/heads/main/fraudp"))()
+end
 end)
