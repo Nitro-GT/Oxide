@@ -348,7 +348,7 @@ local function redo()
 		end
 	end
 	if not workspace:FindFirstChild("non") then
-		char = game:GetObjects("rbxassetid://5195737219")[1]
+		char = game:GetObjects("rbxassetid://140589790135981")[1]
 	else
 		char = workspace.non
 	end
