@@ -1,0 +1,14 @@
+local candoperma  = false 
+pcall(function()
+replicatesignal(game:GetService("Players").LocalPlayer.Kill)
+task.wait(.5)
+if game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 then 
+candoperma= true 
+end
+print(candoperma)
+end)
+	if candoperma == false then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/Oxide/refs/heads/main/Loadstring"))()
+else
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/Oxide/refs/heads/main/LoadstringPerma"))()
+end
