@@ -1295,7 +1295,7 @@ v.Handle.CanCollide = false
 			end)
 			local antisleep=sin(sine()*100)*antisleepMultiplier
 			pcall(function()
-				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
+				--workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
 				workspace.FallenPartsDestroyHeight = oldh 
 			end)
 			pcall(function()
