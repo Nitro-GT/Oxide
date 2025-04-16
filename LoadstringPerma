@@ -1340,9 +1340,9 @@ v.Handle.CanCollide = false
                     end
             	pcall(function()
 				           						if char["Head"]:FindFirstChildOfClass("SpecialMesh") then 
-                        c[_G.CH.Head.Name].Handle.CFrame = char["Head"].CFrame  * CFrame.Angles(0,math.rad(180),0)  +antisleep+ char["Head"]:FindFirstChildOfClass("SpecialMesh").Offset 
+                        c[_G.CH.Head.Name].Handle.CFrame = char["Head"].CFrame  * _G.CH.Head.Orientation  +antisleep+ char["Head"]:FindFirstChildOfClass("SpecialMesh").Offset 
                     else
-                     c[_G.CH.Head.Name].Handle.CFrame = char["Head"].CFrame  * CFrame.Angles(0,math.rad(180),0) +antisleep
+                     c[_G.CH.Head.Name].Handle.CFrame = char["Head"].CFrame * _G.CH.Head.Orientation +antisleep
                     end
 			end)
 			end)
