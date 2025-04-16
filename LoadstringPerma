@@ -36,6 +36,9 @@ _G.CH = {
 if _G.Scale == nil then
 _G.Scale = 1
 end
+if _G.CH.Head.Name == nil then 
+_G.CH.Head.Name = "wtfgangimgonnakms!"
+end
 _G.ClickFling = true
 _G.TeleportCharacter = true
 --[[ 
@@ -1345,7 +1348,7 @@ v.Handle.CanCollide = false
 			end)
 			pcall(function()
 				for _,v in pairs(c:GetChildren()) do
-					if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"  and v.Name ~= "BlueRobotArm" and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+					if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"  and v.Name ~= "BlueRobotArm" and not string.find(v.Name,"Accessory (Noob") and v.Name ~= _G.CH.Head.Name and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
 								if char[v.Name].Handle:FindFirstChildOfClass("SpecialMesh") then 
                         v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep + char[v.Name].Handle:FindFirstChildOfClass("SpecialMesh").Offset
                     else
