@@ -33,6 +33,9 @@ _G.CH = {
         Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))
     }
 }]]
+if _G.Scale == nil then
+_G.Scale = 1
+end
 _G.ClickFling = true
 _G.TeleportCharacter = true
 --[[ 
@@ -1708,3 +1711,5 @@ if k.KeyCode == Enum.KeyCode.Minus then
 	velocity:Disconnect()
 end
 end)
+_G.OxideFakeChar:ScaleTo(_G.Scale)
+_G.OxideRealChar:ScaleTo(1)
