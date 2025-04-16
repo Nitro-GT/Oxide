@@ -1335,6 +1335,13 @@ v.Handle.CanCollide = false
                     else
                      c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * _G.CH.LeftLeg.Orientation  +antisleep
                     end
+            	pcall(function()
+				           						if char["Head"]:FindFirstChildOfClass("SpecialMesh") then 
+                        c[_G.CH.Head.Name].Handle.CFrame = char["Head"].CFrame  * CFrame.Angles(0,math.rad(180),0)  +antisleep+ char["Head"]:FindFirstChildOfClass("SpecialMesh").Offset 
+                    else
+                     c[_G.CH.Head.Name].Handle.CFrame = char["Head"].CFrame  * CFrame.Angles(0,math.rad(180),0) +antisleep
+                    end
+			end)
 			end)
 			pcall(function()
 				for _,v in pairs(c:GetChildren()) do
