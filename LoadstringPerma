@@ -36,6 +36,9 @@ _G.CH = {
 if _G.Scale == nil then
 _G.Scale = 1
 end
+if _G.CH.Head == nil then 
+_G.CH.Head = {}
+end
 if _G.CH.Head.Name == nil then 
 _G.CH.Head.Name = "wtfgangimgonnakms!"
 end
