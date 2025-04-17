@@ -1179,7 +1179,7 @@ v.Handle.CanCollide = false
 	local removinghealth = false
 	local sin = math.sin
 	local plrs = game:GetService("Players")
-    local antisleepMultiplier=Vector3.new(.0045,.005,.0045)
+    local antisleepMultiplier=Vector3.new(.005,.005,.005)
 	_G.HeadAngle = CFrame.Angles(0,0,0)
 	if _G.CustomHats == false then
 		connect = game:GetService("RunService").Heartbeat:Connect(function(set)
@@ -1198,7 +1198,7 @@ v.Handle.CanCollide = false
 					flingpart = nil
 				end
 			end)
-			local antisleep=sin(sine()*100)*antisleepMultiplier
+			local antisleep=sin(sine()*1000)*antisleepMultiplier
 			pcall(function()
 				c["Tor"].Handle.CFrame = char["Torso"].CFrame   + antisleep
 			end)
