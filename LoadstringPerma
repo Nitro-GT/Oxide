@@ -1432,6 +1432,12 @@ v.Handle.CanCollide = false
 		stopped = true
 		_G.Stopped = true
 		respawnloop:Disconnect()
+		for i,v in pairs(char:GetChildren()) do 
+		    if v:IsA("Accessory") then
+		        v.Handle.CanCollide = true
+		        v.Handle:ApplyImpulse(v.Handle.CFrame.LookVector * 5)
+		    end 
+	    end
 		replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
 		task.wait(game:GetService("Players").RespawnTime - qr)
 		connect:Disconnect()
