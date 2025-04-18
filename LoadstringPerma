@@ -362,6 +362,8 @@ local function redo()
 		char = workspace.non
 	end
 	_G.OxideFakeChar = char 
+	getgenv().OxideFakeChar = char
+	getgenv().OxideRealChar = c
 	if c:FindFirstChildOfClass("CharacterMesh") then 
 		c:FindFirstChildOfClass("CharacterMesh"):Clone().Parent = char 
 	end
@@ -918,6 +920,7 @@ pcall(function()
 	else 
 		_G.OxideRealChar = workspace[lp.Name]
 	end
+	getgenv().OxideRealChar = _G.OxideRealChar
 	speaker = game:GetService("Players").LocalPlayer
 	Clip = false
 	local function NoclipLoop()
