@@ -1,0 +1,2679 @@
+
+replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
+game:GetService("StarterGui"):SetCore("SendNotification", {
+     Title = "Oxide Reanimation V3.5";
+     Duration = 20;
+     Text = "This script was made by Hemi"
+})
+pcall(function()
+     local lp = game.Players.LocalPlayer
+     local c = lp.Character
+     local r = c.HumanoidRootPart
+     for i,v in pairs(workspace.Regen:GetDescendants()) do
+     if v.Name == "Handle" and v:IsA("BasePart") then 
+     if v.Shape ~= Enum.PartType.Ball then
+     v.CFrame = r.CFrame
+     end
+     end
+     end
+     task.wait(.1)
+     c:FindFirstChildOfClass("Tool").Parent = lp.Backpack
+end)
+pcall(function()
+     local lp = game.Players.LocalPlayer
+     local c = lp.Character
+     local r = c.HumanoidRootPart
+	 local ocf = workspace.Handle.CFrame
+	 workspace.Handle.CFrame = r.CFrame
+	 task.wait(.1)
+	 workspace.Handle.CFrame = ocf
+      task.wait(.1)
+      c:FindFirstChildOfClass("Tool").Parent = lp.Backpack
+end)
+_G.PDED = true
+ 
+task.wait(game.Players.RespawnTime + .1)
+local function clovr()
+     -- CLOVR - FE FULL-BODY VR SCRIPT
+     task.wait(.1)
+     -- JAN 12TH UPDATE (HEMI) -- FIXED SCRIPT, ADDED TOOL HOLDING, FIXED OTHER STUFF, PERMADEATH SOON!
+     
+     -- | made by 0866 and Abacaxl
+     -- | tysm unverified
+     
+     --RagDollEnabled is set to true, DON'T set it to false or CLOVR won't work. Feel free to change the other settings though. -Abacaxl`
+     
+     --|| Settings:
+     workspace.FallenPartsDestroyHeight = _G.oldh or -500
+     local StudsOffset = 0 -- Character height (negative if you're too high)
+     local Smoothness = .5 -- Character interpolation (0.1 - 1 = smooth - rigid)
+     local AnchorCharacter = false -- Prevent physics from causing inconsistencies
+     local HideCharacter = false -- Hide character on a platform
+     local NoCollision = false-- Disable player collision
+     local ChatEnabled = true -- See chat on your left hand in-game
+     local ChatLocalRange = 75 -- Local chat range
+     local ViewportEnabled = true -- View nearby players in a frame
+     local ViewportRange = 30 -- Maximum distance players are updated
+     local RagdollEnabled = true -- Use your character instead of hats (NetworkOwner vulnerability)
+     local RagdollHeadMovement = true -- Move your head separately from your body (+9 second wait)
+     local AutoRun = false -- Run script on respawn
+     local AutoRespawn = true -- Kill your real body when your virtual body dies
+     local WearAllAccessories = true -- Use all leftover hats for the head
+     local AccurateHandPosition = false -- Move your Roblox hands according to your real hands
+     local AccessorySettings = {
+          LeftArm = "",
+          RightArm = "",
+          LeftLeg = "",
+          RightLeg = "",
+          Torso = "",
+          Head = true,
+          BlockArms = true,
+          BlockLegs = true,
+          BlockTorso = true,
+          LimbOffset = CFrame.Angles(math.rad(90), 0, 0)
+     }
+     local socket1 
+     local socket2
+     local FootPlacementSettings = {
+          RightOffset = Vector3.new(.5, 0, 0),
+          LeftOffset = Vector3.new(-.5, 0, 0)
+     }
+     --|| Script:
+     local Script = nil
+     Script = function()
+             --[[
+          Variables
+         --]]
+          local Players = game:GetService("Players")
+          local Client = Players.LocalPlayer
+          local Character = Client.Character
+          local character1 = Character 
+          local reanimation = Character
+         local knives = {"UMAD", "Red SS", "White SS"}
+          local WeldBase = Character:WaitForChild("HumanoidRootPart")
+          local ArmBase = Character:FindFirstChild("RightHand") or Character:FindFirstChild("Right Arm") or WeldBase
+          local Backpack = Client:WaitForChild("Backpack")
+          local Mouse = Client:GetMouse()
+          local Camera = workspace.CurrentCamera
+          local VRService = game:GetService("VRService")
+          local VRReady = VRService.VREnabled
+          local UserInputService = game:GetService("UserInputService")
+          local RunService = game:GetService("RunService")
+          local HttpService = game:GetService("HttpService")
+          local StarterGui = game:GetService("StarterGui")
+          local HeadAccessories = {}
+          local UsedAccessories = {}
+          local Pointer = false
+          local Point1 = false
+          local Point2 = false
+          local VirtualRig = game:GetObjects("rbxassetid://4468539481")[1]
+          local VirtualBody = game:GetObjects("rbxassetid://4464983829")[1]
+          local Anchor = Instance.new("Part")
+          Anchor.Anchored = true
+          Anchor.Transparency = 1
+          Anchor.CanCollide = false
+          Anchor.Parent = workspace
+             --[[
+             if RagdollEnabled then
+                 print("RagdollEnabled, thank you for using CLOVR!")
+                 local NetworkAccess =
+                     coroutine.create(
+                     function()
+                         settings().Physics.AllowSleep = false
+                         while true do
+                             game:GetService("RunService").RenderStepped:Wait()
+                             for _, Players in next, game:GetService("Players"):GetChildren() do
+                                 if Players ~= game:GetService("Players").LocalPlayer then
+                                     Players.MaximumSimulationRadius = 0.1
+                                     Players.SimulationRadius = 0
+                                 end
+                             end
+                             game:GetService("Players").LocalPlayer.MaximumSimulationRadius = math.pow(math.huge, math.huge)
+                             game:GetService("Players").LocalPlayer.SimulationRadius = math.huge * math.huge
+                         end
+                     end
+                 )
+                 coroutine.resume(NetworkAccess)
+             end
+             ]]
+          --  StarterGui:SetCore("VRLaserPointerMode", 3)
+             --[[
+          Character Protection
+         --]]
+          local CharacterCFrame = WeldBase.CFrame
+          if not RagdollEnabled then
+               Character.Humanoid.AnimationPlayed:Connect(
+                    function(Animation)
+                         Animation:Stop()
+                    end
+               )
+               for _, Track in next, Character.Humanoid:GetPlayingAnimationTracks() do
+                    Track:Stop()
+               end
+               if HideCharacter then
+                    local Platform = Instance.new("Part")
+                    Platform.Anchored = true
+                    Platform.Size = Vector3.new(100, 5, 100)
+                    Platform.CFrame = CFrame.new(0, 10000, 0)
+                    Platform.Transparency = 1
+                    Platform.Parent = workspace
+                    Character:MoveTo(Platform.Position + Vector3.new(0, 5, 0))
+                    wait(.5)
+               end
+               if AnchorCharacter then
+                    for _, Part in pairs(Character:GetChildren()) do
+                         if Part:IsA("BasePart") then
+                              Part.Anchored = true
+                         end
+                    end
+               end
+          end
+             --[[
+          Functions
+         --]]
+          function Tween(Object, Style, Direction, Time, Goal)
+               local tweenInfo = TweenInfo.new(Time, Enum.EasingStyle[Style], Enum.EasingDirection[Direction])
+               local tween = game:GetService("TweenService"):Create(Object, tweenInfo, Goal)
+               tween.Completed:Connect(
+                    function()
+                         tween:Destroy()
+                    end
+               )
+               tween:Play()
+               return tween
+          end
+          local function GetMotorForLimb(Limb)
+               for _, Motor in next, Character:GetDescendants() do
+                    if Motor:IsA("Motor6D") and Motor.Part1 == Limb then
+                         return Motor
+                    end
+               end
+          end
+          local function CreateAlignment(Limb, Part0)
+               local Attachment0 = Instance.new("Attachment", Part0 or Anchor)
+               local Attachment1 = Instance.new("Attachment", Limb)
+               local Orientation = Instance.new("AlignOrientation")
+               local Position = Instance.new("AlignPosition")
+               Orientation.Attachment0 = Attachment1
+               Orientation.Attachment1 = Attachment0
+               Orientation.RigidityEnabled = false
+               Orientation.MaxTorque = 20000
+               Orientation.Responsiveness = 40
+               Orientation.Parent = reanimation["HumanoidRootPart"]
+     
+               Orientation.Name = Limb.Name.."'s AlignRot"
+               Orientation.MaxAngularVelocity = 100
+     
+               Position.Attachment0 = Attachment1
+               Position.Attachment1 = Attachment0
+               Position.RigidityEnabled = false
+               Position.MaxForce = 40000
+               Position.Responsiveness = 40
+               Position.Parent = reanimation["HumanoidRootPart"]
+     
+               Position.Name = Limb.Name.."'s AlignPos"
+               Position.MaxVelocity = 20000
+     
+               Limb.Massless = false
+               local Motor = GetMotorForLimb(Limb)
+               if Motor then
+                    Motor.Enabled = false
+               end
+               return function(CF, Local)
+                    if Local then
+                         Attachment0.CFrame = CF
+                    else
+                         Attachment0.WorldCFrame = CF
+                    end
+               end
+          end
+          local function GetExtraTool()
+               for _, Tool in next, Character:GetChildren() do
+                    if Tool:IsA("Tool") and not Tool.Name:match("LIMB_TOOL") then
+                         return Tool
+                    end
+               end
+          end
+          local function GetGripForHandle(Handle)
+               for _, Weld in next, Character:GetDescendants() do
+                    if Weld:IsA("Weld") and (Weld.Part0 == Handle or Weld.Part1 == Handle) then
+                         return Weld
+                    end
+               end
+               wait(.2)
+               for _, Weld in next, Character:GetDescendants() do
+                    if Weld:IsA("Weld") and (Weld.Part0 == Handle or Weld.Part1 == Handle) then
+                         return Weld
+                    end
+               end
+          end
+          local function CreateRightGrip(Handle)
+               local RightGrip = Instance.new("Weld")
+               RightGrip.Name = "RightGrip"
+               RightGrip.Part1 = Handle
+               RightGrip.Part0 = WeldBase
+               RightGrip.Parent = WeldBase
+               return RightGrip
+          end
+          local function CreateAccessory(Accessory, DeleteMeshes)
+               if not Accessory then
+                    return
+               end
+               local HatAttachment = Accessory.Handle:FindFirstChildWhichIsA("Attachment")
+               local HeadAttachment = VirtualRig:FindFirstChild(HatAttachment.Name, true)
+               local BasePart = HeadAttachment.Parent
+               local HatAtt = HatAttachment.CFrame
+               local HeadAtt = HeadAttachment.CFrame
+               if DeleteMeshes then
+                    if Accessory.Handle:FindFirstChild("Mesh") then
+                         Accessory.Handle.Mesh:Destroy()
+                    end
+               end
+               wait()
+               local Handle = Accessory:WaitForChild("Handle")
+               if Handle:FindFirstChildWhichIsA("Weld", true) then
+                    Handle:FindFirstChildWhichIsA("Weld", true):Destroy()
+                    Handle:BreakJoints()
+               else
+                    Handle:BreakJoints()
+               end
+               Handle.Massless = true
+               Handle.Transparency = 0.5
+               UsedAccessories[Accessory] = true
+               local RightGrip = CreateRightGrip(Handle)
+               wait()
+               for _, Object in pairs(Handle:GetDescendants()) do
+                    if not Object:IsA("BasePart") then
+                         pcall(
+                              function()
+                                   Object.Transparency = 1
+                              end
+                         )
+                         pcall(
+                              function()
+                                   Object.Enabled = false
+                              end
+                         )
+                    end
+               end
+               return Handle, RightGrip, HatAtt, HeadAtt, BasePart
+          end
+          local function GetHeadAccessories()
+               for _, Accessory in next, Character:GetChildren() do
+                    if Accessory:IsA("Accessory") and not UsedAccessories[Accessory] then
+                         local Handle, RightGrip, HatAtt, HeadAtt, BasePart = CreateAccessory(Accessory)
+                         table.insert(HeadAccessories, {Handle, RightGrip, HatAtt, HeadAtt, BasePart})
+                         do
+                              Handle.Transparency = 1
+                         end
+                         if not WearAllAccessories then
+                              break
+                         end
+                    end
+               end
+          end
+             --[[
+          VR Replication Setup
+         --]]
+          if not RagdollEnabled then
+               LeftHandle, LeftHandGrip =
+                    CreateAccessory(Character:FindFirstChild(AccessorySettings.LeftArm), AccessorySettings.BlockArms)
+               RightHandle, RightHandGrip =
+                    CreateAccessory(Character:FindFirstChild(AccessorySettings.RightArm), AccessorySettings.BlockArms)
+               LeftHipHandle, LeftLegGrip =
+                    CreateAccessory(Character:FindFirstChild(AccessorySettings.LeftLeg), AccessorySettings.BlockLegs)
+               RightHipHandle, RightLegGrip =
+                    CreateAccessory(Character:FindFirstChild(AccessorySettings.RightLeg), AccessorySettings.BlockLegs)
+               TorsoHandle, TorsoGrip =
+                    CreateAccessory(Character:FindFirstChild(AccessorySettings.Torso), AccessorySettings.BlockTorso)
+               GetHeadAccessories()
+          elseif RagdollEnabled then
+               if RagdollHeadMovement then
+                    Permadeath()
+                    MoveHead = CreateAlignment(reanimation["Head"])
+               end
+               MoveRightArm = CreateAlignment(reanimation["Right Arm"])
+               MoveLeftArm = CreateAlignment(reanimation["Left Arm"])
+               MoveRightLeg = CreateAlignment(reanimation["Right Leg"])
+               MoveLeftLeg = CreateAlignment(reanimation["Left Leg"])
+               MoveTorso = CreateAlignment(reanimation["Torso"])
+               MoveRoot = CreateAlignment(reanimation["HumanoidRootPart"])
+               --
+               if RagdollHeadMovement then
+                    for _, Accessory in next, reanimation:GetChildren() do
+                         if Accessory:IsA("Accessory") and Accessory:FindFirstChild("Handle") then
+                              local Attachment1 = Accessory.Handle:FindFirstChildWhichIsA("Attachment")
+                              local Attachment0 = reanimation:FindFirstChild(tostring(Attachment1), true)
+                              local Orientation = Instance.new("AlignOrientation")
+                              local Position = Instance.new("AlignPosition")
+                              print(Attachment1, Attachment0, Accessory)
+     
+                              Orientation.Attachment0 = Attachment1
+                              Orientation.Attachment1 = Attachment0
+                              Orientation.RigidityEnabled = false
+                              Orientation.ReactionTorqueEnabled = true
+                              Orientation.MaxTorque = 20000
+                              Orientation.Responsiveness = 40
+                              Orientation.Parent = reanimation["Head"]
+     
+                              Position.Attachment0 = Attachment1
+                              Position.Attachment1 = Attachment0
+                              Position.RigidityEnabled = false
+                              Position.ReactionForceEnabled = true
+                              Position.MaxForce = 40000
+                              Position.Responsiveness = 40
+                              Position.Parent = reanimation["Head"]
+                         end
+                    end
+               end
+     
+          end
+             --[[
+          Movement
+         --]]
+          VirtualRig.Name = "VirtualRig"
+          VirtualRig.RightFoot.BodyPosition.Position = CharacterCFrame.p
+          VirtualRig.LeftFoot.BodyPosition.Position = CharacterCFrame.p
+          VirtualRig.Parent = workspace
+          VirtualRig:SetPrimaryPartCFrame(CharacterCFrame)
+          VirtualRig.Humanoid.Health = 0
+          --VirtualRig:FindFirstChild("HumanoidRootPart").CFrame = character1.HumanoidRootPart.CFrame
+          VirtualRig:BreakJoints()
+          for i,v in pairs(VirtualRig:GetChildren()) do
+               if v:IsA("BasePart") then
+                    v.CFrame = character1.HumanoidRootPart.CFrame
+               end
+          end
+          --
+          VirtualBody.Parent = workspace
+          VirtualBody.Name = "VirtualBody"
+          VirtualBody.Humanoid.WalkSpeed = 8
+          VirtualBody.Humanoid.CameraOffset = Vector3.new(0, StudsOffset, 0)
+          VirtualBody:SetPrimaryPartCFrame(CharacterCFrame)
+          VirtualBody.Humanoid.Died:Connect(
+               function()
+                    print("Virtual death")
+                    if AutoRespawn then
+                         Character:BreakJoints()
+                         if RagdollHeadMovement and RagdollEnabled then
+                              --Network:Unclaim()
+                              --Respawn()
+                         end
+                    end
+               end
+          )
+          --
+          Camera.CameraSubject = VirtualBody.Humanoid
+          Character.Humanoid.WalkSpeed = 0
+          Character.Humanoid.JumpPower = 1
+          for _, Part in next, VirtualBody:GetChildren() do
+               if Part:IsA("BasePart") then
+                    Part.Transparency = 1
+               end
+          end
+          for _, Part in next, VirtualRig:GetChildren() do
+               if Part:IsA("BasePart") then
+                    Part.Transparency = 1
+               end
+          end
+          if not VRReady then
+               VirtualRig.RightUpperArm.ShoulderConstraint.RigidityEnabled = true
+               VirtualRig.LeftUpperArm.ShoulderConstraint.RigidityEnabled = true
+          end
+          local OnMoving =
+               RunService.Stepped:Connect(
+                    function()
+                         local Direction = Character.Humanoid.MoveDirection
+                         local Start = VirtualBody.HumanoidRootPart.Position
+                         local Point = Start + Direction * 6
+                         VirtualBody.Humanoid:MoveTo(Point)
+                    end
+               )
+          Character.Humanoid.Jumping:Connect(
+               function()
+                    VirtualBody.Humanoid.Jump = true
+               end
+          )
+          UserInputService.JumpRequest:Connect(
+               function()
+                    VirtualBody.Humanoid.Jump = true
+               end
+          )
+             --[[
+          VR Replication
+         --]]
+          local FootUpdateDebounce = tick()
+          local function FloorRay(Part, Distance)
+               local Position = Part.CFrame.p
+               local Target = Position - Vector3.new(0, Distance, 0)
+               local Line = Ray.new(Position, (Target - Position).Unit * Distance)
+               local FloorPart, FloorPosition, FloorNormal =
+                    workspace:FindPartOnRayWithIgnoreList(Line, {VirtualRig, VirtualBody, Character})
+               if FloorPart then
+                    return FloorPart, FloorPosition, FloorNormal, (FloorPosition - Position).Magnitude
+               else
+                    return nil, Target, Vector3.new(), Distance
+               end
+          end
+          local function Flatten(CF)
+               local X, Y, Z = CF.X, CF.Y, CF.Z
+               local LX, LZ = CF.lookVector.X, CF.lookVector.Z
+               return CFrame.new(X, Y, Z) * CFrame.Angles(0, math.atan2(LX, LZ), 0)
+          end
+          local FootTurn = 1
+          local function FootReady(Foot, Target)
+               local MaxDist
+               if Character.Humanoid.MoveDirection.Magnitude > 0 then
+                    MaxDist = .5
+               else
+                    MaxDist = 1
+               end
+               local PastThreshold = (Foot.Position - Target.Position).Magnitude > MaxDist
+               local PastTick = tick() - FootUpdateDebounce >= 2
+               if PastThreshold or PastTick then
+                    FootUpdateDebounce = tick()
+               end
+               return PastThreshold or PastTick
+          end
+          local function FootYield()
+               local RightFooting = VirtualRig.RightFoot.BodyPosition
+               local LeftFooting = VirtualRig.LeftFoot.BodyPosition
+               local LowerTorso = VirtualRig.LowerTorso
+               local Yield = tick()
+               repeat
+                    RunService.Stepped:Wait()
+                    if
+                         (LowerTorso.Position - RightFooting.Position).Y > 4 or
+                         (LowerTorso.Position - LeftFooting.Position).Y > 4 or
+                         ((LowerTorso.Position - RightFooting.Position) * Vector3.new(1, 0, 1)).Magnitude > 4 or
+                         ((LowerTorso.Position - LeftFooting.Position) * Vector3.new(1, 0, 1)).Magnitude > 4
+                    then
+                         break
+                    end
+               until tick() - Yield >= .17
+          end
+          local function UpdateFooting()
+               if not VirtualRig:FindFirstChild("LowerTorso") then
+                    wait()
+                    return
+               end
+               local Floor, FloorPosition, FloorNormal, Dist = FloorRay(VirtualRig.LowerTorso, 3)
+               Dist = math.clamp(Dist, 0, 5)
+               local FootTarget =
+                    VirtualRig.LowerTorso.CFrame * CFrame.new(FootPlacementSettings.RightOffset) - Vector3.new(0, Dist, 0) +
+                    Character.Humanoid.MoveDirection * (VirtualBody.Humanoid.WalkSpeed / 8) * 2
+               if FootReady(VirtualRig.RightFoot, FootTarget) then
+                    VirtualRig.RightFoot.BodyPosition.Position = FootTarget.p
+                    VirtualRig.RightFoot.BodyGyro.CFrame = Flatten(VirtualRig.LowerTorso.CFrame)
+               end
+               FootYield()
+               local FootTarget =
+                    VirtualRig.LowerTorso.CFrame * CFrame.new(FootPlacementSettings.LeftOffset) - Vector3.new(0, Dist, 0) +
+                    Character.Humanoid.MoveDirection * (VirtualBody.Humanoid.WalkSpeed / 8) * 2
+               if FootReady(VirtualRig.LeftFoot, FootTarget) then
+                    VirtualRig.LeftFoot.BodyPosition.Position = FootTarget.p
+                    VirtualRig.LeftFoot.BodyGyro.CFrame = Flatten(VirtualRig.LowerTorso.CFrame)
+               end
+          end
+          local function UpdateTorsoPosition()
+               if not RagdollEnabled then
+                    if TorsoHandle then
+                         local Positioning = VirtualRig.UpperTorso.CFrame
+                         if not TorsoGrip or not TorsoGrip.Parent then
+                              TorsoGrip = CreateRightGrip(TorsoHandle)
+                         end
+                         local Parent = TorsoGrip.Parent
+                         TorsoGrip.C1 = CFrame.new()
+                         TorsoGrip.C0 =
+                              TorsoGrip.C0:Lerp(
+                                   WeldBase.CFrame:ToObjectSpace(Positioning * CFrame.new(0, -0.25, 0) * AccessorySettings.LimbOffset),
+                                   Smoothness
+                              )
+                         TorsoGrip.Parent = nil
+                         TorsoGrip.Parent = Parent
+                    end
+               else
+                    local Positioning = VirtualRig.UpperTorso.CFrame
+                    MoveTorso(Positioning * CFrame.new(0, -0.25, 0))
+                    MoveRoot(Positioning * CFrame.new(0, -0.25, 0))
+               end
+          end
+          local function UpdateLegPosition()
+               if not RagdollEnabled then
+                    if RightHipHandle then
+                         local Positioning =
+                              VirtualRig.RightLowerLeg.CFrame:Lerp(VirtualRig.RightFoot.CFrame, 0.5) + Vector3.new(0, 0.5, 0)
+                         if not RightHipHandle or not RightHipHandle.Parent then
+                              RightLegGrip = CreateRightGrip(RightHipHandle)
+                         end
+                         local Parent = RightLegGrip.Parent
+                         RightLegGrip.C1 = CFrame.new()
+                         RightLegGrip.C0 =
+                              RightLegGrip.C0:Lerp(
+                                   WeldBase.CFrame:ToObjectSpace(Positioning * AccessorySettings.LimbOffset),
+                                   Smoothness
+                              )
+                         RightLegGrip.Parent = nil
+                         RightLegGrip.Parent = Parent
+                    end
+                    if LeftHipHandle then
+                         local Positioning =
+                              VirtualRig.LeftLowerLeg.CFrame:Lerp(VirtualRig.LeftFoot.CFrame, 0.5) + Vector3.new(0, 0.5, 0)
+                         if not LeftLegGrip or not LeftLegGrip.Parent then
+                              LeftLegGrip = CreateRightGrip(LeftHipHandle)
+                         end
+                         local Parent = LeftLegGrip.Parent
+                         LeftLegGrip.C1 = CFrame.new()
+                         LeftLegGrip.C0 =
+                              LeftLegGrip.C0:Lerp(
+                                   WeldBase.CFrame:ToObjectSpace(Positioning * AccessorySettings.LimbOffset),
+                                   Smoothness
+                              )
+                         LeftLegGrip.Parent = nil
+                         LeftLegGrip.Parent = Parent
+                    end
+               else
+                    do
+                         local Positioning =
+                              VirtualRig.RightLowerLeg.CFrame:Lerp(VirtualRig.RightFoot.CFrame, 0.5) *
+                              CFrame.Angles(0, math.rad(180), 0) +
+                              Vector3.new(0, 0.5, 0)
+                         MoveRightLeg(Positioning)
+                    end
+                    do
+                         local Positioning =
+                              VirtualRig.LeftLowerLeg.CFrame:Lerp(VirtualRig.LeftFoot.CFrame, 0.5) *
+                              CFrame.Angles(0, math.rad(180), 0) +
+                              Vector3.new(0, 0.5, 0)
+                         MoveLeftLeg(Positioning)
+                    end
+               end
+          end
+          warn("VRReady is", VRReady)
+          local function OnUserCFrameChanged(UserCFrame, Positioning, IgnoreTorso)
+               local Positioning = Camera.CFrame * Positioning
+               if not IgnoreTorso then
+                    UpdateTorsoPosition()
+                    UpdateLegPosition()
+               end
+               if not RagdollEnabled then
+                    if UserCFrame == Enum.UserCFrame.Head and AccessorySettings.Head then
+                         for _, Table in next, HeadAccessories do
+                              local Handle, RightGrip, HatAtt, HeadAtt, BasePart = unpack(Table)
+                              local LocalPositioning = Positioning
+                              if not RightGrip or not RightGrip.Parent then
+                                   RightGrip = CreateRightGrip(Handle)
+                                   Table[2] = RightGrip
+                              end
+                              local Parent = RightGrip.Parent
+                              if BasePart then
+                                   LocalPositioning = BasePart.CFrame * HeadAtt
+                              end
+                              RightGrip.C1 = HatAtt
+                              RightGrip.C0 = RightGrip.C0:Lerp(WeldBase.CFrame:ToObjectSpace(LocalPositioning), Smoothness)
+                              RightGrip.Parent = nil
+                              RightGrip.Parent = Parent
+                         end
+                    elseif RightHandle and UserCFrame == Enum.UserCFrame.RightHand and AccessorySettings.RightArm then
+                         local HandPosition = Positioning
+                         local LocalPositioning = Positioning
+                         if not RightHandGrip or not RightHandGrip.Parent then
+                              RightHandGrip = CreateRightGrip(RightHandle)
+                         end
+                         if AccurateHandPosition then
+                              HandPosition = HandPosition * CFrame.new(0, 0, 1)
+                         end
+                         if not VRReady then
+                              local HeadRotation = Camera.CFrame - Camera.CFrame.p
+                              HandPosition =
+                                   VirtualRig.RightUpperArm.CFrame:Lerp(VirtualRig.RightLowerArm.CFrame, 0.5) *
+                                   AccessorySettings.LimbOffset
+                              --LocalPositioning = (HeadRotation + (HandPosition * CFrame.new(0, 0, 1)).p) * CFrame.Angles(math.rad(-45), 0, 0)
+                              LocalPositioning = HandPosition * CFrame.new(0, 0, 1) * CFrame.Angles(math.rad(-180), 0, 0)
+                              if Point2 then
+                                   VirtualRig.RightUpperArm.Aim.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+                                   VirtualRig.RightUpperArm.Aim.CFrame = Camera.CFrame * AccessorySettings.LimbOffset
+                              elseif VirtualRig.RightUpperArm.Aim.MaxTorque ~= Vector3.new(0, 0, 0) then
+                                   VirtualRig.RightUpperArm.Aim.MaxTorque = Vector3.new(0, 0, 0)
+                              end
+                         elseif AccurateHandPosition then
+                              LocalPositioning = HandPosition
+                         end
+                         local Parent = RightHandGrip.Parent
+                         RightHandGrip.C1 = CFrame.new()
+                         RightHandGrip.C0 = RightHandGrip.C0:Lerp(WeldBase.CFrame:ToObjectSpace(HandPosition), Smoothness)
+                         RightHandGrip.Parent = nil
+                         RightHandGrip.Parent = Parent
+                         --
+     
+                    elseif LeftHandle and UserCFrame == Enum.UserCFrame.LeftHand and AccessorySettings.LeftArm then
+                         local HandPosition = Positioning
+                         if not LeftHandGrip or not LeftHandGrip.Parent then
+                              LeftHandGrip = CreateRightGrip(LeftHandle)
+                         end
+                         if AccurateHandPosition then
+                              HandPosition = HandPosition * CFrame.new(0, 0, 1)
+                         end
+                         if not VRReady then
+                              HandPosition =
+                                   VirtualRig.LeftUpperArm.CFrame:Lerp(VirtualRig.LeftLowerArm.CFrame, 0.5) *
+                                   AccessorySettings.LimbOffset
+                              --warn("Setting HandPosition to hands")
+                              if Point1 then
+                                   VirtualRig.LeftUpperArm.Aim.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+                                   VirtualRig.LeftUpperArm.Aim.CFrame = Camera.CFrame * AccessorySettings.LimbOffset
+                              elseif VirtualRig.LeftUpperArm.Aim.MaxTorque ~= Vector3.new(0, 0, 0) then
+                                   VirtualRig.LeftUpperArm.Aim.MaxTorque = Vector3.new(0, 0, 0)
+                              end
+                         end
+                         local Parent = LeftHandGrip.Parent
+                         LeftHandGrip.C1 = CFrame.new()
+                         LeftHandGrip.C0 = LeftHandGrip.C0:Lerp(WeldBase.CFrame:ToObjectSpace(HandPosition), Smoothness)
+                         LeftHandGrip.Parent = nil
+                         LeftHandGrip.Parent = Parent
+                    end
+               end
+               if RagdollEnabled then
+                    if UserCFrame == Enum.UserCFrame.Head and RagdollHeadMovement then
+                         MoveHead(Positioning)
+                    elseif UserCFrame == Enum.UserCFrame.RightHand then
+                         local Positioning = Positioning
+                         if not VRReady then
+                              Positioning = VirtualRig.RightUpperArm.CFrame:Lerp(VirtualRig.RightLowerArm.CFrame, 0.5)
+                         elseif AccurateHandPosition then
+                              Positioning = Positioning * CFrame.new(0, 0, 1)
+                         end
+     
+                         if VRReady then
+                              Positioning = Positioning * AccessorySettings.LimbOffset
+                         end
+                         MoveRightArm(Positioning)
+                         if Point2 then
+                              VirtualRig.RightUpperArm.Aim.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+                              VirtualRig.RightUpperArm.Aim.CFrame = Camera.CFrame * AccessorySettings.LimbOffset
+                         elseif VirtualRig.RightUpperArm.Aim.MaxTorque ~= Vector3.new(0, 0, 0) then
+                              VirtualRig.RightUpperArm.Aim.MaxTorque = Vector3.new(0, 0, 0)
+                         end
+                    elseif UserCFrame == Enum.UserCFrame.LeftHand then
+                         local Positioning = Positioning
+                         if not VRReady then
+                              Positioning = VirtualRig.LeftUpperArm.CFrame:Lerp(VirtualRig.LeftLowerArm.CFrame, 0.5)
+                         elseif AccurateHandPosition then
+                              Positioning = Positioning * CFrame.new(0, 0, 1)
+                         end
+                         if VRReady then
+                              Positioning = Positioning * AccessorySettings.LimbOffset
+                         end
+                         MoveLeftArm(Positioning)
+                         if Point1 then
+                              VirtualRig.LeftUpperArm.Aim.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+                              VirtualRig.LeftUpperArm.Aim.CFrame = Camera.CFrame * AccessorySettings.LimbOffset
+                         elseif VirtualRig.LeftUpperArm.Aim.MaxTorque ~= Vector3.new(0, 0, 0) then
+                              VirtualRig.LeftUpperArm.Aim.MaxTorque = Vector3.new(0, 0, 0)
+                         end
+                    end
+               end
+               if UserCFrame == Enum.UserCFrame.Head then
+                    VirtualRig.Head.CFrame = Positioning
+               elseif UserCFrame == Enum.UserCFrame.RightHand and VRReady then
+                    VirtualRig.RightHand.CFrame = Positioning
+               elseif UserCFrame == Enum.UserCFrame.LeftHand and VRReady then
+                    VirtualRig.LeftHand.CFrame = Positioning
+               end
+               if not VRReady and VirtualRig.LeftHand.Anchored then
+                    VirtualRig.RightHand.Anchored = false
+                    VirtualRig.LeftHand.Anchored = false
+               elseif VRReady and not VirtualRig.LeftHand.Anchored then
+                    VirtualRig.RightHand.Anchored = true
+                    VirtualRig.LeftHand.Anchored = true
+               end
+     
+          end
+          local CFrameChanged = VRService.UserCFrameChanged:Connect(OnUserCFrameChanged)
+          local OnStepped =
+               RunService.Stepped:Connect(
+                    function()
+                         for _, Part in pairs(VirtualRig:GetChildren()) do
+                              if Part:IsA("BasePart") then
+                                   Part.CanCollide = false
+                              end
+                         end
+                         if RagdollEnabled then
+                              for _, Part in pairs(Character:GetChildren()) do
+                                   if Part:IsA("BasePart") then
+                                        Part.CanCollide = false
+                                   end
+                              end
+                         end
+                         if NoCollision then
+                              for _, Player in pairs(Players:GetPlayers()) do
+                                   if Player ~= Client and Player.Character then
+                                        local Descendants = Player.Character:GetChildren()
+                                        for i = 1, #Descendants do
+                                             local Part = Descendants[i]
+                                             if Part:IsA("BasePart") then
+                                                  Part.CanCollide = false
+                                             end
+                                        end
+                                   end
+                              end
+                         end
+                    end
+               )
+          local OnRenderStepped =
+               RunService.Stepped:Connect(
+                    function()
+                         Camera.CameraSubject = VirtualBody.Humanoid
+                         if RagdollEnabled then
+                              Character.HumanoidRootPart.CFrame = VirtualRig.UpperTorso.CFrame
+                              --Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+                         end
+                         if not VRReady then
+                              OnUserCFrameChanged(Enum.UserCFrame.Head, CFrame.new(0, 0, 0))
+                              OnUserCFrameChanged(Enum.UserCFrame.RightHand, CFrame.new(0, 0, 0), true)
+                              OnUserCFrameChanged(Enum.UserCFrame.LeftHand, CFrame.new(0, 0, 0), true)
+                         end
+                    end
+               )
+          spawn(
+               function()
+                    while Character and Character.Parent do
+                         FootYield()
+                         UpdateFooting()
+                    end
+               end
+          )
+             --[[
+          Non-VR Support + VR Mechanics
+         --]]
+          local OnInput =
+               UserInputService.InputBegan:Connect(
+                    function(Input, Processed)
+                         if not Processed then
+                              if Input.KeyCode == Enum.KeyCode.LeftControl or Input.KeyCode == Enum.KeyCode.ButtonL2 then
+                                   Tween(
+                                        VirtualBody.Humanoid,
+                                        "Elastic",
+                                        "Out",
+                                        1,
+                                        {
+                                             CameraOffset = Vector3.new(0, StudsOffset - 1.5, 0)
+                                        }
+                                   )
+                             pcall(function()
+                             if _G.LegacyFootPlant == false then
+                             socket1.Enabled = false
+                             socket2.Enabled = false
+                             end
+                         end)
+                              end
+                              if Input.KeyCode == Enum.KeyCode.X then
+                                   if RagdollEnabled and RagdollHeadMovement then
+                                        --Network:Unclaim()
+                                        Respawn()
+                                   end
+                              end
+                              if Input.KeyCode == Enum.KeyCode.C then
+                                   VirtualBody:MoveTo(Mouse.Hit.p)
+                                   VirtualRig:MoveTo(Mouse.Hit.p)
+                              end
+                         end
+                         if Input.KeyCode == Enum.KeyCode.LeftShift or Input.KeyCode == Enum.KeyCode.ButtonR2 then
+                              Tween(
+                                   VirtualBody.Humanoid,
+                                   "Sine",
+                                   "Out",
+                                   1,
+                                   {
+                                        WalkSpeed = 16
+                                   }
+                              )
+                         end
+                         if not VRReady and Input.UserInputType == Enum.UserInputType.MouseButton1 then
+                              Point1 = true
+                         end
+                         if not VRReady and Input.UserInputType == Enum.UserInputType.MouseButton2 then
+                              Point2 = true
+                         end
+                         if VRReady and Input.KeyCode == Enum.KeyCode.ButtonY then
+                                   _G.HatCollide = not _G.HatCollide
+                         end
+                         if VRReady and Input.KeyCode == Enum.KeyCode.ButtonA then
+                              VirtualBody.Humanoid.Jump = true
+                         end
+                    end
+               )
+          local OnInputEnded =
+               UserInputService.InputEnded:Connect(
+                    function(Input, Processed)
+                         if not Processed then
+                              if Input.KeyCode == Enum.KeyCode.LeftControl or Input.KeyCode == Enum.KeyCode.ButtonL2 then
+                                   Tween(
+                                        VirtualBody.Humanoid,
+                                        "Elastic",
+                                        "Out",
+                                        1,
+                                        {
+                                             CameraOffset = Vector3.new(0, StudsOffset, 0)
+                                        }
+                                   )
+                                     pcall(function()
+                                      if _G.LegacyFootPlant == false then
+                             socket1.Enabled = true
+                             socket2.Enabled = true
+                                      end
+                         end)
+                              end
+                         end
+                         if Input.KeyCode == Enum.KeyCode.LeftShift or Input.KeyCode == Enum.KeyCode.ButtonR2 then
+                              Tween(
+                                   VirtualBody.Humanoid,
+                                   "Sine",
+                                   "Out",
+                                   1,
+                                   {
+                                        WalkSpeed = 8
+                                   }
+                              )
+                         end
+                         if not VRReady and Input.UserInputType == Enum.UserInputType.MouseButton1 then
+                              Point1 = false
+                         end
+                         if not VRReady and Input.UserInputType == Enum.UserInputType.MouseButton2 then
+                              Point2 = false
+                         end
+                    end
+               )
+             --[[
+          Proper Cleanup
+         --]]
+          if ChatEnabled then
+               spawn(ChatHUDFunc)
+          end
+          if ViewportEnabled then
+               spawn(ViewHUDFunc)
+          end
+          do
+                 --[[
+          Functions
+          --]]
+               local Players = game:GetService("Players")
+               local Client = Players.LocalPlayer
+               local VRService = game:GetService("VRService")
+               local VRReady = VRService.VREnabled
+               local UserInputService = game:GetService("UserInputService")
+               local RunService = game:GetService("RunService")
+               local Camera = workspace.CurrentCamera
+                 --[[
+          Code
+          --]]
+               if VRReady then
+                    local Pointer = game:GetObjects("rbxassetid://4476173280")[1]
+                    Pointer.Parent = workspace
+                    Pointer.Beam.Enabled = false
+                    Pointer.Target.ParticleEmitter.Enabled = false
+                    local RenderStepped =
+                         RunService.RenderStepped:Connect(
+                              function()
+                                   if Pointer.Beam.Enabled then
+                                        local RightHand = Camera.CFrame * VRService:GetUserCFrame(Enum.UserCFrame.RightHand)
+                                        local Target = RightHand * CFrame.new(0, 0, -10)
+                                        local Line = Ray.new(RightHand.p, (Target.p - RightHand.p).Unit * 128)
+                                        local Part, Position =
+                                        workspace:FindPartOnRayWithIgnoreList(Line, {VirtualRig, VirtualBody, Character, Pointer})
+                                        local Distance = (Position - RightHand.p).Magnitude
+                                        Pointer.Target.Position = Vector3.new(0, 0, -Distance)
+                                        Pointer.CFrame = RightHand
+                                   end
+                              end
+                         )
+                    local Input =
+                         UserInputService.InputBegan:Connect(
+                              function(Input)
+                                   if Input.KeyCode == Enum.KeyCode.ButtonB then
+                                        Pointer.Beam.Enabled = not Pointer.Beam.Enabled
+                                 if Pointer.Beam.Enabled == false then 
+                                          VirtualBody:MoveTo(Mouse.Hit.p)
+                                   VirtualRig:MoveTo(Mouse.Hit.p)
+                                 end
+                                        Pointer.Target.ParticleEmitter.Enabled = not Pointer.Target.ParticleEmitter.Enabled
+                                   end
+                              end
+                         )
+                    --
+               else
+                    return
+               end
+          end
+     end
+     Permadeath = function()
+          local ch = game.Players.LocalPlayer.Character
+          local prt = Instance.new("Model", workspace)
+          local z1 = Instance.new("Part", prt)
+          z1.Name = "Torso"
+          z1.CanCollide = false
+          z1.Anchored = true
+          local z2 = Instance.new("Part", prt)
+          z2.Name = "Head"
+          z2.Anchored = true
+          z2.CanCollide = false
+          local z3 = Instance.new("Humanoid", prt)
+          z3.Name = "Humanoid"
+          z1.Position = Vector3.new(0, 9999, 0)
+          z2.Position = Vector3.new(0, 9991, 0)
+          warn("50%")
+          game.Players.LocalPlayer.Character = ch
+          warn("100%")
+     end
+     Respawn = function()
+          local ch = game.Players.LocalPlayer.Character
+          local prt = Instance.new("Model", workspace)
+          local z1 = Instance.new("Part", prt)
+          z1.Name = "Torso"
+          z1.CanCollide = false
+          z1.Anchored = true
+          local z2 = Instance.new("Part", prt)
+          z2.Name = "Head"
+          z2.Anchored = true
+          z2.CanCollide = false
+          local z3 = Instance.new("Humanoid", prt)
+          z3.Name = "Humanoid"
+          z1.Position = Vector3.new(0, 9999, 0)
+          z2.Position = Vector3.new(0, 9991, 0)
+          game.Players.LocalPlayer.Character = prt
+          wait(game.Players.RespawnTime)
+          game.Players.LocalPlayer.Character = ch
+     end
+     ChatHUDFunc = function()
+             --[[
+          Variables
+          --]]
+          local UserInputService = game:GetService("UserInputService")
+          local RunService = game:GetService("RunService")
+          local VRService = game:GetService("VRService")
+          local VRReady = VRService.VREnabled
+          local Players = game:GetService("Players")
+          local Client = Players.LocalPlayer
+          local ChatHUD = game:GetObjects("rbxassetid://4476067885")[1]
+          ChatHUD.ResetOnSpawn = false
+          local GlobalFrame = ChatHUD.GlobalFrame
+          local Template = GlobalFrame.Template
+          local LocalFrame = ChatHUD.LocalFrame
+          local Global = ChatHUD.Global
+          local Local = ChatHUD.Local
+          local Camera = workspace.CurrentCamera
+          Template.Parent = nil
+          ChatHUD.Parent = game:GetService("CoreGui")
+     
+             --[[
+          Code
+          --]]
+          local Highlight = Global.Frame.BackgroundColor3
+          local Deselected = Local.Frame.BackgroundColor3
+          local OpenGlobalTab = function()
+               Global.Frame.BackgroundColor3 = Highlight
+               Local.Frame.BackgroundColor3 = Deselected
+               Global.Font = Enum.Font.SourceSansBold
+               Local.Font = Enum.Font.SourceSans
+               GlobalFrame.Visible = true
+               LocalFrame.Visible = false
+          end
+          local OpenLocalTab = function()
+               Global.Frame.BackgroundColor3 = Deselected
+               Local.Frame.BackgroundColor3 = Highlight
+               Global.Font = Enum.Font.SourceSans
+               Local.Font = Enum.Font.SourceSansBold
+               GlobalFrame.Visible = false
+               LocalFrame.Visible = true
+          end
+          Global.MouseButton1Down:Connect(OpenGlobalTab)
+          Local.MouseButton1Down:Connect(OpenLocalTab)
+          Global.MouseButton1Click:Connect(OpenGlobalTab)
+          Local.MouseButton1Click:Connect(OpenLocalTab)
+          OpenLocalTab()
+          --
+          local function GetPlayerDistance(Sender)
+               if Sender.Character and Sender.Character:FindFirstChild("Head") then
+                    return math.floor((Sender.Character.Head.Position - Camera:GetRenderCFrame().p).Magnitude + 0.5)
+               end
+          end
+          local function NewGlobal(Message, Sender, Color)
+               local Frame = Template:Clone()
+               Frame.Text = ("[%s]: %s"):format(Sender.Name, Message)
+               Frame.User.Text = ("[%s]:"):format(Sender.Name)
+               Frame.User.TextColor3 = Color
+               Frame.BackgroundColor3 = Color
+               Frame.Parent = GlobalFrame
+               delay(
+                    60,
+                    function()
+                         Frame:Destroy()
+                    end
+               )
+          end
+          local function NewLocal(Message, Sender, Color, Dist)
+               local Frame = Template:Clone()
+               Frame.Text = ("(%s) [%s]: %s"):format(tostring(Dist), Sender.Name, Message)
+               Frame.User.Text = ("(%s) [%s]:"):format(tostring(Dist), Sender.Name)
+               Frame.User.TextColor3 = Color
+               Frame.BackgroundColor3 = Color
+               Frame.Parent = LocalFrame
+               delay(
+                    60,
+                    function()
+                         Frame:Destroy()
+                    end
+               )
+          end
+          local function OnNewChat(Message, Sender, Color)
+               if not ChatHUD or not ChatHUD.Parent then
+                    return
+               end
+               NewGlobal(Message, Sender, Color)
+               local Distance = GetPlayerDistance(Sender)
+               if Distance and Distance <= ChatLocalRange then
+                    NewLocal(Message, Sender, Color, Distance)
+               end
+          end
+          local function OnPlayerAdded(Player)
+               if not ChatHUD or not ChatHUD.Parent then
+                    return
+               end
+               local Color = BrickColor.Random().Color
+               Player.Chatted:Connect(
+                    function(Message)
+                         OnNewChat(Message, Player, Color)
+                    end
+               )
+          end
+          Players.PlayerAdded:Connect(OnPlayerAdded)
+          for _, Player in pairs(Players:GetPlayers()) do
+               OnPlayerAdded(Player)
+          end
+          --
+          local ChatPart = ChatHUD.Part
+          ChatHUD.Adornee = ChatPart
+          if VRReady then
+               ChatHUD.Parent = game:GetService("CoreGui")
+               ChatHUD.Enabled = true
+               ChatHUD.AlwaysOnTop = true
+               local OnInput =
+                    UserInputService.InputBegan:Connect(
+                         function(Input, Processed)
+                              if not Processed then
+                              end
+                         end
+                    )
+               local RenderStepped =
+                    RunService.RenderStepped:Connect(
+                         function()
+                              local LeftHand = VRService:GetUserCFrame(Enum.UserCFrame.LeftHand)
+                              ChatPart.CFrame = Camera.CFrame * LeftHand
+                         end
+                    )
+          end
+          wait(9e9)
+     end
+     ViewHUDFunc = function()
+             --[[
+          Variables
+          --]]
+          local ViewportRange = ViewportRange or 32
+          local UserInputService = game:GetService("UserInputService")
+          local RunService = game:GetService("RunService")
+          local VRService = game:GetService("VRService")
+          local VRReady = VRService.VREnabled
+          local Players = game:GetService("Players")
+          local Client = Players.LocalPlayer
+          local Mouse = Client:GetMouse()
+          local Camera = workspace.CurrentCamera
+          local CameraPort = Camera.CFrame
+          local ViewHUD =  game:GetObjects("rbxassetid://4480405425")[1]
+          local Viewport = ViewHUD.Viewport
+          local Viewcam = Instance.new("Camera")
+          local ViewPart = ViewHUD.Part
+          ViewHUD.Parent = game:GetService("CoreGui")
+          Viewcam.Parent = Viewport
+          Viewcam.CameraType = Enum.CameraType.Scriptable
+          Viewport.CurrentCamera = Viewcam
+          Viewport.BackgroundTransparency = 1
+             --[[
+          Code
+          --]]
+          local function Clone(Character)
+               local Arc = Character.Archivable
+               local Clone
+               Character.Archivable = true
+               Clone = Character:Clone()
+               Character.Archivable = Arc
+               return Clone
+          end
+          local function GetPart(Name, Parent, Descendants)
+               for i = 1, #Descendants do
+                    local Part = Descendants[i]
+                    if Part.Name == Name and Part.Parent.Name == Parent then
+                         return Part
+                    end
+               end
+          end
+          local function OnPlayerAdded(Player)
+               if not ViewHUD or not ViewHUD.Parent then
+                    return
+               end
+               local function CharacterAdded(Character)
+                    if Character.Name ~= Client.Name then 
+                         if not ViewHUD or not ViewHUD.Parent then
+                              return
+                         end
+                         Character:WaitForChild("Head")
+                         Character:WaitForChild("Humanoid")
+                         wait(.5)
+                         local FakeChar = Clone(Character)
+                         local Root = FakeChar:FindFirstChild("HumanoidRootPart") or FakeChar:FindFirstChild("Head")
+                         local RenderConnection
+                         local Descendants = FakeChar:GetDescendants()
+                         local RealDescendants = Character:GetDescendants()
+                         local Correspondents = {}
+                         FakeChar.Humanoid.DisplayDistanceType = "None"
+                    for i,v in pairs(Viewcam:GetDescendants()) do 
+                        if v.Name == Character.Name then 
+                            v:Destroy()
+                        end
+                 end
+                         for i = 1, #Descendants do
+                              local Part = Descendants[i]
+                              local Real = Part:IsA("BasePart") and GetPart(Part.Name, Part.Parent.Name, RealDescendants)
+                              if Part:IsA("BasePart") and Real then
+                                   Part.Anchored = true
+                                   Part:BreakJoints()
+                                   if Part.Name ~= "Head" and Part.Name ~= "HumanoidRootPart" then
+                                        Part.Transparency = 0
+                                   end
+                                   if Part.Parent.Name == "Accessory (LLeg)" or Part.Parent.Name == "Accessory (rightleg)" or Part.Parent.Name == "Black"  or Part.Parent.Name == "Tor" or Part.Parent.Name == "gooblet" or Part.Parent.Name == "fooblet"   then
+                                        Part:Destroy()
+                                   end
+                                   table.insert(Correspondents, {Part, Real})
+                              end
+     
+                         end
+                         RenderConnection =
+                              RunService.RenderStepped:Connect(
+                                   function()
+                                        if not Character or not Character.Parent then
+                                             RenderConnection:Disconnect()
+                                             print(RenderConnection.Connected)
+                                             FakeChar:Destroy()
+                                             return
+                                        end
+                                        if
+                                             (Root and (Root.Position - Camera.CFrame.p).Magnitude <= ViewportRange) or Player == Client or
+                                             not Root
+                                        then
+                                             for i = 1, #Correspondents do
+                                                  local Part, Real = unpack(Correspondents[i])
+                                                  if Part and Real and Part.Parent and Real.Parent then
+                                                       Part.CFrame = Real.CFrame
+                                                  elseif Part.Parent and not Real.Parent then
+                                                       Part:Destroy()
+                                                  end
+                                             end
+                                        end
+                                   end
+                              )
+                         FakeChar.Parent = Viewcam
+                    end
+               end
+               Player.CharacterAdded:Connect(CharacterAdded)
+               if Player.Character then
+                    spawn(
+                         function()
+                              CharacterAdded(Player.Character)
+                         end
+                    )
+               end
+          end
+          local PlayerAdded = Players.PlayerAdded:Connect(OnPlayerAdded)
+          for _, Player in pairs(Players:GetPlayers()) do
+               OnPlayerAdded(Player)
+          end
+         --OnPlayerAdded(Client)
+          ViewPart.Size = Vector3.new()
+          if VRReady then
+               Viewport.Position = UDim2.new(.62, 0, .89, 0)
+               Viewport.Size = UDim2.new(.35, 0, .35, 0)
+               Viewport.AnchorPoint = Vector2.new(.5, 1)
+          else
+               Viewport.Size = UDim2.new(0.3, 0, 0.3, 0)
+          end
+          local RenderStepped =
+               RunService.RenderStepped:Connect(
+                    function()
+                         local Render = Camera.CFrame
+                         local Scale = Camera.ViewportSize
+                         if VRReady then
+                              Render = Render * VRService:GetUserCFrame(Enum.UserCFrame.Head)
+                         end
+                         CameraPort = CFrame.new(Render.p + Vector3.new(11, 2, 0), Render.p)
+                         Viewport.Camera.CFrame = CameraPort
+                         ViewPart.CFrame = Render * CFrame.new(0, 0, -16)
+                         ViewHUD.Size = UDim2.new(0, Scale.X - 6, 0, Scale.Y - 6)
+                    end
+               )
+          --
+     
+     
+     
+          wait(9e9)
+     end
+     Script()
+     wait(2)
+     local Players = game:GetService("Players")
+     local lp = Players.LocalPlayer
+     local character = lp.Character
+     local A0LL = Instance.new("Attachment", character["Left Leg"])
+     A0LL.Position = Vector3.new(0, 1, 0)
+     local A1LL = Instance.new("Attachment", character["Torso"])
+     A1LL.Position = Vector3.new(-0.5, -1, 0)
+     socket1 = Instance.new("BallSocketConstraint", character["Left Leg"])
+     socket1.Attachment0 = A0LL
+     socket1.Attachment1 = A1LL
+     local A0RL = Instance.new("Attachment", character["Right Leg"])
+     A0RL.Position = Vector3.new(0, 1, 0)
+     local A1RL = Instance.new("Attachment", character["Torso"])
+     A1RL.Position = Vector3.new(0.5, -1, 0)
+     socket2 = Instance.new("BallSocketConstraint", character["Right Leg"])
+     socket2.Attachment0 = A0RL
+     socket2.Attachment1 = A1RL
+     local A0H = Instance.new("Attachment", character["Head"])
+     A0H.Position = Vector3.new(0, -0.5, 0)
+     local A1H = Instance.new("Attachment", character["Torso"])
+     A1H.Position = Vector3.new(0, 1, 0)
+     local socket5 = Instance.new("BallSocketConstraint", character["Head"])
+     socket5.Attachment0 = A0H
+     socket5.Attachment1 = A1H
+     --loadstring(game:HttpGet("https://ghostbin.co/paste/krmyf/raw", true))()
+     -----------------------------------------------------------
+     local function Align(Part1,Part0,CFrameOffset) 
+          local AlignPos = Instance.new('AlignPosition', Part1);
+          AlignPos.Parent.CanCollide = false;
+          AlignPos.ApplyAtCenterOfMass = false;
+          AlignPos.MaxForce = 67752;
+          AlignPos.MaxVelocity = math.huge/9e110;
+          AlignPos.ReactionForceEnabled = false;
+          AlignPos.Responsiveness = 200;
+          AlignPos.RigidityEnabled = false;
+          local AlignOri = Instance.new('AlignOrientation', Part1);
+          AlignOri.MaxAngularVelocity = math.huge/9e110;
+          AlignOri.MaxTorque = 67752;
+          AlignOri.PrimaryAxisOnly = false;
+          AlignOri.ReactionTorqueEnabled = false;
+          AlignOri.Responsiveness = 200;
+          AlignOri.RigidityEnabled = false;
+          local AttachmentA=Instance.new('Attachment',Part1);
+          local AttachmentB=Instance.new('Attachment',Part0);
+          AttachmentB.CFrame = AttachmentA.CFrame * CFrameOffset
+          AlignPos.Attachment0 = AttachmentA;
+          AlignPos.Attachment1 = AttachmentB;
+          AlignOri.Attachment0 = AttachmentA;
+          AlignOri.Attachment1 = AttachmentB;
+     end
+     character.ChildAdded:Connect(function(v)
+          if not v:IsA("Tool") then return end
+          if not v:FindFirstChild("Handle") then return end
+          wait(0.2)
+          local fake = v.Handle:Clone()
+          fake.Massless = true
+          fake.Name = "fake"
+          fake.Parent = character
+          fake.Massless = true
+          fake.CanCollide = false
+          fake.CFrame = character.Torso.CFrame *CFrame.new(0,0,5)
+          for i = 1,10 do
+     
+               fake.CFrame = character.Torso.CFrame *CFrame.new(0,0,5)
+               --v.Handle.CFrame = fake.CFrame
+          end
+          fake.AssemblyLinearVelocity = Vector3.new(0,0,0)
+          fake.AssemblyAngularVelocity = Vector3.new(0,0,0)
+
+          local col = game:GetService("RunService").Heartbeat:Connect(function()
+               v.Handle.CanCollide = false
+               fake.CanCollide = false
+             for i,v in pairs(v:GetDescendants()) do 
+                 if v:IsA("BasePart") then 
+                     v.CanCollide = false 
+                 end
+             end 
+               fake.Massless = true 
+               v.Handle.Massless = true
+          end)
+          local weld = Instance.new("Weld",fake)
+          weld.C0 = CFrame.new(0, -1, 0, 1, 0, -0, 0, 0, 1, 0, -1, -0)
+          weld.C1 = v.Grip
+          weld.Part0 = _G.OxideFakeChar["Right Arm"]
+          weld.Part1 = fake
+             for i,v in pairs(v.Handle:GetChildren()) do if v:IsA("AlignPosition") or v:IsA("AlignOrientation") or v:IsA("Attachment") then v:remove() end end
+          Align(v.Handle, fake, CFrame.new(0,0,0))
+          local cr=  fake.ChildRemoved:Connect(function(f)
+               if f:IsA("Weld") then 
+                    local weld = Instance.new("Weld",fake)
+                    weld.C0 = CFrame.new(0, -1, 0, 1, 0, -0, 0, 0, 1, 0, -1, -0)
+                    weld.C1 = v.Grip
+                    weld.Part0 = _G.OxideFakeChar["Right Arm"]
+                    weld.Part1 = fake
+               end 
+          end)
+          v.AncestryChanged:Connect(function()
+         for i,v in pairs(v.Handle:GetChildren()) do if v:IsA("AlignPosition") or v:IsA("AlignOrientation") or v:IsA("Attachment") then v:remove() end end
+               col:Disconnect()
+               cr:Disconnect()
+               fake:remove()
+          end)
+     end)
+     _G.OxideFakeChar["Right Arm"].Touched:Connect(function(t)
+         if t:IsA("BasePart")  and t.Parent:IsA("Tool") and t.Parent.Parent ~= _G.OxideFakeChar and t.Parent.Parent ~= _G.OxideRealChar and not game.Players:FindFirstChild(t.Parent.Parent.Name) then
+          game.Players.LocalPlayer.Character = _G.OxideRealChar
+          task.wait(.0005)
+             _G.OxideRealChar.Humanoid:EquipTool(t.Parent)
+             task.wait(.001)
+             for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do 
+               if string.find(v.Name,"FAKE") then 
+                    print(v.Name)
+               else
+                    v.Parent = _G.OxideRealChar
+               end
+          end
+             task.wait(.001)
+             game.Players.LocalPlayer.Character = _G.OxideFakeChar
+         end
+     end)
+     _G.OxideFakeChar["Right Leg"].Touched:Connect(function(t)
+         if t:IsA("BasePart")  and t.Parent:IsA("Tool") and t.Parent.Parent ~= _G.OxideFakeChar and t.Parent.Parent ~= _G.OxideRealChar and not game.Players:FindFirstChild(t.Parent.Parent.Name) then
+          game.Players.LocalPlayer.Character = _G.OxideRealChar
+          task.wait(.0005)
+          _G.OxideRealChar.Humanoid:EquipTool(t.Parent)
+          task.wait(.001)
+             for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do 
+               if string.find(v.Name,"FAKE") then 
+               else
+                    v.Parent = _G.OxideRealChar
+               end
+          end
+             task.wait(.001)
+             game.Players.LocalPlayer.Character = _G.OxideFakeChar
+         end
+     end)
+     _G.OxideFakeChar["Left Leg"].Touched:Connect(function(t)
+         if t:IsA("BasePart") and t.Parent:IsA("Tool") and t.Parent.Parent ~= _G.OxideFakeChar and t.Parent.Parent ~= _G.OxideRealChar and not game.Players:FindFirstChild(t.Parent.Parent.Name) then
+          game.Players.LocalPlayer.Character = _G.OxideRealChar
+          task.wait(.0005)
+          _G.OxideRealChar.Humanoid:EquipTool(t.Parent)
+          task.wait(.001)
+             for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do 
+               if string.find(v.Name,"FAKE") then 
+               else
+                    v.Parent = _G.OxideRealChar
+               end
+          end
+             task.wait(.001)
+             game.Players.LocalPlayer.Character = _G.OxideFakeChar
+         end
+     end)
+     
+     
+     workspace.FallenPartsDestroyHeight =  -500
+     if _G.LegacyFootPlant == true then
+         wait(.6)
+         socket1.Enabled = false 
+         socket2.Enabled = false 
+     end
+     end
+     _G.HideCharacter = true
+     _G.FlingEnabled = false
+     _G.TransparentRig = true
+     _G.ToolFling = false -- false = holding, true = fling
+     _G.AntiFling = true
+     _G.HatCollide = false
+     _G.ClickFling = true
+     _G.TeleportCharacter = true
+     --[[ 
+     Oxide V3.5
+     Anything below should NOT be changed
+     ]]
+     
+     
+     
+     
+     
+     
+     local str = game:GetService("SharedTableRegistry")
+     local gentgenv
+     if not getgenv then 
+          getgenv = function()
+               return _G
+          end
+     end
+     local flingpos = game.Players.LocalPlayer:GetMouse().Hit
+     local flingpart = game.Players.LocalPlayer:GetMouse().Target
+     local flingplr = nil
+     local sineee=os.clock()
+     local sine=os.clock()
+     local plr =game:GetService("Players").LocalPlayer
+     local lp = plr
+     local plrs = game:GetService("Players")
+     local cf 
+     local lastcf = workspace.CurrentCamera.CFrame
+     local oldh = workspace.FallenPartsDestroyHeight
+     local tools = {}
+     local faketools = {}
+     local stopped = false
+     local char
+     local moveloop
+     local respawnloop
+     _G.Stopped = false
+     _G.SBV4R = false
+     _G.R6Mode = false
+     _G.MiztCompat = true
+     _G.Fling = false
+
+     local function cfAdd(a,b) return a+b end
+     pcall(function()
+     task.spawn(function()
+     game:GetService("CoreGui"):WaitForChild("TopBarApp"):WaitForChild("FullScreenFrame"):WaitForChild("HurtOverlay"):Destroy()
+     end)
+     end)
+     local Hat = {
+          Rename = function(HatID, NAME, oname)
+         pcall(function()
+               if oname == nil then oname = "Hat" end
+               for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+                    if v:IsA("Accessory") then
+                         if game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+                              if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh").TextureId == HatID then
+                                   if oname == "Hat" then
+                                        v.Name = NAME
+                                   elseif oname == "LARM" then
+                                        v.Name = "fooblet"
+                                   elseif oname == "RARM" then
+                                        v.Name = "gooblet"
+                                   else
+                                        v.Name = NAME
+                                   end
+                              end
+                         elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 and v.Handle.TextureId == HatID  then
+                              if oname == "Hat" then
+                                   v.Name = NAME
+                              elseif oname == "LARM" then
+                                   v.Name = "fooblet"
+                              elseif oname == "RARM" then
+                                   v.Name = "gooblet"
+                              else
+                                   v.Name = NAME
+                              end
+                         elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+                              if v.Handle.TextureID == HatID then
+                                   if oname == "Hat" then
+                                        v.Name = NAME
+                                   elseif oname == "LARM" then
+                                        v.Name = "fooblet"
+                                   elseif oname == "RARM" then
+                                        v.Name = "gooblet"
+                                   else
+                                        v.Name = NAME
+                                   end
+                              end
+                         end
+                    end
+               end
+                         end)
+          end,
+          Rename2 = function(HatID, NAME,rname, oname)
+         pcall(function()
+               if oname == nil then oname = "Hat" end
+               for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+                    if v:IsA("Accessory") then
+                         if game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+                              if v:WaitForChild("Handle"):FindFirstChildWhichIsA("SpecialMesh").TextureId == HatID then
+                                   if v.Name == rname then
+                                        if oname == "Hat" then
+                                             v.Name = NAME
+                                        elseif oname == "LARM" then
+                                             v.Name = "fooblet"
+                                        elseif oname == "RARM" then
+                                             v.Name = "gooblet"
+                                        else
+                                             v.Name = NAME
+                                        end
+                                   end
+                              end
+                         elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 and v.Handle.TextureId == HatID  then
+                              if v.Name == rname then
+                                   if oname == "Hat" then
+                                        v.Name = NAME
+                                   elseif oname == "LARM" then
+                                        v.Name = "fooblet"
+                                   elseif oname == "RARM" then
+                                        v.Name = "gooblet"
+                                   else
+                                        v.Name = NAME
+                                   end
+                              end
+                         elseif game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+                              if v.Name == rname then
+                                   if oname == "Hat" then
+                                        v.Name = NAME
+                                   elseif oname == "LARM" then
+                                        v.Name = "fooblet"
+                                   elseif oname == "RARM" then
+                                        v.Name = "gooblet"
+                                   else
+                                        v.Name = NAME
+                                   end
+                              end
+                         end
+                    end
+               end
+                             end)
+          end,}
+          local connect
+          local velocity
+     local function redo()
+     
+     
+     
+          local gay = true -- dont edit >:(
+          hmode = nil
+          if gay == true then
+               hmode = "norm" 
+          else
+               hmode = "alsoo3" -- hate this guy
+          end
+     
+     
+     _G.PDED  = true
+          Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/library"))()
+     
+          local HatMode=hmode
+     
+          if HatMode=="alsoo3" then
+     
+               local HATDUPES = Library.MakeTableOfHats("Mesh",{Mesh_Id=4315410540})
+               HATDUPES[1].Name = "DemonGodSword"
+               HATDUPES[2].Name = "RainbowGodSword"
+               HATDUPES[3].Name = "ToxicLordSword"
+               HATDUPES[4].Name = "DemonLordSword"
+               if Library.FindHat("ShadowBladeMasterAccessory") then
+                    Library.FindHat("ShadowBladeMasterAccessory").Name="VoidLordSword"
+               end
+     
+               if Library.FindHat("BladeMasterAccessory") then
+                    Library.FindHat("BladeMasterAccessory").Name="AuroraSword"
+     
+               end
+          else
+          end
+     
+     
+          --game:GetService("Workspace")["Error_30363"].EyesOfTheEverWorld.Name = "Puffer Vest"
+     
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/stuff"))()
+     
+          local c = game:GetService("Players").LocalPlayer.Character
+          _G.OxideRealChar = c
+          local nria = false 
+          local nlia = false 
+          if c:FindFirstChild("Accessory (NoobRightArm)") then 
+               nria = true 
+          end 
+          if c:FindFirstChild("Accessory (NoobLeftArm)") then 
+               nlia = true 
+          end 
+          if _G.CustomHats == false then
+               pcall(function()
+                    Hat.Rename("rbxassetid://17374768001","","LARM")
+                    Hat.Rename("rbxassetid://17374768001","","RARM")
+                    Hat.Rename("rbxassetid://14251599953", "Tor")
+               end)
+               pcall(function()
+                    Hat.Rename("rbxassetid://18640914168","","LARM")
+                    Hat.Rename("rbxassetid://18640914168","","RARM")
+               end)
+               pcall(function()
+                    Hat.Rename("rbxassetid://14255544465","","LARM")
+                    Hat.Rename("rbxassetid://14255544465","","RARM")
+               end)
+               pcall(function()
+                    Hat.Rename("rbxassetid://13415110780", "Tor")
+               end)
+               pcall(function()
+                    Hat.Rename("rbxassetid://18640899481", "Tor")
+               end)
+               pcall(function()
+                    Hat.Rename("rbxassetid://14255543546","","LARM")
+                    Hat.Rename("rbxassetid://14255543546","","RARM")
+               end)
+               pcall(function()
+                    Hat.Rename("rbxassetid://14768664565", "Tor")
+                    Hat.Rename("rbxassetid://14768683674","","LARM")
+                    Hat.Rename("rbxassetid://14768683674","","RARM")
+               end)
+               pcall(function()
+                    Hat.Rename("rbxassetid://125975972015302", "Tor")
+                    Hat.Rename("rbxassetid://135650240593878","","LARM")
+                    Hat.Rename("rbxassetid://135650240593878","","RARM")
+               end)
+             pcall(function()
+                 c["Accessory (RLeg)"].Name = "Accessory (rightleg)"
+               end)
+               pcall(function()
+                 c["Accessory (LLegNoob)"].Name = "Accessory (LLeg)"
+               end)
+               pcall(function()
+                 c["Accessory (RLegNoob)"].Name = "Accessory (rightleg)"
+               end)
+               pcall(function()
+                 c["Accessory (LArm)"].Name = "gooblet"
+             end)
+             pcall(function()
+                 c["Accessory (RArm)"].Name = "fooblet"
+             end)
+               pcall(function()
+                 c["RARM"].Name = "gooblet"
+             end)
+          else
+               pcall(function()
+                    Hat.Rename2("rbxassetid://".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
+                    Hat.Rename2("rbxassetid://".._G.CH.LeftArm.TextureId,"gooblet",_G.CH.LeftArm.Name)
+                    Hat.Rename2("rbxassetid://".._G.CH.RightArm.TextureId,"fooblet",_G.CH.RightArm.Name)
+                    Hat.Rename2("rbxassetid://".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
+                    Hat.Rename2("rbxassetid://".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
+                    Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.Torso.TextureId, "Tor",_G.CH.Torso.Name)
+                    Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftArm.TextureId,"",_G.CH.LeftArm.Name,"LARM")
+                    Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightArm.TextureId,"",_G.CH.RightArm.Name,"RARM")
+                    Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.LeftLeg.TextureId,"Accessory (LLeg)",_G.CH.LeftLeg.Name)
+                    Hat.Rename2("http://www.roblox.com/asset/?id=".._G.CH.RightLeg.TextureId,"Accessory (rightleg)",_G.CH.RightLeg.Name)	
+               end)
+          end
+          if _G.CustomHats == false then
+          pcall(function()
+               c.gooblet.Name = "fooblet"
+          end)
+          pcall(function()
+               c.gooblet.Name = "fooblet"
+          end)
+          pcall(function()
+               c["Accessory (LARM)"].Name = "gooblet"
+          end)
+          pcall(function()
+               c["Accessory (RARM)"].Name = "fooblet"
+          end)
+          pcall(function()
+               if not c:FindFirstChild("Accessory (rightleg)") then
+                    c.gooblet.Name = "Accessory (rightleg)"
+               end
+          end)
+          pcall(function()
+               if not c:FindFirstChild("Accessory (LLeg)") then
+                    c.gooblet.Name = "Accessory (LLeg)"
+               end
+          end)
+          pcall(function()
+               c.fooblet.Name = "gooblet"
+          end)
+          pcall(function()
+               if not c:FindFirstChild("Tor") then 
+                    c.ExtraNoobTorso.Name = "Tor"
+               end
+          end)
+          pcall(function()
+               c.SHADES.Handle.AccessoryWeld.C1 = CFrame.new(0, 0.025, -0.6, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+          end)
+          pcall(function()
+               c["Accessory (LARM)"].Name = "LARM"
+          end)
+          pcall(function()
+               c["Accessory (RARM)"].Name = "RARM"
+          end)
+     end
+         pcall(function()
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/OxideReanim/main/renameclones3"))()
+         end)
+         task.wait(.1)
+         pcall(function()
+		c["gooblet-1"].Name = "fooblet"
+	end)
+          if _G.EnableNetLib == true then
+               loadstring(game:HttpGet("https://raw.githubusercontent.com/TypicallyAUser/random-stuff/main/4eyesnetlib.lua"))()
+     
+               Network.CharacterRelative = false
+     
+               coroutine.resume(Network["PartOwnership"]["Enable"])
+          end
+     
+     
+     
+     
+          Connection = workspace.DescendantAdded:Connect(function(c)
+               if c.Name == "Animate" then
+                    c.Disabled=false        
+               end
+          end)
+     
+          repeat wait() until game:GetService("Players").LocalPlayer.Character
+          Char = game:GetService("Players").LocalPlayer.Character
+     
+     
+          function waitForChild(parent, childName)
+               local child = parent:findFirstChild(childName)
+               if child then return child end
+               while true do
+                    child = parent.ChildAdded:wait()
+                    if child.Name==childName then return child end
+               end
+          end
+          if not workspace:FindFirstChild("non") then
+               char = game:GetObjects("rbxassetid://5195737219")[1]
+          else
+               char = workspace.non
+          end
+          char.Humanoid.RequiresNeck = false
+          _G.OxideFakeChar = char 
+    
+          if char.Name ~= "non" then 
+               char.Name = "non"
+          end
+          if not char:FindFirstChildOfClass("Highlight") then 
+          zz = Instance.new("Highlight",char)
+          zz.FillTransparency = 1
+          zz.DepthMode = Enum.HighlightDepthMode.Occluded
+          zz.OutlineTransparency = 1
+                if c:FindFirstChildOfClass("CharacterMesh") then 
+               c:FindFirstChildOfClass("CharacterMesh"):Clone().Parent = char 
+                end
+            if c:FindFirstChildOfClass("Shirt") then 
+               c:FindFirstChildOfClass("Shirt"):Clone().Parent = char 
+            end
+           if c:FindFirstChildOfClass("Pants") then 
+               c:FindFirstChildOfClass("Pants"):Clone().Parent = char 
+          end
+          end
+          if not workspace:FindFirstChild("non") then
+               char:SetPrimaryPartCFrame(c.HumanoidRootPart.CFrame *CFrame.new(0,0,2))
+          end
+          if not char:FindFirstChild("Body Colors") then 
+          c["Body Colors"]:Clone().Parent = char
+          end
+          pcall(function()
+          game:GetService("Players").LocalPlayer.Character.PrimaryPart = c.Head
+          end)
+          char.HumanoidRootPart.Anchored = false
+          for i,v in pairs(c:GetChildren()) do
+               if v:IsA("Accessory") and v.Name == "Pants" then
+                    v:Destroy()
+               end
+          end
+          char.Parent = workspace
+          c.Parent = char
+          _G.Flinging = false
+          pcall(function()
+              -- c.HumanoidRootPart.CFrame = CFrame.new(char.HumanoidRootPart.CFrame.X,workspace.FallenPartsDestroyHeight + 450 ,char.HumanoidRootPart.CFrame.Z) + Vector3.new(0, hipHeight or 4, 0)
+          end)
+          task.wait(.05)
+          local swordbigvel = false
+          velocity = game:GetService("RunService").Heartbeat:Connect(function()
+               for i,v in pairs(c:GetChildren()) do
+                    if v:IsA("Accessory") then
+                         pcall(function()
+                              v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*1000),0.5,1)   ,30.499+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6) 
+						v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity
+                              v.Handle.CanCollide = false
+                         end)
+                    elseif v:IsA("Tool") then 
+                         for i,x in pairs(v:GetDescendants()) do 
+                              if x:IsA("BasePart") then 
+                                   x.CanCollide = false
+                                  x.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*1000),0.5,1)   ,30.499+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6) 
+                                 x.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity
+                              end
+                         end
+                    end
+               end
+          end)
+     
+  
+     
+     
+     
+     
+     
+          speaker = game:GetService("Players").LocalPlayer
+          for _, child in pairs(c:GetChildren()) do
+               if child:IsA("Part") then
+                    child.Anchored = true
+               elseif child:IsA("Accessory") then
+                    child.Handle.Anchored = true
+               end
+          end
+     
+          for _, v in pairs(char:GetChildren()) do
+               if v:IsA("Part") then
+                    pcall(function()
+                    v.CollisionGroup = c.Head.CollisionGroup
+                    end)
+               end
+          end	
+     
+     
+     
+     
+     
+          if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+               for _,v in pairs(c:GetChildren()) do
+                    if v:IsA("Accessory")  and v.Name ~= "gooblet"  and v.Name ~= "Accessory (RARM)" and v.Name ~= "Accessory (LARM)" and v.Name ~= "fooblet" and v.Name ~= "Accessory (rightleg)"   and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)"  and v.Name ~= "Accessory (LLeg)" and v.Name ~= "Accessory (LARM)"  and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "RectangleHead-2"  and v.Name ~= "Tor" and v.Name ~= "Accessory (LLeg)" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" then
+                         if not char:FindFirstChild(v.Name) then
+                              local a = v:Clone()
+                              a.Handle.AccessoryWeld.Part1 = char[a.Handle.AccessoryWeld.Part1.Name]
+                              Accessory = v
+                              Handle = Accessory.Handle
+                              a.Parent = char
+                              a.Handle.Anchored = false
+                              a.Handle.Transparency = 1
+                         end
+                    end
+               end
+          else
+     
+               for _,v in pairs(c:GetChildren()) do
+                    if v:IsA("Accessory")  and v.Name ~= "gooblet" and v.Name ~= "Pouch" and v.Name ~= "Scooper"   and v.Name ~= "fooblet"  and not string.find(v.Name,"Accessory (Noob") and v.Name ~= "Accessory (NoobLeftArm)"  and v.Name ~= "Accessory (NoobTorso)"  and v.Name ~= "Accessory (NoobRightArm)" and v.Name ~= "Rarm" and v.Name ~= "funnihead"  and v.Name ~= "Larm" and v.Name ~= "RectangleFace" and v.Name ~= "Tor" and v.Name ~= "RectangleHead-2"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM"  and v.Name ~="Unloaded head" and v:WaitForChild("Handle").MeshId ~= "rbxassetid://11263221350"  then
+                         if not char:FindFirstChild(v.Name) then
+                              local a = v:Clone()
+                              a.Handle:BreakJoints()
+                              Accessory = v
+                              Handle = Accessory.Handle
+                              z = a
+                              a.Parent = char
+                              a.Handle.Anchored = false
+                              a.Handle.Transparency = 1
+                              a.Handle.Position = char.Head.Position
+                              a.Handle.Velocity = Vector3.new(0,0,0)
+                              a.Handle.Massless = true
+                              w = Instance.new("Weld",z.Handle)
+                              w.C0 = w.Parent:FindFirstChildOfClass("Attachment").CFrame
+                              w.Name = "AccessoryWeld"
+                              w.Part0 = z.Handle
+                              a  = w.Parent:FindFirstChildOfClass("Attachment")
+                              if string.find(a.Name,"Left") then
+                                   if string.find(a.Name,"Shoulder") then
+                                        w.Part1 = char["Left Arm"]
+                                        w.C1 =  char["Left Arm"].LeftShoulderAttachment.CFrame
+                                   end
+                              elseif string.find(a.Name,"Right") then
+                                   if string.find(a.Name,"Shoulder") then
+                                        w.Part1 = char["Right Arm"]
+                                        w.C1 =  char["Right Arm"].RightShoulderAttachment.CFrame
+                                   end
+                              elseif string.find(a.Name,"Left") then
+                                   if string.find(a.Name,"Foot") then
+                                        w.Part1 = char["Left Leg"]
+                                        w.C1 =  char["Left Leg"].LeftFootAttachment.CFrame
+                                   end
+                              elseif string.find(a.Name,"Right") then
+                                   if string.find(a.Name,"Foot") then
+                                        w.Part1 = char["Right Leg"]
+                                        w.C1 =  char["Right Leg"].RightFootAttachment.CFrame
+                                   end
+                              elseif string.find(a.Name,"Waist") then
+                                   if string.find(a.Name,"Back") then
+                                        w.Part1 = char["Torso"]
+                                        w.C1 =  char["Torso"].WaistBackAttachment.CFrame
+                                   end    
+                              elseif string.find(a.Name,"Body") then
+                                   if string.find(a.Name,"Back") then
+                                        w.Part1 = char["Torso"]
+                                        w.C1 =  char["Torso"].BodyBackAttachment.CFrame
+                                   elseif  string.find(a.Name,"Front") then
+                                        w.Part1 = char["Torso"]
+                                        w.C1 =  char["Torso"].BodyFrontAttachment.CFrame
+                                   end    
+                              elseif string.find(a.Name,"Hat") then
+                                   w.Part1 = char["Head"]
+                                   w.C1 =  char["Head"].HatAttachment.CFrame 
+                              elseif string.find(a.Name,"FaceFront") then
+                                   w.Part1 = char["Head"]
+                                   w.C1 =  char["Head"].FaceFrontAttachment.CFrame 
+                              elseif string.find(a.Name,"FaceCenter") then
+                                   w.Part1 = char["Head"]
+                                   w.C1 =  char["Head"].FaceCenterAttachment.CFrame 
+                              elseif string.find(a.Name,"Neck") then
+                                   w.Part1 = char["Torso"]
+                                   w.C1 =  char["Torso"].NeckAttachment.CFrame 
+                              elseif string.find(a.Name,"Hair") then
+                                   w.Part1 = char["Head"]
+                                   w.C1 =  char["Head"].HairAttachment.CFrame 
+                              end
+     
+     
+                         end
+                    end
+               end
+     
+          end
+     
+     
+     
+     
+     
+          for _,v in pairs(c:GetChildren()) do
+               if v:IsA("Accessory") and v.Name ~= "RectangleHead" and v.Name ~= "RectangleHead-1"  and v.Name ~= "RectangleHead-3"  and v.Name ~= "funnihead" and v.Name ~= "RectangleFace-1" and v.Name ~= "RectangleFace" and v.Name ~= "RectangleFace-2" and v.Name ~= "RectangleHead-2"     then
+                    v.Handle:BreakJoints()
+               end
+          end 
+          for _,v in pairs(c:GetChildren()) do
+               if v:IsA("Accessory") and v.Name == "RectangleHead" and v.Name =="Puffer Vest" and v.Name == "RectangleFace" and v.Name == "RectangleFace-2" and v.Name == "RectangleHead-2"     then
+                    v.Handle:BreakJoints()
+               end
+          end 
+     
+          for _, child in pairs(char:GetChildren()) do
+               if child:IsA("BasePart") then
+                    child.Transparency = 1
+               end
+          end
+     
+     
+     
+          local ch = game:GetService("Players").LocalPlayer.Character
+          local prt=Instance.new("Model", workspace)
+          local z1 =  Instance.new("Part", prt)
+          z1.Name="Torso"
+          z1.CanCollide = false
+          z1.Anchored = true
+          local z2  =Instance.new("Part", prt)
+          z2.Name="Head"
+          z2.Anchored = true
+          z2.CanCollide = false
+          local z3 =Instance.new("Humanoid", prt)
+          z3.Name="Humanoid"
+          z1.Position = Vector3.new(0,9999,0)
+          z2.Position = Vector3.new(0,9991,0)
+     
+          function getRoot(char)
+               local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso')
+               return rootPart
+          end
+          local character = game:GetService("Players").LocalPlayer.Character
+          local humanoid = character:FindFirstChildOfClass("Humanoid")
+          if humanoid and humanoid.SeatPart then
+               humanoid.Sit = false
+               wait(0.1)
+          end
+     
+          local hipHeight = humanoid and humanoid.HipHeight > 0 and (humanoid.HipHeight + 1)
+          local rootPart = getRoot(character)
+          local rootPartPosition = rootPart.Position
+       
+     task.wait(.0025)
+
+     for i,v in faketools do
+          v:Destroy()
+     end
+
+    
+          
+          for i,v in tools do
+               table.remove(tools,table.find(tools,v))
+          end
+     
+          for i,v in pairs(lp.Backpack:GetChildren()) do 
+               if v:IsA("Tool") and not string.find(v.Name,"FAKE")  then 
+                    pcall(function()
+                         v.Handle.CanCollide = false
+                    end)
+                    table.insert(tools,v)
+               end 
+          end
+     
+     local welds = {}
+          for i,v in tools do
+               
+               pcall(function()
+                    v.Parent = c 
+                    v.Parent = lp.Backpack
+                    v.Parent = c 
+                    v.Parent = lp.Backpack
+                    if not char:FindFirstChild("FAKE"..v.Name) and not lp.Backpack:FindFirstChild("FAKE"..v.Name) then
+                    task.spawn(function()
+                         if game.PlaceId == 155615604 then 
+                              task.wait()
+                         else 
+                         task.wait(.001)
+                         end 
+                    local fv = v:Clone()
+                    fv.Parent = lp.Backpack 
+                    local oldn = fv.Name 
+                    fv.Name = "FAKE"..oldn
+                    local fvr
+                    table.insert(faketools,fv)
+                    pcall(function()
+                         fv.Handle.Transparency = 1 
+                    end)
+                    if game.PlaceId == 155615604 then 
+                    for i,v in pairs(fv:GetDescendants()) do 
+                         if v:IsA("Weld") then 
+                              local par = v.Parent
+                              fvr =	v.Parent.ChildRemoved:Connect(function(p)
+                                   if p:IsA("Weld") and p.Part1 == v.Part1 then 
+                                        v= v:Clone()
+                                        v.Parent = par
+                                   end
+                              end)
+                         end 
+                    end
+                    
+                    local q
+                q =	fv.AncestryChanged:Connect(function(pa,p)
+                         if p == nil then
+                              pcall(function()
+     fvr:Disconnect()
+                              end)
+     q:Disconnect()
+     print("q:"..tostring(q.Connected))
+     pcall(function()
+     print(fvr.Connected)
+     end)
+                         end
+                         end)
+                    end
+                         pcall(function()
+                    v.Handle.CFrame = char.HumanoidRootPart.CFrame *CFrame.new(0,-25,5)
+                         end)
+          end)
+     end
+               end)
+          end
+   
+          task.spawn(function()
+               task.wait(.01)
+               for i,v in tools do
+                    v.Parent = c
+               end
+               for i,v in tools do
+                    v.Parent = lp.Backpack
+               end
+               c:BreakJoints()	
+               for i,v in tools do
+                    v.Parent = c
+               end
+          end)
+          task.spawn(function()	
+               task.wait(.02)
+               game:GetService("Players").LocalPlayer.Character=char
+          end)
+          c.ChildAdded:Connect(function(v)
+               if v:IsA("Tool") and not string.find(v.Name,"FAKE") and not tools[table.find(tools,v)] and not char:FindFirstChild("FAKE"..v.Name) and not lp.Backpack:FindFirstChild("FAKE"..v.Name) then 
+                    pcall(function()
+                         v.Handle.CanCollide = false
+                    end)
+                    table.insert(tools,v)
+                    local fv = v:Clone()
+                    task.wait(.001)
+                    local oldn = fv.Name 
+                    fv.Name = "FAKE"..oldn
+                    table.insert(faketools,fv)
+                    pcall(function()
+                         fv.Handle.Transparency = 1 
+                    end)
+                    for i,v in pairs(char:GetChildren()) do
+                         if v:IsA("Tool") then
+                              v.Parent = lp.Backpack
+                         end
+                    end
+                    fv.Parent = char
+                    v.Handle.CFrame = char.HumanoidRootPart.CFrame *CFrame.new(0,-25,5)
+               end 
+          end)
+          lp.Backpack.ChildAdded:Connect(function(v)
+               if v:IsA("Tool") and not string.find(v.Name,"FAKE") and not tools[table.find(tools,v)] and not char:FindFirstChild("FAKE"..v.Name) and not lp.Backpack:FindFirstChild("FAKE"..v.Name) then 
+                    pcall(function()
+                         v.Handle.CanCollide = false
+                    end)
+                    table.insert(tools,v)
+                    local fv = v:Clone()
+                    task.wait(.001)            
+                    local oldn = fv.Name 
+                    fv.Name = "FAKE"..oldn
+                    table.insert(faketools,fv)
+                    pcall(function()
+                         fv.Handle.Transparency = 1 
+                    end)
+                    for i,v in v:GetDescendants() do 
+                         if v:IsA("BasePart") then 
+                              v.CFrame = char.HumanoidRootPart.CFrame *CFrame.new(0,-25,5)
+                         end 
+                    end
+                    lp.Character = c 
+                    v.Parent = c
+                    fv.Parent = lp.Backpack
+                    for i,v in pairs(fv:GetDescendants()) do 
+                         if v:IsA("Weld") then 
+                              local par = v.Parent
+                              fvr = v.Parent.ChildRemoved:Connect(function(p)
+                                   if p:IsA("Weld") and p.Part1 == v.Part1 then 
+                                        v= v:Clone()
+                                        v.Parent = par
+                                   end
+                              end)
+                         end 
+                    end
+                    task.wait(.0012) 
+                    lp.Character = char
+               end 
+               for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do 
+                    if string.find(v.Name,"FAKE") then 
+                         print(v.Name)
+                    else
+                         lp.Character = c
+                         v.Parent = _G.OxideRealChar
+                         task.wait(.002) 
+                         lp.Character = char
+                    end
+               end
+          end)
+     
+
+         
+     
+     
+          if _G.wackyhead == true then 
+               wait(game:GetService("Players").RespawnTime + 0.5)  
+     
+          end
+     
+     
+          --wait(game:GetService("Players").RespawnTime + 0.25)  
+       
+     
+     
+          if _G.ReanimatedAnimations == true then
+               pcall(function()
+                    c.Animate.Disabled = true
+                    c.Animate.Disabled = false
+                    char.Animate:Destroy()
+                    c.Animate.Parent = char
+                    char.Animate.Disabled = true
+                    --char.Animate.Disabled = false
+               end)
+               c.Humanoid.Animator.Parent = char.Humanoid
+          else 
+               char.Animate:Destroy()
+               c.Animate.Disabled = true
+               c.Animate.Parent = char
+               char.Animate.Disabled = true
+               c.Humanoid.Animator.Parent = char.Humanoid
+          end
+          if c:FindFirstChild("Torso") then
+               c.Torso["Right Hip"]:Destroy()
+               c.Torso["Left Hip"]:Destroy()
+               c.Torso["Right Shoulder"]:Destroy()
+               c.Torso["Left Shoulder"]:Destroy()
+          end
+          if _G.wackyhead == true then 
+               c.Torso.Neck:Destroy()
+          end
+          c:BreakJoints()
+          if c:FindFirstChild("Torso") then
+               --c.Torso.Neck:Destroy()
+          else
+               --c.Head.Neck:Destroy()
+               c.Humanoid:TakeDamage(c.Humanoid.MaxHealth)
+          end
+     
+          local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TypicallyAUser/TypicalsConvertingLibrary/main/Main"))()
+     
+     
+          speaker = game:GetService("Players").LocalPlayer
+          Clip = false
+     
+          local function NoclipLoop()
+               for _, child in pairs(c:GetChildren()) do
+                    if child:IsA("BasePart") then
+                         child.CanCollide = false
+                    end
+               end
+     
+     
+          end
+          Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
+     
+     
+     
+     
+     
+     
+          local Char = game:GetService("Players").LocalPlayer.Character
+          local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+     
+          for i,v in next, Hum:GetPlayingAnimationTracks() do
+               v:Stop()
+          end
+          
+     
+          for _, child in pairs(c:GetChildren()) do
+               if child:IsA("Part") then
+                    child.Anchored = true
+               elseif child:IsA("Accessory") then
+                    child.Handle.Anchored = false
+               end
+          end
+          local removinghealth = false
+     
+          pcall(function()
+               char["Accessory (sapphireTophatAccessory)"].Handle.AccessoryWeld.C0 = CFrame.new(0,0,0) 
+               char["Accessory (sapphireTophatAccessory)"].Handle.AccessoryWeld.C1 = CFrame.new(0,0,0)*  CFrame.Angles(0,math.rad(-90),math.rad(90))
+        end)
+     
+     
+
+     
+          local sin = math.sin
+          local antisleepMultiplier=Vector3.new(.005,.005,.005)
+          workspace.Gravity = 196.2
+          if _G.CustomHats == false then
+               connect = game:GetService("RunService").Heartbeat:Connect(function(set)
+                    sine=os.clock
+                    flingpart = _G.flingpart
+                    pcall(function()
+                         if flingpart ~= nil and flingpart.Parent.Parent ~= nil then
+                              if flingpart.Parent:FindFirstChildOfClass("Humanoid") then
+                                   if flingpart.Name ~= "Torso" or flingpart.Name ~= "HumanoidRootPart" or flingpart.Name ~= "Handle" then
+                                        if flingpart.Parent:FindFirstChildOfClass("Humanoid") then
+                                             flingpart = flingpart.Parent.HumanoidRootPart
+                                        end
+                                   end
+                              end 
+                         else 
+                              flingpart = nil
+                         end
+                    end)
+                    local antisleep=sin(sine()*1000)*antisleepMultiplier
+                    plrs.LocalPlayer.SimulationRadius = #plrs:GetChildren()*1000
+                    pcall(function()
+                         workspace.FallenPartsDestroyHeight = oldh 
+                    end)
+                    pcall(function()
+                         c["Tor"].Handle.CFrame = char["Torso"].CFrame   + antisleep
+                         c["Tor"].Handle.Transparency = 0.25
+                    end)
+                    pcall(function()
+                         if nlia == false then 
+                              c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
+                         else 
+                              c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(90),math.rad(0))  +antisleep
+                         end
+                         c["gooblet"].Handle.Transparency = 0.5
+                    end)
+                    pcall(function()
+                         if nria == false then 
+                              c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))+antisleep
+                         else 
+                              c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * CFrame.Angles(math.rad(0),math.rad(90),math.rad(0))+antisleep
+                         end                    
+                         c["fooblet"].Handle.Transparency = 0.5
+                         
+                    end)
+                    pcall(function()
+                         c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
+                         c["Accessory (rightleg)"].Handle.Transparency = 0.25
+                    end)
+                    pcall(function()
+                         c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * CFrame.Angles(math.rad(0),math.rad(0),math.rad(90))  +antisleep
+                         c["Accessory (LLeg)"].Handle.Transparency = 0.25
+                    end)
+                    
+         
+                    pcall(function()
+                         for _,v in pairs(c:GetChildren()) do
+                              if v:IsA("Accessory") and v.Name ~= "gooblet"  and v.Name ~= "fooblet" and v.Name ~= "MessyHairBrown" and v.Name ~= "fooblet"  and v.Name ~= "Accessory (Sweater Arm Left 2)" and v.Name ~= "Accessory (Sweater Arm Right 2)"  and v.Name ~= "Accessory (Sweater Girl Torso 1)"   and v.Name ~= "Tor" and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+                                   v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
+                                   v.Handle.CanTouch = false
+                                   v.Handle.Transparency = 1
+                              elseif v:IsA("Accessory")  and v.Name == "Accessory (Sweater Arm Left 2)" or v:IsA("Accessory") and v.Name == "Accessory (Sweater Arm Right 2)" or v:IsA("Accessory")  and v.Name == "Accessory (Sweater Girl Torso 1)" then
+                                   v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
+                                   v.Handle.CanTouch = false
+                                   v.Handle.Transparency = 0.25
+                              elseif v:IsA("Accessory")  and v.Name == "MessyHairBrown" then
+                                   v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
+                                   v.Handle.CanTouch = false
+                                   v.Handle.Transparency = .99
+                         end
+                         end
+                    end)
+     
+                    pcall(function()
+                         for _,v in pairs(char:GetChildren()) do
+                              if v:IsA("Accessory") and v.Name ~= "gooblet" and not string.find(v.Name, "gooblet") and v.Name ~= "fooblet" and v.Name ~= "Black"  and v.Name ~= "Tor"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+                                   if not c:FindFirstChild(v.Name) then 
+                                        v.Handle.Transparency = 0.5
+                                   end
+                              end
+                         end
+                         if not c:FindFirstChild("gooblet") then 
+                              char["Left Arm"].Transparency = 0.25
+                         end 
+                         if not c:FindFirstChild("fooblet") then 
+                              pcall(function()
+                                   char["Right Arm"].Transparency = 0.25
+                              end)
+                         end 
+                         if not c:FindFirstChild("Accessory (rightleg)") then 
+                              char["Right Leg"].Transparency = 0.25
+                         end 
+                         if not c:FindFirstChild("Accessory (LLeg)") then 
+                              char["Left Leg"].Transparency = 0.25
+                         end 
+                         if not c:FindFirstChild("Tor") then 
+                              char["Torso"].Transparency = 1
+                         end 
+                    end)
+                    pcall(function()
+                         if _G.SBV4R == false then
+                              for _,v in pairs(c:GetChildren()) do
+                                   if v:IsA("Accessory")   then
+                                        v.Handle.CanCollide = false
+                                        v.Handle:ApplyImpulseAtPosition(Vector3.one,Vector3.zero)
+                                        v.Handle.Reflectance = -1
+                                   end
+                              end
+                         else
+                              for _,v in pairs(c:GetChildren()) do
+                                   if v:IsA("Accessory")   then
+                                        v.Handle.CanCollide = false
+                                   end
+                              end
+                              c["fooblet"].Handle.Material = 1584
+                              c["fooblet"].Handle.Color = char["Right Arm"].Color
+                         end
+                    end)
+     
+         
+                    for i,z in pairs(c:GetChildren()) do
+                         if z:IsA("Tool")  then
+                              for i,v in pairs(z:GetDescendants()) do 
+                                   if v:IsA("BasePart") then
+                                        pcall(function()
+                                   if not char:FindFirstChild("FAKE"..z.Name) then
+                                        v.CFrame = char.HumanoidRootPart.CFrame *CFrame.new(0,-50,0)
+                                   else 
+                                        if v.Name == "Handle" then 
+                                             v.CFrame = char:FindFirstChild("FAKE"..z.Name).Handle.CFrame
+                                        else
+                                             if v.Parent == z then
+                                        v.CFrame = char:FindFirstChild("FAKE"..z.Name)[v.Name].CFrame + antisleep  
+                                             else 
+                                                  v.CFrame = char:FindFirstChild("FAKE"..z.Name)[v.Parent.Name][v.Name].CFrame + antisleep  	
+                                             end
+                                        end
+                                   end
+                              end)
+                         end
+                         end
+                         end
+                    end
+                    settings().Physics.AllowSleep = false
+               end)
+          else 
+               connect = game:GetService("RunService").Heartbeat:Connect(function(set)
+                    sine=os.clock
+                    flingpart = _G.flingpart
+                    pcall(function()
+                         if flingpart ~= nil and flingpart.Parent.Parent ~= nil then
+                              if flingpart.Parent:FindFirstChildOfClass("Humanoid") then
+                                   if flingpart.Name ~= "Torso" or flingpart.Name ~= "HumanoidRootPart" or flingpart.Name ~= "Handle" then
+                                        if flingpart.Parent:FindFirstChildOfClass("Humanoid") then
+                                             flingpart = flingpart.Parent.HumanoidRootPart
+                                        end
+                                   end
+                              end 
+                         else 
+                              flingpart = nil
+                         end
+                    end)
+                    local antisleep=sin(sine()*100)*antisleepMultiplier
+                    plrs.LocalPlayer.SimulationRadius = #plrs:GetChildren()*1000
+                    pcall(function()
+                         workspace.FallenPartsDestroyHeight = oldh 
+                    end)
+       
+		pcall(function()
+			c["Tor"].Handle.CFrame = char["Torso"].CFrame  * _G.CH.Torso.Orientation + antisleep
+			c["Tor"].Handle.Transparency = .25
+		end)
+		pcall(function()
+			c["gooblet"].Handle.CFrame = char["Left Arm"].CFrame * _G.CH.LeftArm.Orientation  +antisleep
+			c["gooblet"].Handle.Transparency = .25
+		end)
+		pcall(function()
+			c["fooblet"].Handle.CFrame = char["Right Arm"].CFrame * _G.CH.RightArm.Orientation +antisleep
+			c["fooblet"].Handle.Transparency = .25
+		end)
+		pcall(function()
+			c["Accessory (rightleg)"].Handle.CFrame = char["Right Leg"].CFrame  * _G.CH.RightLeg.Orientation  +antisleep
+			c["Accessory (rightleg)"].Handle.Transparency = .25
+		end)
+		pcall(function()
+			c["Accessory (LLeg)"].Handle.CFrame = char["Left Leg"].CFrame  * _G.CH.LeftLeg.Orientation  + antisleep
+			c["Accessory (LLeg)"].Handle.Transparency = .25
+		end)
+
+		pcall(function()
+			for _,v in pairs(c:GetChildren()) do
+				if v:IsA("Accessory") and v.Name ~= "gooblet" and v.Name ~= "fooblet"   and v.Name ~= "Tor" and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+					v.Handle.CFrame = char[v.Name].Handle.CFrame +antisleep
+					v.Handle.CanTouch = false
+					v.Handle.Transparency = .9
+				end
+			end
+		end)
+
+                    pcall(function()
+                         for _,v in pairs(char:GetChildren()) do
+                              if v:IsA("Accessory") and v.Name ~= "gooblet" and not string.find(v.Name, "gooblet") and v.Name ~= "fooblet" and v.Name ~= "Black"  and v.Name ~= "Tor"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
+                                   if not c:FindFirstChild(v.Name) then 
+                                        v.Handle.Transparency = 0.5
+                                   end
+                              end
+                         end
+                         if not c:FindFirstChild("gooblet") then 
+                              char["Left Arm"].Transparency = 0.5
+                         end 
+                         if not c:FindFirstChild("fooblet") then 
+                              pcall(function()
+                                   char["Right Arm"].Transparency = 0.5
+                              end)
+                         end 
+                         if not c:FindFirstChild("Accessory (rightleg)") then 
+                              char["Right Leg"].Transparency = 0.5
+                         end 
+                         if not c:FindFirstChild("Accessory (LLeg)") then 
+                              char["Left Leg"].Transparency = 0.5
+                         end 
+                         if not c:FindFirstChild("Tor") then 
+                              char["Torso"].Transparency = 0.5
+                         end 
+                    end)
+                    pcall(function()
+                         if _G.SBV4R == false then
+                              for _,v in pairs(c:GetChildren()) do
+                                   if v:IsA("Accessory")   then
+                                        v.Handle.CanCollide = false
+                                        --v.Handle.Material = Enum.Material.Glass
+                                        v.Handle.Reflectance = -1
+                                   end
+                              end
+                         else
+                              for _,v in pairs(c:GetChildren()) do
+                                   if v:IsA("Accessory")   then
+                                        v.Handle.CanCollide = false
+                                   end
+                              end
+                              c["fooblet"].Handle.Material = 1584
+                              c["fooblet"].Handle.Color = char["Right Arm"].Color
+                         end
+                    end)
+     
+                    for i,z in pairs(c:GetChildren()) do
+                         if z:IsA("Tool")  then
+                              for i,v in pairs(z:GetDescendants()) do 
+                                   if v:IsA("BasePart") then
+                                        pcall(function()
+                                   if not char:FindFirstChild("FAKE"..z.Name) then
+                                        v.CFrame = char.HumanoidRootPart.CFrame *CFrame.new(0,-50,0)
+                                   else 
+                                        if v.Name == "Handle" then 
+                                             v.CFrame = char:FindFirstChild("FAKE"..z.Name).Handle.CFrame
+                                        else
+                                             if v.Parent == z then
+                                        v.CFrame = char:FindFirstChild("FAKE"..z.Name)[v.Name].CFrame + antisleep  
+                                             else 
+                                                  v.CFrame = char:FindFirstChild("FAKE"..z.Name)[v.Parent.Name][v.Name].CFrame + antisleep  	
+                                             end
+                                        end
+                                   end
+                              end)
+                         end
+                         end
+                         end
+                    end
+                    settings().Physics.AllowSleep = false
+               end)
+          end
+     
+     
+     
+          settings().Physics.AllowSleep = false
+     
+     
+          wait()
+
+          pcall(function()
+               for _, child in pairs(c:GetChildren()) do
+                    if child:IsA("Part") then
+                         child.Anchored = false
+                    elseif child:IsA("Accessory") then
+                         child.Handle.Anchored = false
+
+                    end
+               end
+          end)
+     end
+     redo()
+     task.wait(.1)
+     clovr()
+     game:GetService("StarterGui"):SetCore("SendNotification", {
+          Title = "Oxide Reanimation V3.5 - Respawn Time";
+          Duration = 20;
+          Text = "Your character will respawn every "..game:GetService("Players").RespawnTime.." seconds."
+     })
+     
+     local sin=math.sin
+     local oldh = workspace.FallenPartsDestroyHeight
+     
+     if _G.AntiFling == true then 
+          local speaker = game:GetService("Players").LocalPlayer
+          local Players = game:GetService("Players")
+          local RunService = game:GetService("RunService")
+          antifling = RunService.Stepped:Connect(function()
+               for _, player in pairs(Players:GetPlayers()) do
+                    if player ~= speaker and player.Character then
+                         for _, v in pairs(player.Character:GetChildren()) do
+                              if v:IsA("BasePart") then
+                                   v.CanCollide = false
+                              end
+                         end
+                    end
+               end
+          end)
+     end
+   plr.CharacterAdded:Connect(function(re)
+     task.wait(.25)
+     if _G.PDED == false then 
+          replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
+          local lp = game.Players.LocalPlayer
+          local c = lp.Character
+          local r = c:WaitForChild("HumanoidRootPart")
+          pcall(function()
+                local ocf = workspace.Handle.CFrame
+                workspace.Handle.CFrame = r.CFrame
+                task.wait(.1)
+                workspace.Handle.CFrame = ocf
+                task.wait(.1)
+                c:FindFirstChildOfClass("Tool").Parent = lp.Backpack
+          end)
+     
+          task.wait(game.Players.RespawnTime)
+          r.CFrame = workspace.non.HumanoidRootPart.CFrame *CFrame.new(0,-50,5)
+          task.wait(.25)
+          redo()
+     end
+     end)
+
+     local uis = game:GetService("UserInputService")
+     uis.InputBegan:Connect(function(k,chatting)
+          if chatting then return end
+     if k.KeyCode == Enum.KeyCode.Minus or k.KeyCode == Enum.KeyCode.ButtonX then 
+          replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
+          task.wait(game.Players.RespawnTime)
+          _G.PDED = false
+          connect:Disconnect()
+          velocity:Disconnect()     
+     end
+     end)
+
+     local RunService = game:GetService("RunService")
+     RunService.Stepped:Connect(function()
+          pcall(function()
+               for i,v in pairs(workspace:WaitForChild("VirtualRig"):GetDescendants()) do 
+                    if v:IsA("BasePart") then 
+                         v.CanTouch = false
+                    end
+               end
+          end)
+     end)
+
+     task.wait(2)
+     local hs = game:GetService("HapticService")
+     local HapticService = hs
+     n=0
+     local model = _G.OxideFakeChar["Right Arm"]
+     local function onTouched(otherPart)
+          if otherPart:IsDescendantOf(model.Parent) then return end
+          if otherPart:IsDescendantOf(workspace:WaitForChild("VirtualBody")) then return end
+          n = .25
+     end
+     local function onTouchEnded(otherPart)
+          if otherPart:IsDescendantOf(model.Parent) then return end
+          if otherPart:IsDescendantOf(workspace:WaitForChild("VirtualBody")) then return end
+          n = 0
+     end
+     model.Touched:Connect(onTouched)
+     model.TouchEnded:Connect(onTouchEnded)
+     q=0
+     local model2 = _G.OxideFakeChar["Left Arm"]
+     local function onTouched(otherPart) 
+          if otherPart:IsDescendantOf(model.Parent) then return end
+          if otherPart:IsDescendantOf(workspace:WaitForChild("VirtualBody")) then return end
+          q = .25
+     end
+     local function onTouchEnded(otherPart)
+          if otherPart:IsDescendantOf(model.Parent) then return end
+          if otherPart:IsDescendantOf(workspace:WaitForChild("VirtualBody")) then return end
+          q = 0
+     end
+     model2.Touched:Connect(onTouched)
+     model2.TouchEnded:Connect(onTouchEnded)
+     game:GetService("RunService").Heartbeat:Connect(function()
+     HapticService:SetMotor(Enum.UserInputType.Gamepad1, Enum.VibrationMotor.RightHand, n)
+     HapticService:SetMotor(Enum.UserInputType.Gamepad1, Enum.VibrationMotor.LeftHand, q)
+     end)
+
+ 
