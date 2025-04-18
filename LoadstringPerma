@@ -1140,8 +1140,8 @@ pcall(function()
 				end
 				if v:IsA("Accessory") or v:IsA("Tool") then
 					pcall(function()
-						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*1000),0.5,1)   ,30.499+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6) 
-						v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity * 10
+							v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -(10*math.cos(os.clock()*1000))   ,26.5912+math.sin(os.clock()*1000), char.Torso.AssemblyLinearVelocity.Z*15 +6) 
+						v.Handle.AssemblyAngularVelocity = Vector3.new(0, sin(clock()*10), 0) + char.Torso.AssemblyAngularVelocity * 10
 						v.Handle.CanCollide = false
 					end)
 				end
@@ -1154,9 +1154,9 @@ pcall(function()
 					v.CanCollide = false 
 				end
 				if v:IsA("Accessory")  then
-					v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -10*math.clamp(math.sin(os.clock()*1000),0.5,1)   ,30.499+math.sin(os.clock()*10000), char.Torso.AssemblyLinearVelocity.Z*15 +6) 
-					v.Handle.AssemblyAngularVelocity = char.Torso.AssemblyAngularVelocity * 10
-v.Handle.CanCollide = false
+						v.Handle.AssemblyLinearVelocity = Vector3.new(char.Torso.AssemblyLinearVelocity.X*15 -(10*math.cos(os.clock()*1000))   ,26.5912+math.sin(os.clock()*1000), char.Torso.AssemblyLinearVelocity.Z*15 +6) 
+						v.Handle.AssemblyAngularVelocity = Vector3.new(0, sin(clock()*10), 0) + char.Torso.AssemblyAngularVelocity * 10
+						v.Handle.CanCollide = false
 				elseif v:IsA("Tool") then 
 					if burgermeat == true then
 						pcall(function()
@@ -1201,7 +1201,11 @@ v.Handle.CanCollide = false
 					flingpart = nil
 				end
 			end)
-			local antisleep=sin(sine()*100)*antisleepMultiplier
+			local antisleep=Vector3.new(0.0065*sin(sine()*15),0.004*sin(sine()*10),0.0065*math.cos(sine()*10))
+			pcall(function()
+				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
+				workspace.FallenPartsDestroyHeight = oldh 
+			end)
 			pcall(function()
 				c["Tor"].Handle.CFrame = char["Torso"].CFrame   + antisleep
 			end)
@@ -1302,9 +1306,9 @@ v.Handle.CanCollide = false
 					flingpart = nil
 				end
 			end)
-			local antisleep=sin(sine()*100)*antisleepMultiplier
+			local antisleep=Vector3.new(0.0065*sin(sine()*15),0.004*sin(sine()*10),0.0065*math.cos(sine()*10))
 			pcall(function()
-				--workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
+				workspace.CurrentCamera.CameraSubject = workspace.non:FindFirstChildOfClass("Humanoid")
 				workspace.FallenPartsDestroyHeight = oldh 
 			end)
 			pcall(function()
