@@ -7,9 +7,12 @@ local me = lboard["p_"..game.Players.LocalPlayer.UserId].ChildrenFrame.NameFrame
 me.TextColor3 = col
 me.Font = 48
 end)
+local ts = game:GetService("TweenService")
+_G.FrameRate = 59
 local ql 
 local con 
-ql = Channel.OnMessage:Connect(function(msg,name,cf,colr,scale)
+ql = Channel.OnMessage:Connect(function(msg,name,cf,colr,scale,framerate)
+       local tsi = TweenInfo.new(1/(framerate))
 pcall(function()
     local a = lboard["p_"..msg.UserId].ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerName.PlayerName
     a.TextColor3 = col
@@ -17,17 +20,16 @@ pcall(function()
 end)
     if msg == game.Players.LocalPlayer then return end 
     if name.Parent:IsA("Accessory")  then return end 
-    name.CFrame = cf
+    ts:Create(name,tsi,{CFrame = cf, Color = colr}):Play()
     name.Anchored = true 
-    name.Color = colr
     if name.Parent:FindFirstChildOfClass("Humanoid") then 
         name.Parent:ScaleTo(scale)
     end
 end)
-con = game:GetService("RunService").Heartbeat:Connect(function()
+con = game:GetService("RunService").Heartbeat:Connect(function(frame)
     for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do 
     if v:IsA("BasePart") then
-    Channel:Send(v,v.CFrame,v.Color,game.Players.LocalPlayer.Character:GetScale())
+    Channel:Send(v,v.CFrame,v.Color,game.Players.LocalPlayer.Character:GetScale(),1/frame)
     end
     end
     end)
