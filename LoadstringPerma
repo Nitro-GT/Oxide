@@ -1279,7 +1279,7 @@ pcall(function()
 				if v:IsA("Tool")  then
 					pcall(function()
 						if not char:FindFirstChild("FAKE"..v.Name) then
-							v.Handle.CFrame = char.HumanoidRootPart.CFrame *CFrame.new(0,-50,0)
+								v.Handle.CFrame =  CFrame.new(char.HumanoidRootPart.CFrame.X,workspace.FallenPartsDestroyHeight + 450,char.HumanoidRootPart.CFrame.Z)
 						else 
 							if _G.ToolFling == true then
 								v.Handle.CFrame = cfAdd(flingpart.CFrame,flingpart.AssemblyLinearVelocity*(sin(sine()*15)+1))
@@ -1416,7 +1416,7 @@ pcall(function()
 				if v:IsA("Tool")  then
 					pcall(function()
 						if not char:FindFirstChild("FAKE"..v.Name) then
-							v.Handle.CFrame = char.HumanoidRootPart.CFrame *CFrame.new(0,-50,0)
+								v.Handle.CFrame =  CFrame.new(char.HumanoidRootPart.CFrame.X,workspace.FallenPartsDestroyHeight + 450,char.HumanoidRootPart.CFrame.Z)
 						else 
 							if _G.ToolFling == true then
 								v.Handle.CFrame = cfAdd(flingpart.CFrame,flingpart.AssemblyLinearVelocity*(sin(sine()*15)+1))
@@ -1464,7 +1464,8 @@ pcall(function()
 		task.wait(1.5)
 		burgermeat = true 
 	end)
-	local function transparent() 
+end
+local function transparent() 
 		for _, child in pairs(char:GetChildren()) do
 			local v = child
 			if child:IsA("BasePart") and not v:IsA("Model") and v.Name == "Torso" or  child:IsA("BasePart") and v.Name == "Right Arm" or  child:IsA("BasePart") and v.Name == "Left Arm" or  child:IsA("BasePart") and v.Name == "Right Leg" or  child:IsA("BasePart") and v.Name == "Left Leg" then
@@ -1486,7 +1487,6 @@ pcall(function()
 			end
 		end
 	end
-end
 redo()
 game:GetService("StarterGui"):SetCore("SendNotification", {
 	Title = "Oxide Reanimation V3.6 - Respawn Time";
@@ -1495,6 +1495,26 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 })
 local sin=math.sin
 local oldh = workspace.FallenPartsDestroyHeight
+local seatdebounce = 3 
+char:FindFirstChild("Left Leg").Touched:Connect(function(p)
+    if p:IsA("Seat") and seatdebounce == 3 then 
+        local sw = Instance.new("Weld",p)
+        sw.Name = "SeatWeld"
+        sw.Part0 = p 
+        sw.Part1 = char:FindFirstChild("HumanoidRootPart")
+        sw.C0 = CFrame.new(0, 0.2, 0, 1, 0, -0, 0, 0, 1, 0, -1, 0)
+        sw.C1 = CFrame.new(0, -1.5, 0, 1, 0, -0, 0, 0, 1, 0, -1, 0)
+         char:FindFirstChildOfClass("Humanoid").Sit = true
+        char:FindFirstChildOfClass("Humanoid").Jumping:Wait()
+        sw:Destroy()
+         char:FindFirstChildOfClass("Humanoid").Sit = false 
+         seatdebounce = 0 
+         task.spawn(function()
+             task.wait(3)
+             seatdebounce=3
+             end)
+    end
+     end)
 respawnloop = plr.CharacterAdded:Connect(function(re)
 	if re ~= char then
 		if _G.HatCollide == false then 
@@ -1733,6 +1753,7 @@ uis.InputBegan:Connect(function(k,chatting)
 if k.KeyCode == Enum.KeyCode.Minus then 
 	replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
 	task.wait(game:GetService("Players").RespawnTime)
+transparent()
 	connect:Disconnect()
 	velocity:Disconnect()
 end
