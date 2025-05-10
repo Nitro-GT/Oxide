@@ -34,6 +34,9 @@ OxideSettings.HideCharacter = true
 if OxideSettings.Legacy == nil then
 	OxideSettings.Legacy = false 
 end
+if OxideSettings.ClientHats == nil then 
+    OxideSettings.ClientHats = {}
+end
 if OxideSettings.Scale == nil then
 	OxideSettings.Scale = 1
 end
