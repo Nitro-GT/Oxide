@@ -1371,5 +1371,5 @@ uis.InputBegan:Connect(function(k,chatting)
 		respawnfunc()
 	end
 end) 
-OxideSettings.OxideFakeChar:ScaleTo(OxideSettings.Scale)
-OxideSettings.OxideRealChar:ScaleTo(1)
+OxideFakeChar:ScaleTo(OxideSettings.Scale)
+OxideRealChar:ScaleTo(1)
