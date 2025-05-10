@@ -20,6 +20,9 @@ end
 for i,v in pairs(_G) do
 	OxideSettings[i] = v
 	end
+if OxideSettings.CH == nil then 
+OxideSettings.CH = {}
+end
 OxideSettings.TransparentRig = true
 OxideSettings.ClickFling = true
 OxideSettings.TeleportCharacter = true
