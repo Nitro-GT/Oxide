@@ -108,11 +108,6 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 	Text = "This script was made by Hemi"
 })
 local function cfAdd(a,b) return a+b end
-pcall(function()
-	task.spawn(function()
-		game:GetService("CoreGui"):WaitForChild("TopBarApp"):WaitForChild("FullScreenFrame"):WaitForChild("HurtOverlay"):Destroy()
-	end)
-end)
 local Hat = {
 	Rename = function(HatID, NAME, oname)
 		pcall(function()
