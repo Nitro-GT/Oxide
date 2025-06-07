@@ -250,6 +250,7 @@ local function redo()
 	zz.FillTransparency = 1
 	zz.DepthMode = Enum.HighlightDepthMode.Occluded
 	zz.Enabled = false
+char.PrimaryPart = char['HumanoidRootPart']
 	if not workspace:FindFirstChild("non") then
 		char:SetPrimaryPartCFrame(c.HumanoidRootPart.CFrame *CFrame.new(0,0,2))
 	end
